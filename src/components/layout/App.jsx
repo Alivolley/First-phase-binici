@@ -1,11 +1,10 @@
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
+import axiosClient from 'lib/axiosClient';
+import NotFound from 'pages/NotFound/NotFound';
 import { Suspense } from 'react';
 import { useCookies } from 'react-cookie';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-import axiosClient from '$lib/axiosClient';
-import NotFound from '$pages/NotFound/NotFound';
 
 import { AppLayout } from './AppLayout/AppLayout';
 import PrivateLogin from './PrivateRoutes/PrivateLogin';
@@ -13,11 +12,10 @@ import PrivateRoute from './PrivateRoutes/PrivateRoute';
 import { routes } from './routes';
 
 const App = () => {
-  const [cookies] = useCookies(['token']);
+  const [{ token }] = useCookies(['token']);
 
-  // axios interceptors
   axiosClient.interceptors.request.use(config => {
-    config.headers.Authorization = cookies.token;
+    config.headers.Authorization = token;
     return config;
   });
   axiosClient.interceptors.response.use(

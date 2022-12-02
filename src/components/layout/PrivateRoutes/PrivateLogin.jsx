@@ -1,7 +1,6 @@
+import LoginPage from 'pages/LoginPage/LoginPage';
 import { useCookies } from 'react-cookie';
 import { Navigate } from 'react-router-dom';
-
-import LoginPage from '$pages/LoginPage/LoginPage';
 
 const PrivateLogin = () => {
   const [{ token }] = useCookies(['token']);

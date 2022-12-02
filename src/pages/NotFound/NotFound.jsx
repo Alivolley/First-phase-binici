@@ -1,1 +1,3 @@
-export const NotFound = () => <div />;
+const NotFound = () => <div />;
+
+export default NotFound;

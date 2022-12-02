@@ -14,6 +14,7 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 'off',
     'no-use-before-define': 'off',
     'fp/no-let': 'off',
+    'no-unused-vars': 'off',
     'max-lines-per-function': 'off',
   },
 };

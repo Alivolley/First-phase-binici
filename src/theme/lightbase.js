@@ -1,15 +1,161 @@
-import { createTheme } from '@mui/material/styles';
+import { blue, orange } from '@mui/material/colors';
+import { faIR } from '@mui/material/locale';
+import { alpha, createTheme } from '@mui/material/styles';
 
 export const emotionLightTheme = {
   colors: {
-    primary: 'hotpink',
+    brand: {
+      orange: {
+        primary: '#EC6608',
+        hover: '#db610b',
+      },
+      blue: {
+        primary: '#27348B',
+        secondary: '#268AD6',
+        hover: '#1d2978',
+      },
+    },
+    layout: {
+      main: '#fff',
+    },
   },
 };
 
 export const MUILightTheme = createTheme({
-  palette: {},
-  components: {},
-  typography: {
-    fontFamily: "'Yekan-Medium', sans-serif",
+  direction: 'rtl',
+  palette: {
+    brand: {
+      orange: emotionLightTheme.colors.brand.orange.primary,
+      blue: { ...emotionLightTheme.colors.brand.blue },
+    },
+    layout: {
+      main: emotionLightTheme.colors.layout.main,
+    },
   },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& fieldset': {
+            borderRadius: `8px`,
+          },
+        },
+      },
+      variants: [
+        {
+          props: { variant: 'outlinedBlueBrand' },
+          style: {
+            '&:focus': {
+              borderColor: emotionLightTheme.colors.brand.blue.primary,
+            },
+          },
+        },
+      ],
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
+        },
+      },
+      variants: [
+        {
+          props: { variant: 'containedBlueBrand' },
+          style: {
+            'backgroundColor': emotionLightTheme.colors.brand.blue.primary,
+            'color': emotionLightTheme.colors.brand.orange.primary,
+            '&:hover': {
+              backgroundColor: emotionLightTheme.colors.brand.blue.hover,
+            },
+            '.MuiTouchRipple-child': {
+              color: blue[700],
+            },
+            '&.MuiLoadingButton-loading': {
+              backgroundColor: alpha(
+                emotionLightTheme.colors.brand.blue.primary,
+                0.4,
+              ),
+            },
+            '.MuiLoadingButton-loadingIndicator': {
+              color: emotionLightTheme.colors.brand.orange.primary,
+            },
+          },
+        },
+        {
+          props: { variant: 'containedBlueBrand', size: 'large' },
+          style: {
+            'backgroundColor': emotionLightTheme.colors.brand.blue.primary,
+            'color': emotionLightTheme.colors.brand.orange.primary,
+            '&:hover': {
+              backgroundColor: emotionLightTheme.colors.brand.blue.hover,
+            },
+            '.MuiTouchRipple-child': {
+              color: blue[700],
+            },
+            '&.MuiLoadingButton-loading': {
+              backgroundColor: alpha(
+                emotionLightTheme.colors.brand.blue.primary,
+                0.4,
+              ),
+            },
+            '.MuiLoadingButton-loadingIndicator': {
+              color: emotionLightTheme.colors.brand.orange.primary,
+            },
+            'fontSize': '1.015rem',
+            'fontWeight': 'bold',
+          },
+        },
+        {
+          props: { variant: 'containedOrangeBrand' },
+          style: {
+            'backgroundColor': emotionLightTheme.colors.brand.orange.primary,
+            'color': emotionLightTheme.colors.layout.main,
+            '&:hover': {
+              backgroundColor: emotionLightTheme.colors.brand.orange.hover,
+            },
+            '.MuiTouchRipple-child': {
+              color: orange[700],
+            },
+            '&.MuiLoadingButton-loading': {
+              backgroundColor: alpha(
+                emotionLightTheme.colors.brand.orange.primary,
+                0.4,
+              ),
+            },
+            '.MuiLoadingButton-loadingIndicator': {
+              color: emotionLightTheme.colors.brand.blue.primary,
+            },
+          },
+        },
+        {
+          props: { variant: 'containedOrangeBrand', size: 'large' },
+          style: {
+            'backgroundColor': emotionLightTheme.colors.brand.orange.primary,
+            'color': emotionLightTheme.colors.layout.main,
+            '&:hover': {
+              backgroundColor: emotionLightTheme.colors.brand.orange.hover,
+            },
+            '.MuiTouchRipple-child': {
+              color: orange[700],
+            },
+            '&.MuiLoadingButton-loading': {
+              backgroundColor: alpha(
+                emotionLightTheme.colors.brand.orange.primary,
+                0.4,
+              ),
+            },
+            '.MuiLoadingButton-loadingIndicator': {
+              color: emotionLightTheme.colors.brand.blue.primary,
+            },
+            'fontSize': '1.015rem',
+            'fontWeight': 'bold',
+          },
+        },
+      ],
+    },
+  },
+  typography: {
+    fontFamily: '"Yekan-Medium", "Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  faIR,
 });

@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 
 export const routes = [
   {

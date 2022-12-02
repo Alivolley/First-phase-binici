@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const axiosConfig = axios.create({
   baseURL: 'https://api.iranhostserver.ir/',

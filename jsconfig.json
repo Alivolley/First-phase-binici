@@ -1,32 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "$assets": ["src/assets"],
-      "$assets/*": ["src/assets/*"],
-      "$sharedComponents": ["src/components/shared"],
-      "$sharedComponents/*": ["src/components/shared/*"],
-      "$privateComponents": ["src/components/private"],
-      "$privateComponents/*": ["src/components/private/*"],
-      "$layout": ["src/components/layout"],
-      "$layout/*": ["src/components/layout/*"],
-      "$components": ["src/components"],
-      "$components/*": ["src/components/*"],
-      "$pages": ["src/pages"],
-      "$pages/*": ["src/pages/*"],
-      "$hooks": ["src/hooks"],
-      "$hooks/*": ["src/hooks/*"],
-      "$theme": ["src/theme"],
-      "$theme/*": ["src/theme/*"],
-      "$mocks": ["src/mocks"],
-      "$mocks/*": ["src/mocks/*"],
-      "$utils": ["src/utils"],
-      "$utils/*": ["src/utils/*"],
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"],
-      "$styles": ["src/styles"],
-      "$styles/*": ["src/styles/*"]
-    }
+    "baseUrl": "src"
   },
   "include": ["src/**/*.js", "src/index.jsx", "src/components/layout/App.jsx"],
   "exclude": ["node_modules", "**/node_modules", "dist", "build"]
