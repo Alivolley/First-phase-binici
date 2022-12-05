@@ -2,6 +2,11 @@
   "compilerOptions": {
     "baseUrl": "src"
   },
-  "include": ["src/**/*.js", "src/index.jsx", "src/components/layout/App.jsx"],
+  "include": [
+    "src/**/*.js",
+    "src/index.jsx",
+    "src/components/layout/App.jsx",
+    "src/store/private/layout/layoutAtoms.jsx"
+  ],
   "exclude": ["node_modules", "**/node_modules", "dist", "build"]
 }

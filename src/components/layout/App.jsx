@@ -1,6 +1,7 @@
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import axiosClient from 'lib/axiosClient';
+import HomePage from 'pages/HomePage/HomePage';
 import NotFound from 'pages/NotFound/NotFound';
 import { Suspense } from 'react';
 import { useCookies } from 'react-cookie';

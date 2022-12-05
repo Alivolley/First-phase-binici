@@ -29,6 +29,7 @@ export const GlobalStyle = css`
     overflow-x: hidden;
     vertical-align: baseline;
     height: 100vh;
+    background-color: ${({ theme }) => theme.palette.layout.disabled};
 
     /* remove iOS touch tap highlight */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

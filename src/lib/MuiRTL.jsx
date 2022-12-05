@@ -10,5 +10,11 @@ const cacheRtl = createCache({
 });
 
 export const MuiRTL = props => {
-  return <CacheProvider value={cacheRtl}>{props.children}</CacheProvider>;
+  return (
+    <CacheProvider value={cacheRtl}>
+      <div dir="rtl" style={{ width: '100%', direction: 'rtl' }}>
+        {props.children}
+      </div>
+    </CacheProvider>
+  );
 };

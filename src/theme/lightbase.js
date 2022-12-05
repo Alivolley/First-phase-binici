@@ -5,18 +5,29 @@ import { alpha, createTheme } from '@mui/material/styles';
 export const emotionLightTheme = {
   colors: {
     brand: {
+      grey: {
+        primary: '#434343',
+        secondary: '#505050',
+        ternary: '#9EADB4',
+        quaternary: '#D3D8DB',
+      },
       orange: {
         primary: '#EC6608',
+        secondary: '#F36F21',
         hover: '#db610b',
       },
       blue: {
         primary: '#27348B',
         secondary: '#268AD6',
+        ternary: '#0B7AD1',
+        quaternary: '#004274',
         hover: '#1d2978',
       },
     },
     layout: {
       main: '#fff',
+      reverse: '#000000',
+      disabled: '#E4E4E4',
     },
   },
 };
@@ -25,14 +36,20 @@ export const MUILightTheme = createTheme({
   direction: 'rtl',
   palette: {
     brand: {
-      orange: emotionLightTheme.colors.brand.orange.primary,
+      grey: { ...emotionLightTheme.colors.brand.grey },
+      orange: { ...emotionLightTheme.colors.brand.orange },
       blue: { ...emotionLightTheme.colors.brand.blue },
     },
-    layout: {
-      main: emotionLightTheme.colors.layout.main,
-    },
+    layout: { ...emotionLightTheme.colors.layout },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: emotionLightTheme.colors.layout.disabled,
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {
