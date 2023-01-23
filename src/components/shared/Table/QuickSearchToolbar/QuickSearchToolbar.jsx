@@ -34,6 +34,8 @@ export const QuickSearchToolbar = props => {
         }}
         sx={{
           'boxShadow': '0 2px 4px rgba(0,0,0,0.2) inset',
+          'border': '2px solid #27348B',
+          'borderRadius': '10px',
           'm': theme => theme.spacing(1, 0.5, 1.5),
           '& .MuiSvgIcon-root': {
             mr: 0.5,

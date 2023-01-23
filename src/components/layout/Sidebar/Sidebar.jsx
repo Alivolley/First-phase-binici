@@ -74,7 +74,7 @@ const StaticBarContent = styled.div`
 `;
 
 const FluidBar = styled(motion.div)`
-  width: 314px;
+  width: 280px;
   height: 100%;
   padding: 16px 0 16px 16px;
   border-top-left-radius: 20px;

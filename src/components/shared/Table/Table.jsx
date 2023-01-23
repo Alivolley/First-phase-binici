@@ -70,6 +70,7 @@ export const Table = props => {
 
 const Container = styled(Box)`
   ${({ theme }) => ({
+    'direction': 'ltr',
     'width': '100%',
     'height': '640px',
     '& .MuiDataGrid-columnHeaders': {
