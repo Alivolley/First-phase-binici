@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { escapeRegExp, rowDataSearchFilter } from 'utils/js/private/tableUtils';
+import dataGridLocalText from 'utils/js/dataGridLocalText';
 
 import { QuickSearchToolbar } from './QuickSearchToolbar/QuickSearchToolbar';
 import { TableCustomFooter } from './TableCustomFooter/TableCustomFooter';
@@ -27,6 +28,7 @@ export const Table = props => {
   return (
     <Container>
       <DataGrid
+        localeText={dataGridLocalText}
         pagination
         rows={rows}
         columns={columns}
@@ -70,7 +72,6 @@ export const Table = props => {
 
 const Container = styled(Box)`
   ${({ theme }) => ({
-    'direction': 'ltr',
     'width': '100%',
     'height': '640px',
     '& .MuiDataGrid-columnHeaders': {

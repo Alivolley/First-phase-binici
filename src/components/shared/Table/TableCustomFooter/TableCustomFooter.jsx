@@ -33,7 +33,7 @@ export const TableCustomFooter = props => {
       <Options>
         <Stack direction="row" spacing={1} alignItems="flex-end" mr={3}>
           <Typography id="rows-per-page-label" variant="body2" component="span">
-            Rows per Page
+            تعداد در هر صفحه
           </Typography>
 
           <Box sx={{ width: '60px', display: 'flex', alignItems: 'center' }}>

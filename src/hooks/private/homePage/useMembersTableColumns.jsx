@@ -4,35 +4,35 @@ import { GridActionsCellItem } from '@mui/x-data-grid';
 
 export const useMembersTableColumns = (showDescriotion, showAdditionals) => {
   const columnsData = [
-    { field: 'id', hide: true, headerName: 'ID', width: 90 },
+    { field: 'id', headerName: 'آیدی', flex: 1 },
     {
       field: 'userName',
-      headerName: 'userName',
-      width: 200,
+      headerName: 'نام کاربر',
+      flex: 1,
       minWidth: 120,
       resizable: true,
       editable: false,
     },
     {
       field: 'joinDate',
-      headerName: 'joinDate',
-      width: 120,
+      headerName: 'تاریخ عضویت',
+      flex: 1,
       minWidth: 90,
       editable: false,
     },
     {
       field: 'isInitiator',
-      headerName: 'isInitiator',
-      width: 120,
+      headerName: 'ادمین',
+      flex: 1,
       minWidth: 90,
       editable: false,
       type: 'boolean',
     },
     {
       field: 'actions',
-      headerName: 'actions',
+      headerName: 'اکشن',
       type: 'actions',
-      width: 80,
+      flex: 1,
       minWidth: 100,
       getActions: params => [
         <GridActionsCellItem

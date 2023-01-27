@@ -17,7 +17,7 @@ export const QuickSearchToolbar = props => {
         variant="outlined"
         value={props.value}
         onChange={props.onChange}
-        placeholder="Search…"
+        placeholder="جست و جو ..."
         InputProps={{
           startAdornment: <SearchIcon fontSize="small" />,
           endAdornment: (
