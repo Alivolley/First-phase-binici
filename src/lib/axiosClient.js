@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const axiosConfig = axios.create({
-  baseURL: 'https://api.iranhostserver.ir/',
+const axiosClient = axios.create({
+  baseURL: 'https://dev.iranhostserver.ir/',
 });
 // axiosConfig.defaults.headers.post["Authorization"] = `Bearer+${s}`; // for GET requests
 
-export default axiosConfig;
+export default axiosClient;

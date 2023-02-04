@@ -2,16 +2,23 @@ import styled from '@emotion/styled';
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
-import { escapeRegExp, rowDataSearchFilter } from 'utils/js/private/tableUtils';
 import dataGridLocalText from 'utils/js/dataGridLocalText';
+import { escapeRegExp, rowDataSearchFilter } from 'utils/js/private/tableUtils';
 
 import { QuickSearchToolbar } from './QuickSearchToolbar/QuickSearchToolbar';
 import { TableCustomFooter } from './TableCustomFooter/TableCustomFooter';
 import { TableCustomPagination } from './TableCustomPagination/TableCustomPagination';
 
 export const Table = props => {
-  const { columns, rowsData, rows, disableSelection, isDeletable, setRows } =
-    props;
+  const {
+    columns,
+    rowsData,
+    rows,
+    disableSelection,
+    isDeletable,
+    setRows,
+    isLoading,
+  } = props;
 
   const [searchText, setSearchText] = useState('');
   const [pageSize, setPageSize] = useState('6');
@@ -28,6 +35,7 @@ export const Table = props => {
   return (
     <Container>
       <DataGrid
+        loading={isLoading}
         localeText={dataGridLocalText}
         pagination
         rows={rows}

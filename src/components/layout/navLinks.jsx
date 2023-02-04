@@ -58,12 +58,12 @@ export const navMenuLinks = [
   {
     id: '1',
     icon: <GroupOutlinedIcon />,
-    label: 'مدیریت داشبورد',
+    label: 'مدیریت مکان ها',
     subLinks: [
       {
         id: '1',
         href: '/',
-        label: 'داشبورد',
+        label: 'مکان',
       },
       {
         id: '2',
