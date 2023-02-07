@@ -1,21 +1,25 @@
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
-import React from 'react';
 import { useCookies } from 'react-cookie';
 
-const useDeleteLocation = () => {
+const useEditLocation = () => {
   const [{ token }] = useCookies();
   const { enqueueSnackbar } = useSnackbar();
 
-  const deleteRequest = (
+  const editRequest = (
     guid,
     getLocationList,
-    setIsDeleteModalOpen,
-    setDeleteLoading,
+    setIsEditModalOpen,
+    setEditLoading,
+    inputValue,
   ) => {
     axios
-      .delete(
-        `https://dev.iranhostserver.ir/InventoryGeo/Location/Delete?GUID=${guid}`,
+      .put(
+        `https://dev.iranhostserver.ir/InventoryGeo/Location/Update`,
+        {
+          guid,
+          display: inputValue,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -24,16 +28,16 @@ const useDeleteLocation = () => {
       )
       .then(res => {
         getLocationList();
-        setIsDeleteModalOpen(false);
-        enqueueSnackbar(`حذف با موفقیت انجام شد`, { variant: 'success' });
+        setIsEditModalOpen(false);
+        enqueueSnackbar(`ویرایش با موفقیت انجام شد`, { variant: 'success' });
       })
       .catch(err => {
         console.log(err);
         enqueueSnackbar('خطای شبکه', { variant: 'error' });
       })
-      .finally(() => setDeleteLoading(false));
+      .finally(() => setEditLoading(false));
   };
-  return [deleteRequest];
+  return [editRequest];
 };
 
-export default useDeleteLocation;
+export default useEditLocation;

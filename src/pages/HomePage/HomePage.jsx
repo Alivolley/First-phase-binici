@@ -7,17 +7,24 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useDeleteLocation from '../../api/private/useDeleteLocation/useDeleteLocation';
+import useEditLocation from '../../api/private/useEditLocation/useEditLocation';
 import DeleteModal from '../../components/shared/DeleteModal/DeleteModal';
+import LocationEditModal from '../../components/shared/EditModals/LocationEditModal/LocationEditModal';
 
 const HomePage = () => {
   const [getLocationList, loading, locationList, pageRef] = useLocationList();
 
   const [rows, setRows] = useState(locationList);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [chosenLocation, setChosenLocation] = useState({});
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
+  const [editChosenLocation, setEditChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const [deleteRequest] = useDeleteLocation();
+  const [editRequest] = useEditLocation();
 
   const navigate = useNavigate();
 
@@ -35,12 +42,19 @@ const HomePage = () => {
   );
   const deleteItem = useCallback(
     row => () => {
-      setChosenLocation(row);
-      setIsModalOpen(true);
+      setDeleteChosenLocation(row);
+      setIsDeleteModalOpen(true);
     },
     [],
   );
-  const editItem = useCallback(row => () => console.log(row, 'edit'), []);
+  const editItem = useCallback(
+    row => () => {
+      setInputValue(row.title);
+      setEditChosenLocation(row);
+      setIsEditModalOpen(true);
+    },
+    [],
+  );
 
   const [columnsData] = useLocationsTableColumns(
     goToInfoPage,
@@ -50,10 +64,24 @@ const HomePage = () => {
 
   const deleteHandle = id => {
     setDeleteLoading(true);
-    deleteRequest(id, getLocationList, setIsModalOpen, setDeleteLoading);
+    deleteRequest(id, getLocationList, setIsDeleteModalOpen, setDeleteLoading);
   };
 
-  const closeDeleteModal = () => setIsModalOpen(false);
+  const editHandle = id => {
+    setEditLoading(true);
+    editRequest(
+      id,
+      getLocationList,
+      setIsEditModalOpen,
+      setEditLoading,
+      inputValue,
+    );
+  };
+
+  const editInputHandler = e => setInputValue(e.target.value);
+
+  const closeDeleteModal = () => setIsDeleteModalOpen(false);
+  const closeEditModal = () => setIsEditModalOpen(false);
 
   return (
     <>
@@ -68,12 +96,23 @@ const HomePage = () => {
       />
 
       <DeleteModal
-        open={isModalOpen}
+        open={isDeleteModalOpen}
         handleClose={closeDeleteModal}
-        title={chosenLocation.title}
-        locationId={chosenLocation.id}
+        title={deleteChosenLocation.title}
+        locationId={deleteChosenLocation.id}
         deleteLoading={deleteLoading}
         onDelete={deleteHandle}
+      />
+
+      <LocationEditModal
+        open={isEditModalOpen}
+        handleClose={closeEditModal}
+        title={editChosenLocation.title}
+        locationId={editChosenLocation.id}
+        editLoading={editLoading}
+        onEdit={editHandle}
+        editInputValue={inputValue}
+        inputOnchange={editInputHandler}
       />
     </>
   );
