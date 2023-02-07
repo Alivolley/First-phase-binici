@@ -10,7 +10,6 @@ const LocationDetail = () => {
   const [getZoneList, loading, zoneList, pageRef] = useLocationZone(guid);
   const [rows, setRows] = useState(zoneList);
 
-  console.log(zoneList);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +21,9 @@ const LocationDetail = () => {
   }, [zoneList]);
 
   const goToInfoPage = useCallback(
-    row => () => navigate(`/locations/${row.id}`),
+    row => () =>
+      // navigate(`/locations/${row.id}`)
+      console.log('info'),
     [],
   );
   const deleteItem = useCallback(row => () => console.log(row, 'delete'), []);

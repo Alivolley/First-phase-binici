@@ -63,7 +63,7 @@ export const navMenuLinks = [
       {
         id: '1',
         href: '/',
-        label: 'مکان',
+        label: 'مکان ها',
       },
       {
         id: '2',

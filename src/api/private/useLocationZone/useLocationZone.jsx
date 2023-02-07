@@ -27,7 +27,6 @@ const useLocationZone = guid => {
         },
       )
       .then(res => {
-        console.log(res);
         setpageRef(res.data.value);
         setZoneList(prev => {
           const orderedList = res.data.value.list.map(element => ({
