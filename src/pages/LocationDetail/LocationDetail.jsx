@@ -1,26 +1,25 @@
-import useLocationListApi from 'api/private/useLocationList/useLocationList';
-import { PageTemplate } from 'components/layout/PageTemplate/PageTemplate';
 import { Table } from 'components/shared/Table/Table';
 import useLocationsTableColumns from 'hooks/private/homePage/useLocationsTableColumns';
-import { useMembersTableColumns } from 'hooks/private/homePage/useMembersTableColumns';
-import { rowsData } from 'mocks/membersListMockData';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const HomePage = () => {
-  const [getLocationList, loading, locationList, pageRef] =
-    useLocationListApi();
-  const [rows, setRows] = useState(locationList);
+import useLocationZone from '../../api/private/useLocationZone/useLocationZone';
 
+const LocationDetail = () => {
+  const { guid } = useParams();
+  const [getZoneList, loading, zoneList, pageRef] = useLocationZone(guid);
+  const [rows, setRows] = useState(zoneList);
+
+  console.log(zoneList);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getLocationList();
+    getZoneList();
   }, []);
 
   useEffect(() => {
-    setRows(locationList);
-  }, [locationList]);
+    setRows(zoneList);
+  }, [zoneList]);
 
   const goToInfoPage = useCallback(
     row => () => navigate(`/locations/${row.id}`),
@@ -40,7 +39,7 @@ const HomePage = () => {
       <div>{pageRef.refTitle}</div>
       <Table
         columns={columnsData}
-        rowsData={locationList}
+        rowsData={zoneList}
         rows={rows}
         isDeletable
         setRows={filteredRows => setRows(filteredRows)}
@@ -50,4 +49,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default LocationDetail;

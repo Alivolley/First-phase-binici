@@ -1,6 +1,9 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import InfoIcon from '@mui/icons-material/Info';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 
-const useLocationsTableColumns = (showDescriotion, showAdditionals) => {
+const useLocationsTableColumns = (goToInfoPage, deleteItem, editItem) => {
   const columnsData = [
     {
       field: 'title',
@@ -21,16 +24,23 @@ const useLocationsTableColumns = (showDescriotion, showAdditionals) => {
       getActions: params => [
         <GridActionsCellItem
           key={1}
-          //   icon={<DescriptionIcon />}
-          label="Description"
-          onClick={showDescriotion(params.row)}
+          icon={<InfoIcon />}
+          label="جزئیات"
+          onClick={goToInfoPage(params.row)}
           showInMenu
         />,
         <GridActionsCellItem
           key={2}
-          //   icon={<InfoIcon />}
-          label="Additionals"
-          onClick={showAdditionals(params.row)}
+          icon={<DeleteIcon />}
+          label="حذف"
+          onClick={deleteItem(params.row)}
+          showInMenu
+        />,
+        <GridActionsCellItem
+          key={2}
+          icon={<ModeEditOutlineIcon />}
+          label="ویرایش"
+          onClick={editItem(params.row)}
           showInMenu
         />,
       ],

@@ -3,44 +3,46 @@ import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 
-import axiosClient from '../../../lib/axiosClient';
-
-const useLocationListApi = () => {
+const useLocationZone = guid => {
   const [loading, setLoading] = useState(true);
-  const [locationList, setLocationList] = useState([]);
-  const [refTitle, setRefTitle] = useState('');
+  const [zoneList, setZoneList] = useState([]);
+  const [pageRef, setpageRef] = useState('');
 
   const [{ token }] = useCookies();
   const { enqueueSnackbar } = useSnackbar();
 
-  const getLocationList = () => {
+  const getZoneList = () => {
     setLoading(true);
 
     // axiosClient
     //   .get(`InventoryGeo/Location/List`
 
     axios
-      .get('https://dev.iranhostserver.ir/InventoryGeo/Location/List', {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      .get(
+        `https://dev.iranhostserver.ir/InventoryGeo/Zone/List?Guid=${guid}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      })
+      )
       .then(res => {
-        setRefTitle(res.data.value.refTitle);
-        setLocationList(prev => {
-          const lisss = res.data.value.list.map(element => ({
+        console.log(res);
+        setpageRef(res.data.value);
+        setZoneList(prev => {
+          const orderedList = res.data.value.list.map(element => ({
             id: element.guid,
             title: element.display,
           }));
 
-          return lisss;
+          return orderedList;
         });
       })
       .catch(() => enqueueSnackbar('خطای شبکه', { variant: 'error' }))
       .finally(() => setLoading(false));
   };
 
-  return [getLocationList, loading, locationList, refTitle];
+  return [getZoneList, loading, zoneList, pageRef];
 };
 
-export default useLocationListApi;
+export default useLocationZone;
