@@ -1,20 +1,20 @@
 import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 
-const useDeleteLocation = () => {
+const useDeleteZone = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const deleteRequest = (
     guid,
-    getLocationList,
+    getZoneList,
     setIsDeleteModalOpen,
     setDeleteLoading,
   ) => {
     axiosClient
-      .delete(`InventoryGeo/Location/Delete?GUID=${guid}`)
+      .delete(`InventoryGeo/Zone/Delete?GUID=${guid}`)
       .then(res => {
         if (res.status === 200) {
-          getLocationList();
+          getZoneList();
           setIsDeleteModalOpen(false);
           enqueueSnackbar(`حذف با موفقیت انجام شد`, { variant: 'success' });
         } else {
@@ -30,4 +30,4 @@ const useDeleteLocation = () => {
   return [deleteRequest];
 };
 
-export default useDeleteLocation;
+export default useDeleteZone;

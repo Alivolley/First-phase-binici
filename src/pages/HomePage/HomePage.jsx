@@ -1,8 +1,7 @@
 import useLocationList from 'api/homePage/useLocationList/useLocationList';
 import LocationEditModal from 'components/shared/EditModals/homePage/LocationEditModal/LocationEditModal';
 import { Table } from 'components/shared/Table/Table';
-import useLocationsTableColumns from 'hooks/private/homePage/useLocationsTableColumns';
-import { useMembersTableColumns } from 'hooks/private/homePage/useMembersTableColumns';
+import useLocationsTableColumns from 'hooks/homePage/useLocationsTableColumns';
 import { rowsData } from 'mocks/membersListMockData';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
 import React from 'react';
 
-const LocationEditModal = ({
+const ZoneEditModal = ({
   open,
   handleClose,
   title,
@@ -19,12 +19,12 @@ const LocationEditModal = ({
 }) => {
   return (
     <Dialog open={open} onClose={handleClose} sx={{ direction: 'rtl' }}>
-      <DialogTitle>ویرایش مکان</DialogTitle>
+      <DialogTitle>ویرایش منطقه</DialogTitle>
 
       <DialogContent>
         <TextField
           autoFocus
-          label="نام جدید مکان"
+          label="نام جدید منطقه"
           variant="standard"
           value={editInputValue}
           onChange={inputOnchange}
@@ -53,4 +53,4 @@ const LocationEditModal = ({
   );
 };
 
-export default LocationEditModal;
+export default ZoneEditModal;
