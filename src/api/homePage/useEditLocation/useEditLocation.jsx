@@ -1,9 +1,7 @@
-import axios from 'axios';
+import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
-import { useCookies } from 'react-cookie';
 
 const useEditLocation = () => {
-  const [{ token }] = useCookies();
   const { enqueueSnackbar } = useSnackbar();
 
   const editRequest = (
@@ -13,19 +11,11 @@ const useEditLocation = () => {
     setEditLoading,
     inputValue,
   ) => {
-    axios
-      .put(
-        `https://dev.iranhostserver.ir/InventoryGeo/Location/Update`,
-        {
-          guid,
-          display: inputValue,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
+    axiosClient
+      .put(`InventoryGeo/Location/Update`, {
+        guid,
+        display: inputValue,
+      })
       .then(res => {
         getLocationList();
         setIsEditModalOpen(false);

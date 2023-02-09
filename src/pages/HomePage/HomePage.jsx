@@ -1,4 +1,5 @@
-import useLocationList from 'api/private/useLocationList/useLocationList';
+import useLocationList from 'api/homePage/useLocationList/useLocationList';
+import LocationEditModal from 'components/shared/EditModals/homePage/LocationEditModal/LocationEditModal';
 import { Table } from 'components/shared/Table/Table';
 import useLocationsTableColumns from 'hooks/private/homePage/useLocationsTableColumns';
 import { useMembersTableColumns } from 'hooks/private/homePage/useMembersTableColumns';
@@ -6,10 +7,9 @@ import { rowsData } from 'mocks/membersListMockData';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import useDeleteLocation from '../../api/private/useDeleteLocation/useDeleteLocation';
-import useEditLocation from '../../api/private/useEditLocation/useEditLocation';
+import useDeleteLocation from '../../api/homePage/useDeleteLocation/useDeleteLocation';
+import useEditLocation from '../../api/homePage/useEditLocation/useEditLocation';
 import DeleteModal from '../../components/shared/DeleteModal/DeleteModal';
-import LocationEditModal from '../../components/shared/EditModals/LocationEditModal/LocationEditModal';
 
 const HomePage = () => {
   const [getLocationList, loading, locationList, pageRef] = useLocationList();

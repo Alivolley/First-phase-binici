@@ -1,10 +1,7 @@
-import axios from 'axios';
+import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
-import React from 'react';
-import { useCookies } from 'react-cookie';
 
 const useDeleteLocation = () => {
-  const [{ token }] = useCookies();
   const { enqueueSnackbar } = useSnackbar();
 
   const deleteRequest = (
@@ -13,15 +10,8 @@ const useDeleteLocation = () => {
     setIsDeleteModalOpen,
     setDeleteLoading,
   ) => {
-    axios
-      .delete(
-        `https://dev.iranhostserver.ir/InventoryGeo/Location/Delete?GUID=${guid}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
+    axiosClient
+      .delete(`InventoryGeo/Location/Delete?GUID=${guid}`)
       .then(res => {
         getLocationList();
         setIsDeleteModalOpen(false);

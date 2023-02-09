@@ -3,7 +3,7 @@ import useLocationsTableColumns from 'hooks/private/homePage/useLocationsTableCo
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import useLocationZone from '../../api/private/useLocationZone/useLocationZone';
+import useLocationZone from '../../api/locationZone/useLocationZone/useLocationZone';
 
 const LocationDetail = () => {
   const { guid } = useParams();
