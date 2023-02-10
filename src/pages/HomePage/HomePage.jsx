@@ -1,5 +1,5 @@
 import useLocationList from 'api/homePage/useLocationList/useLocationList';
-import LocationEditModal from 'components/shared/EditModals/homePage/LocationEditModal/LocationEditModal';
+import LocationEditModal from 'components/shared/Modals/homePage/LocationEditModal/LocationEditModal';
 import { Table } from 'components/shared/Table/Table';
 import useLocationsTableColumns from 'hooks/homePage/useLocationsTableColumns';
 import { rowsData } from 'mocks/membersListMockData';
@@ -8,7 +8,9 @@ import { useNavigate } from 'react-router-dom';
 
 import useDeleteLocation from '../../api/homePage/useDeleteLocation/useDeleteLocation';
 import useEditLocation from '../../api/homePage/useEditLocation/useEditLocation';
+import useInsertLocation from '../../api/homePage/useInsertLocation/useInsertLocation';
 import DeleteModal from '../../components/shared/DeleteModal/DeleteModal';
+import LocationInsertModal from '../../components/shared/Modals/homePage/LocationInsertModal/LocationInsertModal';
 
 const HomePage = () => {
   const [getLocationList, loading, locationList, pageRef] = useLocationList();
@@ -16,14 +18,18 @@ const HomePage = () => {
   const [rows, setRows] = useState(locationList);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isInsertModalOpen, setIsInsertModalOpen] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [editChosenLocation, setEditChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [editLoading, setEditLoading] = useState(false);
+  const [insertLoading, setInsertLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [insertInputValue, setInsertInputValue] = useState('');
 
   const [deleteRequest] = useDeleteLocation();
   const [editRequest] = useEditLocation();
+  const [insertRequest] = useInsertLocation();
 
   const navigate = useNavigate();
 
@@ -77,6 +83,17 @@ const HomePage = () => {
     );
   };
 
+  const insertHandle = () => {
+    setInsertLoading(true);
+    insertRequest(
+      getLocationList,
+      setIsInsertModalOpen,
+      setInsertLoading,
+      insertInputValue,
+      setInsertInputValue,
+    );
+  };
+
   const editInputHandler = e => setInputValue(e.target.value);
 
   const closeDeleteModal = () => setIsDeleteModalOpen(false);
@@ -92,6 +109,8 @@ const HomePage = () => {
         isDeletable
         setRows={filteredRows => setRows(filteredRows)}
         isLoading={loading}
+        addLable="اضافه کردن مکان جدید"
+        onAddClick={() => setIsInsertModalOpen(true)}
       />
 
       <DeleteModal
@@ -112,6 +131,15 @@ const HomePage = () => {
         onEdit={editHandle}
         editInputValue={inputValue}
         inputOnchange={editInputHandler}
+      />
+
+      <LocationInsertModal
+        open={isInsertModalOpen}
+        handleClose={() => setIsInsertModalOpen(false)}
+        insertLoading={insertLoading}
+        onInsert={insertHandle}
+        insertInputValue={insertInputValue}
+        insertInputOnchange={e => setInsertInputValue(e.target.value)}
       />
     </>
   );

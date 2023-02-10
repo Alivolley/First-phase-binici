@@ -65,11 +65,11 @@ export const navMenuLinks = [
         href: '/',
         label: 'مکان ها',
       },
-      {
-        id: '2',
-        href: '/productsList',
-        label: 'ریپورت ها',
-      },
+      // {
+      //   id: '2',
+      //   href: '/productsList',
+      //   label: 'ریپورت ها',
+      // },
     ],
     pathes: ['/', '/reports'],
   },
@@ -81,13 +81,13 @@ export const navMenuLinks = [
       {
         id: '1',
         href: '/productsList',
-        label: 'لیست محصولات',
+        label: 'محصولات',
       },
-      {
-        id: '2',
-        href: '/product',
-        label: 'محصول',
-      },
+      // {
+      //   id: '2',
+      //   href: '/product',
+      //   label: 'محصول',
+      // },
     ],
     pathes: ['/productsList', '/product'],
   },

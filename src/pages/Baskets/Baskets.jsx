@@ -1,18 +1,18 @@
+import useEditZone from 'api/locationZone/useEditZone/useEditZone';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import ZoneEditModal from 'components/shared/Modals/locationDetail/ZoneEditModal/ZoneEditModal';
 import { Table } from 'components/shared/Table/Table';
-import useZoneTableColumns from 'hooks/locationDetail/useZoneTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import useDeleteZone from '../../api/locationZone/useDeleteZone/useDeleteZone';
-import useEditZone from '../../api/locationZone/useEditZone/useEditZone';
-import useLocationZone from '../../api/locationZone/useLocationZone/useLocationZone';
-import DeleteModal from '../../components/shared/DeleteModal/DeleteModal';
-import ZoneEditModal from '../../components/shared/Modals/locationDetail/ZoneEditModal/ZoneEditModal';
+import useBasket from '../../api/baskets/useBasket/useBasket';
+import useDeleteBasket from '../../api/baskets/useDeleteBasket/useDeleteBasket';
+import useTableBasketColumns from '../../hooks/basket/useTableBasketColumns';
 
-const LocationDetail = () => {
+const Baskets = () => {
   const { guid } = useParams();
-  const [getZoneList, loading, zoneList, pageRef] = useLocationZone(guid);
-  const [rows, setRows] = useState(zoneList);
+  const [getBasketList, loading, basketList, pageRef] = useBasket(guid);
+  const [rows, setRows] = useState(basketList);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
@@ -22,23 +22,18 @@ const LocationDetail = () => {
   const [inputValue, setInputValue] = useState('');
 
   const navigate = useNavigate();
-  const [deleteRequest] = useDeleteZone();
+  const [deleteRequest] = useDeleteBasket();
   const [editRequest] = useEditZone();
 
   useEffect(() => {
-    getZoneList();
+    getBasketList();
   }, []);
 
   useEffect(() => {
-    setRows(zoneList);
-  }, [zoneList]);
+    setRows(basketList);
+  }, [basketList]);
 
-  const goToInfoPage = useCallback(
-    row => () =>
-      // navigate(`/locations/${row.id}`)
-      console.log('info'),
-    [],
-  );
+  const printBasket = useCallback(row => () => window.print(), []);
   const deleteItem = useCallback(
     row => () => {
       setDeleteChosenLocation(row);
@@ -54,28 +49,23 @@ const LocationDetail = () => {
     },
     [],
   );
-  const basketsItem = useCallback(
-    row => () => navigate(`/baskets/${row.id}`),
-    [],
-  );
 
-  const [columnsData] = useZoneTableColumns(
-    goToInfoPage,
+  const [columnsData] = useTableBasketColumns(
+    printBasket,
     deleteItem,
     editItem,
-    basketsItem,
   );
 
   const deleteHandle = id => {
     setDeleteLoading(true);
-    deleteRequest(id, getZoneList, setIsDeleteModalOpen, setDeleteLoading);
+    deleteRequest(id, getBasketList, setIsDeleteModalOpen, setDeleteLoading);
   };
 
   const editHandle = id => {
     setEditLoading(true);
     editRequest(
       id,
-      getZoneList,
+      getBasketList,
       setIsEditModalOpen,
       setEditLoading,
       inputValue,
@@ -87,7 +77,7 @@ const LocationDetail = () => {
       <div>{pageRef.refTitle}</div>
       <Table
         columns={columnsData}
-        rowsData={zoneList}
+        rowsData={basketList}
         rows={rows}
         isDeletable
         setRows={filteredRows => setRows(filteredRows)}
@@ -117,4 +107,4 @@ const LocationDetail = () => {
   );
 };
 
-export default LocationDetail;
+export default Baskets;

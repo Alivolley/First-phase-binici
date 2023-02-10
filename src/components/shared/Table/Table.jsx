@@ -18,6 +18,8 @@ export const Table = props => {
     isDeletable,
     setRows,
     isLoading,
+    addLable,
+    onAddClick,
   } = props;
 
   const [searchText, setSearchText] = useState('');
@@ -58,6 +60,8 @@ export const Table = props => {
             value: searchText,
             onChange: event => requestSearch(event.target.value),
             clearSearch: () => requestSearch(''),
+            addLable,
+            onAddClick,
           },
           footer: {
             rowsCount: selectionModel.length,
