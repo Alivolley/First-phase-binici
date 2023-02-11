@@ -1,13 +1,14 @@
+import useDeleteZone from 'api/locationZone/useDeleteZone/useDeleteZone';
+import useEditZone from 'api/locationZone/useEditZone/useEditZone';
+import useInsertZone from 'api/locationZone/useInsertZone/useInsertZone';
+import useLocationZone from 'api/locationZone/useLocationZone/useLocationZone';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import ZoneEditModal from 'components/shared/Modals/locationDetail/ZoneEditModal/ZoneEditModal';
+import ZoneInsertModal from 'components/shared/Modals/locationDetail/ZoneInsertModal/ZoneInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useZoneTableColumns from 'hooks/locationDetail/useZoneTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import useDeleteZone from '../../api/locationZone/useDeleteZone/useDeleteZone';
-import useEditZone from '../../api/locationZone/useEditZone/useEditZone';
-import useLocationZone from '../../api/locationZone/useLocationZone/useLocationZone';
-import DeleteModal from '../../components/shared/DeleteModal/DeleteModal';
-import ZoneEditModal from '../../components/shared/Modals/locationDetail/ZoneEditModal/ZoneEditModal';
 
 const LocationDetail = () => {
   const { guid } = useParams();
@@ -19,11 +20,15 @@ const LocationDetail = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editChosenLocation, setEditChosenLocation] = useState({});
   const [editLoading, setEditLoading] = useState(false);
+  const [isInsertModalOpen, setIsInsertModalOpen] = useState(false);
+  const [insertLoading, setInsertLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [insertInputValue, setInsertInputValue] = useState('');
 
   const navigate = useNavigate();
   const [deleteRequest] = useDeleteZone();
   const [editRequest] = useEditZone();
+  const [insertRequest] = useInsertZone();
 
   useEffect(() => {
     getZoneList();
@@ -82,6 +87,18 @@ const LocationDetail = () => {
     );
   };
 
+  const insertHandle = () => {
+    setInsertLoading(true);
+    insertRequest(
+      guid,
+      getZoneList,
+      setIsInsertModalOpen,
+      setInsertLoading,
+      insertInputValue,
+      setInsertInputValue,
+    );
+  };
+
   return (
     <>
       <div>{pageRef.refTitle}</div>
@@ -92,6 +109,8 @@ const LocationDetail = () => {
         isDeletable
         setRows={filteredRows => setRows(filteredRows)}
         isLoading={loading}
+        addLable="اضافه کردن منطقه جدید"
+        onAddClick={() => setIsInsertModalOpen(true)}
       />
 
       <DeleteModal
@@ -112,6 +131,15 @@ const LocationDetail = () => {
         onEdit={editHandle}
         editInputValue={inputValue}
         inputOnchange={e => setInputValue(e.target.value)}
+      />
+
+      <ZoneInsertModal
+        open={isInsertModalOpen}
+        handleClose={() => setIsInsertModalOpen(false)}
+        insertLoading={insertLoading}
+        onInsert={insertHandle}
+        insertInputValue={insertInputValue}
+        insertInputOnchange={e => setInsertInputValue(e.target.value)}
       />
     </>
   );
