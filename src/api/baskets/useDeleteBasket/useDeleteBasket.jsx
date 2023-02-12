@@ -18,12 +18,12 @@ const useDeleteBasket = () => {
           setIsDeleteModalOpen(false);
           enqueueSnackbar(`حذف با موفقیت انجام شد`, { variant: 'success' });
         } else {
-          enqueueSnackbar('خطای شبکه', { variant: 'error' });
+          enqueueSnackbar(res.message, { variant: 'error' });
         }
       })
       .catch(err => {
         console.log(err);
-        enqueueSnackbar('خطای شبکه', { variant: 'error' });
+        enqueueSnackbar(err.message, { variant: 'error' });
       })
       .finally(() => setDeleteLoading(false));
   };

@@ -16,18 +16,22 @@ const useBasket = guid => {
       .get(`InventoryShoppingCart/List?Guid=${guid}`)
       .then(res => {
         console.log(res);
-        setpageRef(res.data.value);
-        setBasketList(prev => {
-          const orderedList = res.data.value.list.map(element => ({
-            id: element.guid,
-            title: element.display,
-            type: element.type,
-          }));
+        if (res.status === 200) {
+          setpageRef(res.data.value);
+          setBasketList(prev => {
+            const orderedList = res.data.value.list.map(element => ({
+              id: element.guid,
+              title: element.display,
+              type: element.type,
+            }));
 
-          return orderedList;
-        });
+            return orderedList;
+          });
+        } else {
+          enqueueSnackbar(res.message, { variant: 'error' });
+        }
       })
-      .catch(() => enqueueSnackbar('خطای شبکه', { variant: 'error' }))
+      .catch(err => enqueueSnackbar(err.message, { variant: 'error' }))
       .finally(() => setLoading(false));
   };
 

@@ -22,12 +22,12 @@ const useEditBasket = () => {
           getBasketList();
           setIsEditModalOpen(false);
         } else {
-          enqueueSnackbar('خطای شبکه', { variant: 'error' });
+          enqueueSnackbar(res.message, { variant: 'error' });
         }
       })
       .catch(err => {
         console.log(err);
-        enqueueSnackbar('خطای شبکه', { variant: 'error' });
+        enqueueSnackbar(err.message, { variant: 'error' });
       })
       .finally(() => setEditLoading(false));
   };

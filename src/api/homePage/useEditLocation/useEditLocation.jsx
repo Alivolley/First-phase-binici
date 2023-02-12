@@ -17,17 +17,18 @@ const useEditLocation = () => {
         display: inputValue,
       })
       .then(res => {
+        console.log(res);
         if (res.status === 200) {
           enqueueSnackbar(`ویرایش با موفقیت انجام شد`, { variant: 'success' });
           getLocationList();
           setIsEditModalOpen(false);
         } else {
-          enqueueSnackbar('خطای شبکه', { variant: 'error' });
+          enqueueSnackbar(res.message, { variant: 'error' });
         }
       })
       .catch(err => {
         console.log(err);
-        enqueueSnackbar('خطای شبکه', { variant: 'error' });
+        enqueueSnackbar(err.message, { variant: 'error' });
       })
       .finally(() => setEditLoading(false));
   };

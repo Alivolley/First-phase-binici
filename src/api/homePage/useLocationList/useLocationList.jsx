@@ -15,17 +15,21 @@ const useLocationList = () => {
     axiosClient
       .get('InventoryGeo/Location/List')
       .then(res => {
-        setpageRef(res.data.value);
-        setLocationList(prev => {
-          const orderedList = res.data.value.list.map(element => ({
-            id: element.guid,
-            title: element.display,
-          }));
+        if (res.status === 200) {
+          setpageRef(res.data.value);
+          setLocationList(prev => {
+            const orderedList = res.data.value.list.map(element => ({
+              id: element.guid,
+              title: element.display,
+            }));
 
-          return orderedList;
-        });
+            return orderedList;
+          });
+        } else {
+          enqueueSnackbar(res.message, { variant: 'error' });
+        }
       })
-      .catch(() => enqueueSnackbar('خطای شبکه', { variant: 'error' }))
+      .catch(err => enqueueSnackbar(err.message, { variant: 'error' }))
       .finally(() => setLoading(false));
   };
 

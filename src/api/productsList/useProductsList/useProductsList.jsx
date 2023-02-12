@@ -16,17 +16,21 @@ const useProductsList = () => {
       .get('Product/Origin/List')
       .then(res => {
         console.log(res);
-        setpageRef(res.data.value);
-        setProductList(prev => {
-          const orderedList = res.data.value.list.map(element => ({
-            id: element.guid,
-            title: element.title,
-          }));
+        if (res.status === 200) {
+          setpageRef(res.data.value);
+          setProductList(prev => {
+            const orderedList = res.data.value.list.map(element => ({
+              id: element.guid,
+              title: element.title,
+            }));
 
-          return orderedList;
-        });
+            return orderedList;
+          });
+        } else {
+          enqueueSnackbar(res.message, { variant: 'error' });
+        }
       })
-      .catch(() => enqueueSnackbar('خطای شبکه', { variant: 'error' }))
+      .catch(err => enqueueSnackbar(err.message, { variant: 'error' }))
       .finally(() => setLoading(false));
   };
 
