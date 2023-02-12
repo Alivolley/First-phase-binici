@@ -5,22 +5,24 @@ const useEditBasket = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const editRequest = (
-    guid,
+    id,
     getBasketList,
-    setIsEditModalOpen,
+    handleClose,
     setEditLoading,
-    inputValue,
+    basketName,
+    basketType,
   ) => {
     axiosClient
-      .put(`InventoryGeo/Zone/Update`, {
-        guid,
-        display: inputValue,
+      .put(`/InventoryShoppingCart/Update`, {
+        guid: id,
+        display: basketName,
+        type: basketType,
       })
       .then(res => {
         if (res.status === 200) {
-          enqueueSnackbar(`ویرایش با موفقیت انجام شد`, { variant: 'success' });
+          enqueueSnackbar(`افزودن با موفقیت انجام شد`, { variant: 'success' });
           getBasketList();
-          setIsEditModalOpen(false);
+          handleClose();
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
         }

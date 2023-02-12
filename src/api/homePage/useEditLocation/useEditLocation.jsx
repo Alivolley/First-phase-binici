@@ -17,7 +17,6 @@ const useEditLocation = () => {
         display: inputValue,
       })
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           enqueueSnackbar(`ویرایش با موفقیت انجام شد`, { variant: 'success' });
           getLocationList();

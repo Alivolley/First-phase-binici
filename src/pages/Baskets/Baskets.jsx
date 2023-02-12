@@ -2,8 +2,8 @@ import useBasket from 'api/baskets/useBasket/useBasket';
 import useDeleteBasket from 'api/baskets/useDeleteBasket/useDeleteBasket';
 import useEditZone from 'api/locationZone/useEditZone/useEditZone';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import BasketEditModal from 'components/shared/Modals/basket/BasketEditModal/BasketEditModal';
 import BasketInsertModal from 'components/shared/Modals/basket/BasketInsertModal/BasketInsertModal';
-import ZoneEditModal from 'components/shared/Modals/locationDetail/ZoneEditModal/ZoneEditModal';
 import { Table } from 'components/shared/Table/Table';
 import useTableBasketColumns from 'hooks/basket/useTableBasketColumns';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -17,9 +17,7 @@ const Baskets = () => {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editChosenLocation, setEditChosenLocation] = useState({});
-  const [editLoading, setEditLoading] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [editChosenBasket, setEditChosenBasket] = useState({});
   const [isInsertModalOpen, setIsInsertModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -35,6 +33,7 @@ const Baskets = () => {
   }, [basketList]);
 
   const printBasket = useCallback(row => () => window.print(), []);
+
   const deleteItem = useCallback(
     row => () => {
       setDeleteChosenLocation(row);
@@ -42,10 +41,10 @@ const Baskets = () => {
     },
     [],
   );
+
   const editItem = useCallback(
     row => () => {
-      setInputValue(row.title);
-      setEditChosenLocation(row);
+      setEditChosenBasket(row);
       setIsEditModalOpen(true);
     },
     [],
@@ -62,26 +61,14 @@ const Baskets = () => {
     deleteRequest(id, getBasketList, setIsDeleteModalOpen, setDeleteLoading);
   };
 
-  const editHandle = id => {
-    setEditLoading(true);
-    editRequest(
-      id,
-      getBasketList,
-      setIsEditModalOpen,
-      setEditLoading,
-      inputValue,
-    );
-  };
-
-  // const insertHandle = () => {
-  //   setInsertLoading(true);
-  //   insertRequest(
-  //     guid,
-  //     getZoneList,
-  //     setIsInsertModalOpen,
-  //     setInsertLoading,
-  //     insertInputValue,
-  //     setInsertInputValue,
+  // const editHandle = id => {
+  //   setEditLoading(true);
+  //   editRequest(
+  //     id,
+  //     getBasketList,
+  //     setIsEditModalOpen,
+  //     setEditLoading,
+  //     inputValue,
   //   );
   // };
 
@@ -108,16 +95,12 @@ const Baskets = () => {
         onDelete={deleteHandle}
       />
 
-      {/* <ZoneEditModal
+      <BasketEditModal
         open={isEditModalOpen}
         handleClose={() => setIsEditModalOpen(false)}
-        title={editChosenLocation.title}
-        locationId={editChosenLocation.id}
-        editLoading={editLoading}
-        onEdit={editHandle}
-        editInputValue={inputValue}
-        inputOnchange={e => setInputValue(e.target.value)}
-      /> */}
+        chosenBasket={editChosenBasket}
+        getBasketList={getBasketList}
+      />
 
       <BasketInsertModal
         open={isInsertModalOpen}
