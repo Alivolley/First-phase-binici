@@ -43,10 +43,11 @@ export const QuickSearchToolbar = props => {
             },
           }}
         />
-
-        <AddBtn variant="contained" onClick={props.onAddClick}>
-          {props.addLable}
-        </AddBtn>
+        {props.addLable ? (
+          <AddBtn variant="contained" onClick={props.onAddClick}>
+            {props.addLable}
+          </AddBtn>
+        ) : null}
       </HeaderWrapper>
       <GridToolbarContainer>
         <GridToolbarFilterButton sx={{ color: grey[600], ml: 2 }} />

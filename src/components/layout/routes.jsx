@@ -1,9 +1,9 @@
 // const HomePage = lazy(() => import('pages/HomePage/HomePage'));
+import Baskets from 'pages/Baskets/Baskets';
 import HomePage from 'pages/HomePage/HomePage';
+import LocationDetail from 'pages/LocationDetail/LocationDetail';
+import ProductList from 'pages/ProductList/ProductList';
 import { lazy } from 'react';
-
-import Baskets from '../../pages/Baskets/Baskets';
-import LocationDetail from '../../pages/LocationDetail/LocationDetail';
 
 export const routes = [
   {
@@ -20,5 +20,10 @@ export const routes = [
     id: '3',
     path: '/baskets/:guid',
     element: <Baskets />,
+  },
+  {
+    id: '4',
+    path: '/productsList',
+    element: <ProductList />,
   },
 ];
