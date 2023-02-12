@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
 import React from 'react';
 
-const LocationInsertModal = ({
+const ZoneInsertModal = ({
   open,
   handleClose,
   insertLoading,
@@ -51,4 +51,4 @@ const LocationInsertModal = ({
   );
 };
 
-export default LocationInsertModal;
+export default ZoneInsertModal;

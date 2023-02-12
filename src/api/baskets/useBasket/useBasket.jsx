@@ -15,7 +15,6 @@ const useBasket = guid => {
     axiosClient
       .get(`InventoryShoppingCart/List?Guid=${guid}`)
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           setpageRef(res.data.value);
           setBasketList(prev => {

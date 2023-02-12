@@ -15,7 +15,6 @@ const useProductsList = () => {
     axiosClient
       .get('Product/Origin/List')
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           setpageRef(res.data.value);
           setProductList(prev => {

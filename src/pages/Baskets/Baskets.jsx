@@ -1,13 +1,13 @@
+import useBasket from 'api/baskets/useBasket/useBasket';
+import useDeleteBasket from 'api/baskets/useDeleteBasket/useDeleteBasket';
 import useEditZone from 'api/locationZone/useEditZone/useEditZone';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import BasketInsertModal from 'components/shared/Modals/basket/BasketInsertModal/BasketInsertModal';
 import ZoneEditModal from 'components/shared/Modals/locationDetail/ZoneEditModal/ZoneEditModal';
 import { Table } from 'components/shared/Table/Table';
+import useTableBasketColumns from 'hooks/basket/useTableBasketColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import useBasket from '../../api/baskets/useBasket/useBasket';
-import useDeleteBasket from '../../api/baskets/useDeleteBasket/useDeleteBasket';
-import useTableBasketColumns from '../../hooks/basket/useTableBasketColumns';
 
 const Baskets = () => {
   const { guid } = useParams();
@@ -20,6 +20,7 @@ const Baskets = () => {
   const [editChosenLocation, setEditChosenLocation] = useState({});
   const [editLoading, setEditLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [isInsertModalOpen, setIsInsertModalOpen] = useState(false);
 
   const navigate = useNavigate();
   const [deleteRequest] = useDeleteBasket();
@@ -72,6 +73,18 @@ const Baskets = () => {
     );
   };
 
+  // const insertHandle = () => {
+  //   setInsertLoading(true);
+  //   insertRequest(
+  //     guid,
+  //     getZoneList,
+  //     setIsInsertModalOpen,
+  //     setInsertLoading,
+  //     insertInputValue,
+  //     setInsertInputValue,
+  //   );
+  // };
+
   return (
     <>
       <div>{pageRef.refTitle}</div>
@@ -82,6 +95,8 @@ const Baskets = () => {
         isDeletable
         setRows={filteredRows => setRows(filteredRows)}
         isLoading={loading}
+        addLable="افزودن سبد"
+        onAddClick={() => setIsInsertModalOpen(true)}
       />
 
       <DeleteModal
@@ -93,7 +108,7 @@ const Baskets = () => {
         onDelete={deleteHandle}
       />
 
-      <ZoneEditModal
+      {/* <ZoneEditModal
         open={isEditModalOpen}
         handleClose={() => setIsEditModalOpen(false)}
         title={editChosenLocation.title}
@@ -102,6 +117,13 @@ const Baskets = () => {
         onEdit={editHandle}
         editInputValue={inputValue}
         inputOnchange={e => setInputValue(e.target.value)}
+      /> */}
+
+      <BasketInsertModal
+        open={isInsertModalOpen}
+        handleClose={() => setIsInsertModalOpen(false)}
+        getBasketList={getBasketList}
+        guid={guid}
       />
     </>
   );
