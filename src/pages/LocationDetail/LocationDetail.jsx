@@ -41,7 +41,8 @@ const LocationDetail = () => {
   const goToInfoPage = useCallback(
     row => () =>
       // navigate(`/locations/${row.id}`)
-      console.log('info'),
+      // eslint-disable-next-line no-alert
+      alert('صفحه گراف که با حاجی محمده :)))))'),
     [],
   );
   const deleteItem = useCallback(

@@ -1,26 +1,31 @@
 import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 
-const useInsertLocation = () => {
+const useInsertProduct = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const insertRequest = (
-    getLocationList,
-    setIsInsertModalOpen,
+    getProsuctList,
+    closeModal,
     setInsertLoading,
-    insertInputValue,
-    setInsertInputValue,
+    productName,
+    preFixName,
+    explain,
+    GottenImageKey,
   ) => {
     axiosClient
-      .post(`InventoryGeo/Location/Insert`, {
-        display: insertInputValue,
+      .post(`Product/Origin/Insert`, {
+        title: productName,
+        preFix: preFixName,
+        description: explain,
+        imageKey: GottenImageKey,
       })
       .then(res => {
+        console.log(res);
         if (res.status === 200) {
           enqueueSnackbar(`افزودن با موفقیت انجام شد`, { variant: 'success' });
-          getLocationList();
-          setIsInsertModalOpen(false);
-          setInsertInputValue('');
+          getProsuctList();
+          closeModal();
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
         }
@@ -34,4 +39,4 @@ const useInsertLocation = () => {
   return [insertRequest];
 };
 
-export default useInsertLocation;
+export default useInsertProduct;

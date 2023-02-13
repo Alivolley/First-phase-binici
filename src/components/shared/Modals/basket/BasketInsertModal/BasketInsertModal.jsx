@@ -121,6 +121,7 @@ export default BasketInsertModal;
 const FilledWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 30px;
   margin-top: 30px;
 `;

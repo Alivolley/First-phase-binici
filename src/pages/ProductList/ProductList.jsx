@@ -19,7 +19,6 @@ const ProductList = () => {
 
   const [rows, setRows] = useState(productList);
   const [isInsertModalOpen, setIsInsertModalOpen] = useState(false);
-  const [insertLoading, setInsertLoading] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -34,8 +33,10 @@ const ProductList = () => {
     setRows(productList);
   }, [productList]);
 
-  const goToInfoPage = useCallback(row => () =>
-    //  navigate(`/locations/${row.id}`),
+  const goToInfoPage = useCallback(
+    row => () =>
+      //  navigate(`/locations/${row.id}`),
+      console.log(row),
     [],
   );
   const deleteItem = useCallback(
@@ -87,8 +88,8 @@ const ProductList = () => {
         deleteLoading={deleteLoading}
         onDelete={deleteHandle}
       />
-      {/* 
 
+      {/* 
       <LocationEditModal
         open={isEditModalOpen}
         handleClose={closeEditModal}
@@ -99,15 +100,12 @@ const ProductList = () => {
         editInputValue={inputValue}
         inputOnchange={editInputHandler}
       />
-
     */}
+
       <ProductsListInsertModal
         open={isInsertModalOpen}
         handleClose={() => setIsInsertModalOpen(false)}
-        insertLoading={insertLoading}
-        // onInsert={insertHandle}
-        // insertInputValue={insertInputValue}
-        // insertInputOnchange={e => setInsertInputValue(e.target.value)}
+        getProsuctList={getProductsList}
       />
     </>
   );

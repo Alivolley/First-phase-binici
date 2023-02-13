@@ -16,11 +16,15 @@ const useProductsList = () => {
       .get('Product/Origin/List')
       .then(res => {
         if (res.status === 200) {
+          console.log(res.data.value.list);
           setpageRef(res.data.value);
           setProductList(prev => {
             const orderedList = res.data.value.list.map(element => ({
               id: element.guid,
               title: element.title,
+              hasGraph: element.hasGraph,
+              imageKey: element.imageKey,
+              imageURL: element.imageURL,
             }));
 
             return orderedList;

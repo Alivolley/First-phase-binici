@@ -19,7 +19,7 @@ const useInsertZone = () => {
       })
       .then(res => {
         if (res.status === 200) {
-          enqueueSnackbar(`ویرایش با موفقیت انجام شد`, { variant: 'success' });
+          enqueueSnackbar(`افزودن با موفقیت انجام شد`, { variant: 'success' });
           getZoneList();
           setIsInsertModalOpen(false);
           setInsertInputValue('');

@@ -20,7 +20,7 @@ const useEditBasket = () => {
       })
       .then(res => {
         if (res.status === 200) {
-          enqueueSnackbar(`افزودن با موفقیت انجام شد`, { variant: 'success' });
+          enqueueSnackbar(`ویرایش با موفقیت انجام شد`, { variant: 'success' });
           getBasketList();
           handleClose();
         } else {
