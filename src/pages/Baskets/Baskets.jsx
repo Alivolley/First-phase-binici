@@ -1,9 +1,9 @@
 import useBasket from 'api/baskets/useBasket/useBasket';
 import useDeleteBasket from 'api/baskets/useDeleteBasket/useDeleteBasket';
-import useEditZone from 'api/locationZone/useEditZone/useEditZone';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import BasketEditModal from 'components/shared/Modals/basket/BasketEditModal/BasketEditModal';
 import BasketInsertModal from 'components/shared/Modals/basket/BasketInsertModal/BasketInsertModal';
+import BasketPrintModal from 'components/shared/Modals/basket/BasketPrintModal/BasketPrintModal';
 import { Table } from 'components/shared/Table/Table';
 import useTableBasketColumns from 'hooks/basket/useTableBasketColumns';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -18,11 +18,12 @@ const Baskets = () => {
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editChosenBasket, setEditChosenBasket] = useState({});
+  const [chosenPrintBasket, setChosenPrintBasket] = useState({});
   const [isInsertModalOpen, setIsInsertModalOpen] = useState(false);
+  const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
 
   const navigate = useNavigate();
   const [deleteRequest] = useDeleteBasket();
-  const [editRequest] = useEditZone();
 
   useEffect(() => {
     getBasketList();
@@ -32,7 +33,13 @@ const Baskets = () => {
     setRows(basketList);
   }, [basketList]);
 
-  const printBasket = useCallback(row => () => window.print(), []);
+  const printBasket = useCallback(
+    row => () => {
+      setChosenPrintBasket(row);
+      setIsPrintModalOpen(true);
+    },
+    [],
+  );
 
   const deleteItem = useCallback(
     row => () => {
@@ -96,6 +103,12 @@ const Baskets = () => {
         handleClose={() => setIsInsertModalOpen(false)}
         getBasketList={getBasketList}
         guid={guid}
+      />
+
+      <BasketPrintModal
+        open={isPrintModalOpen}
+        handleClose={() => setIsPrintModalOpen(false)}
+        chosenPrintBasket={chosenPrintBasket}
       />
     </>
   );
