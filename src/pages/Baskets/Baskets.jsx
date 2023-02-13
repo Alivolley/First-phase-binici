@@ -61,17 +61,6 @@ const Baskets = () => {
     deleteRequest(id, getBasketList, setIsDeleteModalOpen, setDeleteLoading);
   };
 
-  // const editHandle = id => {
-  //   setEditLoading(true);
-  //   editRequest(
-  //     id,
-  //     getBasketList,
-  //     setIsEditModalOpen,
-  //     setEditLoading,
-  //     inputValue,
-  //   );
-  // };
-
   return (
     <>
       <div>{pageRef.refTitle}</div>

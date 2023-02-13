@@ -75,7 +75,7 @@ const BasketEditModal = ({
                 value={basketName}
                 onChange={e => setBasketName(e.target.value)}
                 sx={{ minWidth: 300 }}
-                error={emptyError}
+                error={!basketName && emptyError}
               />
             </FilledWrapper>
 
@@ -84,7 +84,7 @@ const BasketEditModal = ({
               <FormControl
                 variant="standard"
                 sx={{ width: '100%', paddingRight: 3 }}
-                error={emptyError}
+                error={!basketType && emptyError}
               >
                 <Select
                   labelId="demo-simple-select-standard-label"

@@ -29,7 +29,7 @@ const BasketInsertModal = ({ open, handleClose, getBasketList, guid }) => {
   }, []);
 
   const submitBasket = () => {
-    if ((basketName, basketType)) {
+    if (basketName && basketType) {
       setEmptyError(false);
       setInsertLoading(true);
       insertRequest(
@@ -60,7 +60,7 @@ const BasketInsertModal = ({ open, handleClose, getBasketList, guid }) => {
             value={basketName}
             onChange={e => setBasketName(e.target.value)}
             sx={{ minWidth: 300 }}
-            error={emptyError}
+            error={!basketName && emptyError}
           />
         </FilledWrapper>
 
@@ -69,7 +69,7 @@ const BasketInsertModal = ({ open, handleClose, getBasketList, guid }) => {
           <FormControl
             variant="standard"
             sx={{ width: '100%', paddingRight: 3 }}
-            error={emptyError}
+            error={!basketType && emptyError}
           >
             <Select
               labelId="demo-simple-select-standard-label"

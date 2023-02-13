@@ -77,26 +77,30 @@ const LocationDetail = () => {
   };
 
   const editHandle = id => {
-    setEditLoading(true);
-    editRequest(
-      id,
-      getZoneList,
-      setIsEditModalOpen,
-      setEditLoading,
-      inputValue,
-    );
+    if (inputValue) {
+      setEditLoading(true);
+      editRequest(
+        id,
+        getZoneList,
+        setIsEditModalOpen,
+        setEditLoading,
+        inputValue,
+      );
+    }
   };
 
   const insertHandle = () => {
-    setInsertLoading(true);
-    insertRequest(
-      guid,
-      getZoneList,
-      setIsInsertModalOpen,
-      setInsertLoading,
-      insertInputValue,
-      setInsertInputValue,
-    );
+    if (insertInputValue) {
+      setInsertLoading(true);
+      insertRequest(
+        guid,
+        getZoneList,
+        setIsInsertModalOpen,
+        setInsertLoading,
+        insertInputValue,
+        setInsertInputValue,
+      );
+    }
   };
 
   return (

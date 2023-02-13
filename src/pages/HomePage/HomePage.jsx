@@ -73,25 +73,29 @@ const HomePage = () => {
   };
 
   const editHandle = id => {
-    setEditLoading(true);
-    editRequest(
-      id,
-      getLocationList,
-      setIsEditModalOpen,
-      setEditLoading,
-      inputValue,
-    );
+    if (inputValue) {
+      setEditLoading(true);
+      editRequest(
+        id,
+        getLocationList,
+        setIsEditModalOpen,
+        setEditLoading,
+        inputValue,
+      );
+    }
   };
 
   const insertHandle = () => {
-    setInsertLoading(true);
-    insertRequest(
-      getLocationList,
-      setIsInsertModalOpen,
-      setInsertLoading,
-      insertInputValue,
-      setInsertInputValue,
-    );
+    if (insertInputValue) {
+      setInsertLoading(true);
+      insertRequest(
+        getLocationList,
+        setIsInsertModalOpen,
+        setInsertLoading,
+        insertInputValue,
+        setInsertInputValue,
+      );
+    }
   };
 
   const editInputHandler = e => setInputValue(e.target.value);
