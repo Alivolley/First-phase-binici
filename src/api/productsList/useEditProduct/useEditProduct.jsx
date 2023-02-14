@@ -1,10 +1,11 @@
 import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 
-const useInsertProduct = () => {
+const useEditProduct = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const insertRequest = (
+  const editRequest = (
+    guid,
     getProsuctList,
     closeModal,
     setInsertLoading,
@@ -12,9 +13,12 @@ const useInsertProduct = () => {
     preFixName,
     explain,
     key,
+    // eslint-disable-next-line max-params
   ) => {
+    console.log(key);
     axiosClient
-      .post(`Product/Origin/Insert`, {
+      .put(`Product/Origin/Update`, {
+        guid,
         title: productName,
         preFix: preFixName,
         description: explain,
@@ -23,9 +27,7 @@ const useInsertProduct = () => {
       .then(res => {
         console.log(res);
         if (res.status === 200) {
-          enqueueSnackbar(`افزودن با موفقیت انجام شد`, {
-            variant: 'success',
-          });
+          enqueueSnackbar(`ویرایش با موفقیت انجام شد`, { variant: 'success' });
           getProsuctList();
           closeModal();
         } else {
@@ -38,7 +40,7 @@ const useInsertProduct = () => {
       })
       .finally(() => setInsertLoading(false));
   };
-  return [insertRequest];
+  return [editRequest];
 };
 
-export default useInsertProduct;
+export default useEditProduct;

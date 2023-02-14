@@ -1,16 +1,10 @@
-import useDeleteLocation from 'api/homePage/useDeleteLocation/useDeleteLocation';
-import useEditLocation from 'api/homePage/useEditLocation/useEditLocation';
-import useInsertLocation from 'api/homePage/useInsertLocation/useInsertLocation';
-import useLocationList from 'api/homePage/useLocationList/useLocationList';
 import useDeleteProduct from 'api/productsList/useDeleteProduct/useDeleteProduct';
 import useProductsList from 'api/productsList/useProductsList/useProductsList';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
-import LocationEditModal from 'components/shared/Modals/homePage/LocationEditModal/LocationEditModal';
-import LocationInsertModal from 'components/shared/Modals/homePage/LocationInsertModal/LocationInsertModal';
+import ProductsListEditModal from 'components/shared/Modals/productsList/ProductsListEditModal/ProductsListEditModal';
 import ProductsListInsertModal from 'components/shared/Modals/productsList/ProductsListInsertModal/ProductsListInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useLocationsTableColumns from 'hooks/homePage/useLocationsTableColumns';
-import { rowsData } from 'mocks/membersListMockData';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,8 +16,11 @@ const ProductList = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editChosenProduct, setEditChosenProduct] = useState({});
 
   const [deleteRequest] = useDeleteProduct();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProductsList();
@@ -48,9 +45,8 @@ const ProductList = () => {
   );
   const editItem = useCallback(
     row => () => {
-      //   setInputValue(row.title);
-      //   setEditChosenLocation(row);
-      //   setIsEditModalOpen(true);
+      setEditChosenProduct(row);
+      setIsEditModalOpen(true);
     },
     [],
   );
@@ -89,18 +85,12 @@ const ProductList = () => {
         onDelete={deleteHandle}
       />
 
-      {/* 
-      <LocationEditModal
+      <ProductsListEditModal
         open={isEditModalOpen}
-        handleClose={closeEditModal}
-        title={editChosenLocation.title}
-        locationId={editChosenLocation.id}
-        editLoading={editLoading}
-        onEdit={editHandle}
-        editInputValue={inputValue}
-        inputOnchange={editInputHandler}
+        handleClose={() => setIsEditModalOpen(false)}
+        getProsuctList={getProductsList}
+        mainInfo={editChosenProduct}
       />
-    */}
 
       <ProductsListInsertModal
         open={isInsertModalOpen}

@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 const useImageKey = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const imageRequest = (image, setGottenImageKey, insertProduct) => {
+  const imageRequest = (image, insertProduct) => {
     axios
       .post(`https://dl.iranhostserver.ir/Uploader/Process`, image, {
         headers: {
@@ -12,9 +12,9 @@ const useImageKey = () => {
         },
       })
       .then(res => {
+        console.log(res);
         if (res.status === 200) {
-          setGottenImageKey(res.data);
-          insertProduct();
+          insertProduct(res.data);
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
         }

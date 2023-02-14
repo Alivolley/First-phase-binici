@@ -65,7 +65,7 @@ const BasketEditModal = ({
       <DialogTitle>ویرایش سبد</DialogTitle>
 
       <DialogContent>
-        {basketType ? (
+        {basketType && basketName ? (
           <>
             <FilledWrapper>
               <FilledLabel>نام سبد</FilledLabel>

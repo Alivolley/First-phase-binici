@@ -17,12 +17,11 @@ const ProductsListInsertModal = ({ open, handleClose, getProsuctList }) => {
   const [productImg, setProductImg] = useState();
   const [emptyError, setEmptyError] = useState(false);
   const [insertLoading, setInsertLoading] = useState(false);
-  const [GottenImageKey, setGottenImageKey] = useState('');
 
   const [imageRequest] = useImageKey();
   const [insertRequest] = useInsertProduct();
 
-  const insertProduct = () => {
+  const insertProduct = key => {
     insertRequest(
       getProsuctList,
       closeModal,
@@ -30,7 +29,7 @@ const ProductsListInsertModal = ({ open, handleClose, getProsuctList }) => {
       productName,
       preFixName,
       explain,
-      GottenImageKey,
+      key,
     );
   };
 
@@ -41,7 +40,7 @@ const ProductsListInsertModal = ({ open, handleClose, getProsuctList }) => {
 
       const formData = new FormData();
       formData.append('Files', productImg);
-      imageRequest(formData, setGottenImageKey, insertProduct);
+      imageRequest(formData, insertProduct);
     } else {
       setEmptyError(true);
     }
@@ -52,7 +51,6 @@ const ProductsListInsertModal = ({ open, handleClose, getProsuctList }) => {
     setProductName('');
     setPreFixName('');
     setExplain('');
-    setGottenImageKey('');
     setProductImg();
     setEmptyError(false);
   };
@@ -97,7 +95,7 @@ const ProductsListInsertModal = ({ open, handleClose, getProsuctList }) => {
 
         <FilledWrapper>
           <FilledLabel>انتخاب عکس</FilledLabel>
-          <InputWrapper>
+          <InputWrapper error={!productImg && emptyError}>
             {productImg ? 'تغییر عکس' : 'انتخاب کنید'}
             <FileInput
               type="file"
@@ -157,6 +155,7 @@ const InputWrapper = styled.div`
   width: 60%;
   background-color: #27348b;
   color: white;
+  ${({ error }) => error && 'color: #d32f2f;'}
   position: relative;
   text-align: center;
   padding: 10px;
