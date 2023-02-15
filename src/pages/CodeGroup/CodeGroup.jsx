@@ -1,4 +1,6 @@
+import useCodeGroupDelete from 'api/codeGroup/useCodeGroupDelete/useCodeGroupDelete';
 import useCodeGrouplist from 'api/codeGroup/useCodeGrouplist/useCodeGrouplist';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import CodeGroupInsertModal from 'components/shared/Modals/codeGroup/CodeGroupInsertModal/CodeGroupInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useCodeGroupTableColumns from 'hooks/codeGroup/useCodeGroupTableColumns';
@@ -15,6 +17,8 @@ const CodeGroup = () => {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editChosenProduct, setEditChosenProduct] = useState({});
+
+  const [deleteRequest] = useCodeGroupDelete();
 
   useEffect(() => {
     getCodeGroupList();
@@ -51,6 +55,11 @@ const CodeGroup = () => {
     editItem,
   );
 
+  const deleteHandle = id => {
+    setDeleteLoading(true);
+    deleteRequest(id, getCodeGroupList, setIsDeleteModalOpen, setDeleteLoading);
+  };
+
   return (
     <>
       <div>{pageRef.refTitle}</div>
@@ -63,6 +72,15 @@ const CodeGroup = () => {
         isLoading={loading}
         addLable="ثبت گروه کد"
         onAddClick={() => setIsInsertModalOpen(true)}
+      />
+
+      <DeleteModal
+        open={isDeleteModalOpen}
+        handleClose={() => setIsDeleteModalOpen(false)}
+        title={deleteChosenLocation.title}
+        locationId={deleteChosenLocation.id}
+        deleteLoading={deleteLoading}
+        onDelete={deleteHandle}
       />
 
       <CodeGroupInsertModal
