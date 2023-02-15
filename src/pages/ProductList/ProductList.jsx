@@ -5,7 +5,7 @@ import ProductsListEditModal from 'components/shared/Modals/productsList/Product
 import ProductsListInsertModal from 'components/shared/Modals/productsList/ProductsListInsertModal/ProductsListInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useLocationsTableColumns from 'hooks/homePage/useLocationsTableColumns';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ProductList = () => {

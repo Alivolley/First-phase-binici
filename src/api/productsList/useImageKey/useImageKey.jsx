@@ -12,7 +12,6 @@ const useImageKey = () => {
         },
       })
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           insertProduct(res.data);
         } else {

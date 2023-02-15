@@ -2,30 +2,28 @@ import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
-const useProductsList = () => {
+const useCodeGrouplist = () => {
   const [loading, setLoading] = useState(true);
-  const [productList, setProductList] = useState([]);
+  const [codeGroupList, setCodeGroupList] = useState([]);
   const [pageRef, setpageRef] = useState('');
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const getProductsList = () => {
+  const getCodeGroupList = () => {
     setLoading(true);
 
     axiosClient
-      .get('Product/Origin/List')
+      .get('SettingProduct/CoddingGroup/List')
       .then(res => {
         if (res.status === 200) {
-          setpageRef(res.data.value);
-          setProductList(prev => {
+          setCodeGroupList(prev => {
             const orderedList = res.data.value.list.map(element => ({
               id: element.guid,
-              title: element.title,
-              hasGraph: element.hasGraph,
-              imageKey: element.imageKey,
-              imageURL: element.imageURL,
+              title: element.display,
+              length: element.length,
+              type: element.type,
+              typeDisplay: element.typeDisplay,
             }));
-
             return orderedList;
           });
         } else {
@@ -36,7 +34,7 @@ const useProductsList = () => {
       .finally(() => setLoading(false));
   };
 
-  return [getProductsList, loading, productList, pageRef];
+  return [getCodeGroupList, loading, codeGroupList, pageRef];
 };
 
-export default useProductsList;
+export default useCodeGrouplist;

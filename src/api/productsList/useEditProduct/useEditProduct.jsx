@@ -15,7 +15,6 @@ const useEditProduct = () => {
     key,
     // eslint-disable-next-line max-params
   ) => {
-    console.log(key);
     axiosClient
       .put(`Product/Origin/Update`, {
         guid,
@@ -25,7 +24,6 @@ const useEditProduct = () => {
         imageKey: key,
       })
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           enqueueSnackbar(`ویرایش با موفقیت انجام شد`, { variant: 'success' });
           getProsuctList();

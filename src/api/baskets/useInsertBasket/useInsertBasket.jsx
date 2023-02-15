@@ -22,7 +22,6 @@ const useInsertBasket = () => {
         type: basketType,
       })
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           enqueueSnackbar(`افزودن با موفقیت انجام شد`, { variant: 'success' });
           getBasketList();

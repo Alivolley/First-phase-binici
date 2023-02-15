@@ -35,8 +35,6 @@ const ProductsListEditModal = ({
       getEditInfo(mainInfo.id, setProductName, setPreFixName, setExplain);
   }, [mainInfo]);
 
-  console.log(gottenProduct);
-
   const editProduct = key => {
     editRequest(
       gottenProduct.guid,

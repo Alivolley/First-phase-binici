@@ -1,32 +1,31 @@
 import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 
-const useInsertProduct = () => {
+const useInsertCodeGroup = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const insertRequest = (
-    getProsuctList,
-    closeModal,
+    getCodeGroupList,
+    handleClose,
     setInsertLoading,
-    productName,
-    preFixName,
-    explain,
-    key,
+    codeName,
+    codeType,
+    setCodeName,
+    setCodeType,
   ) => {
     axiosClient
-      .post(`Product/Origin/Insert`, {
-        title: productName,
-        preFix: preFixName,
-        description: explain,
-        imageKey: key,
+      .post(`SettingProduct/CoddingGroup/Insert`, {
+        display: codeName,
+        length: 0,
+        type: codeType,
       })
       .then(res => {
         if (res.status === 200) {
-          enqueueSnackbar(`افزودن با موفقیت انجام شد`, {
-            variant: 'success',
-          });
-          getProsuctList();
-          closeModal();
+          enqueueSnackbar(`افزودن با موفقیت انجام شد`, { variant: 'success' });
+          getCodeGroupList();
+          handleClose();
+          setCodeName('');
+          setCodeType('');
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
         }
@@ -40,4 +39,4 @@ const useInsertProduct = () => {
   return [insertRequest];
 };
 
-export default useInsertProduct;
+export default useInsertCodeGroup;

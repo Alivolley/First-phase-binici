@@ -71,7 +71,7 @@ export const navMenuLinks = [
       //   label: 'ریپورت ها',
       // },
     ],
-    pathes: ['/', '/reports'],
+    pathes: ['/'],
   },
   {
     id: '2',
@@ -89,7 +89,7 @@ export const navMenuLinks = [
       //   label: 'محصول',
       // },
     ],
-    pathes: ['/productsList', '/product'],
+    pathes: ['/productsList'],
   },
   {
     id: '3',
@@ -98,15 +98,15 @@ export const navMenuLinks = [
     subLinks: [
       {
         id: '1',
-        href: '/productsSettings',
-        label: 'تنظیمات محصولات',
+        href: '/codeGroup',
+        label: 'گروه کد',
       },
       {
         id: '2',
-        href: '/groups',
-        label: 'گروه ها',
+        href: '/profileGroup',
+        label: 'کد پروفایل',
       },
     ],
-    pathes: ['/productsSettings', '/groups'],
+    pathes: ['/codeGroup', '/profileGroup'],
   },
 ];
