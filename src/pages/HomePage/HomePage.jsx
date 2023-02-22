@@ -1,16 +1,14 @@
+import useDeleteLocation from 'api/homePage/useDeleteLocation/useDeleteLocation';
+import useEditLocation from 'api/homePage/useEditLocation/useEditLocation';
+import useInsertLocation from 'api/homePage/useInsertLocation/useInsertLocation';
 import useLocationList from 'api/homePage/useLocationList/useLocationList';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import LocationEditModal from 'components/shared/Modals/homePage/LocationEditModal/LocationEditModal';
+import LocationInsertModal from 'components/shared/Modals/homePage/LocationInsertModal/LocationInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useLocationsTableColumns from 'hooks/homePage/useLocationsTableColumns';
-import { rowsData } from 'mocks/membersListMockData';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import useDeleteLocation from '../../api/homePage/useDeleteLocation/useDeleteLocation';
-import useEditLocation from '../../api/homePage/useEditLocation/useEditLocation';
-import useInsertLocation from '../../api/homePage/useInsertLocation/useInsertLocation';
-import DeleteModal from '../../components/shared/DeleteModal/DeleteModal';
-import LocationInsertModal from '../../components/shared/Modals/homePage/LocationInsertModal/LocationInsertModal';
 
 const HomePage = () => {
   const [getLocationList, loading, locationList, pageRef] = useLocationList();

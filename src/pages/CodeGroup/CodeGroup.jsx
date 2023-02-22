@@ -5,6 +5,7 @@ import CodeGroupInsertModal from 'components/shared/Modals/codeGroup/CodeGroupIn
 import { Table } from 'components/shared/Table/Table';
 import useCodeGroupTableColumns from 'hooks/codeGroup/useCodeGroupTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
+import CodeGroupEditModal from '../../components/shared/Modals/codeGroup/CodeGroupEditModal/CodeGroupEditModal';
 
 const CodeGroup = () => {
   const [getCodeGroupList, loading, codeGroupList, pageRef] =
@@ -16,7 +17,7 @@ const CodeGroup = () => {
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editChosenProduct, setEditChosenProduct] = useState({});
+  const [editChosenCode, setEditChosenCode] = useState({});
 
   const [deleteRequest] = useCodeGroupDelete();
 
@@ -43,7 +44,7 @@ const CodeGroup = () => {
   );
   const editItem = useCallback(
     row => () => {
-      setEditChosenProduct(row);
+      setEditChosenCode(row);
       setIsEditModalOpen(true);
     },
     [],
@@ -86,6 +87,13 @@ const CodeGroup = () => {
       <CodeGroupInsertModal
         open={isInsertModalOpen}
         handleClose={() => setIsInsertModalOpen(false)}
+        getCodeGroupList={getCodeGroupList}
+      />
+
+      <CodeGroupEditModal
+        open={isEditModalOpen}
+        handleClose={() => setIsEditModalOpen(false)}
+        chosenBasket={editChosenCode}
         getCodeGroupList={getCodeGroupList}
       />
     </>
