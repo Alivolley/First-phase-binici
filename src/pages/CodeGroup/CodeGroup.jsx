@@ -1,11 +1,12 @@
 import useCodeGroupDelete from 'api/codeGroup/useCodeGroupDelete/useCodeGroupDelete';
 import useCodeGrouplist from 'api/codeGroup/useCodeGrouplist/useCodeGrouplist';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import CodeGroupEditModal from 'components/shared/Modals/codeGroup/CodeGroupEditModal/CodeGroupEditModal';
 import CodeGroupInsertModal from 'components/shared/Modals/codeGroup/CodeGroupInsertModal/CodeGroupInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useCodeGroupTableColumns from 'hooks/codeGroup/useCodeGroupTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
-import CodeGroupEditModal from '../../components/shared/Modals/codeGroup/CodeGroupEditModal/CodeGroupEditModal';
+import { useNavigate } from 'react-router-dom';
 
 const CodeGroup = () => {
   const [getCodeGroupList, loading, codeGroupList, pageRef] =
@@ -20,6 +21,7 @@ const CodeGroup = () => {
   const [editChosenCode, setEditChosenCode] = useState({});
 
   const [deleteRequest] = useCodeGroupDelete();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCodeGroupList();
@@ -30,9 +32,7 @@ const CodeGroup = () => {
   }, [codeGroupList]);
 
   const goToInfoPage = useCallback(
-    row => () =>
-      //  navigate(`/locations/${row.id}`),
-      console.log(row),
+    row => () => navigate(`/codingAttribute/${row.id}`),
     [],
   );
   const deleteItem = useCallback(

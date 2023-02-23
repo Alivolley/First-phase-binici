@@ -1,6 +1,7 @@
 // const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 import Baskets from 'pages/Baskets/Baskets';
 import CodeGroup from 'pages/CodeGroup/CodeGroup';
+import CodingAttribute from 'pages/CodingAttribute/CodingAttribute';
 import HomePage from 'pages/HomePage/HomePage';
 import LocationDetail from 'pages/LocationDetail/LocationDetail';
 import ProductList from 'pages/ProductList/ProductList';
@@ -37,5 +38,10 @@ export const routes = [
     id: '6',
     path: '/profileGroup',
     element: <ProfileGroup />,
+  },
+  {
+    id: '7',
+    path: '/codingAttribute/:guid',
+    element: <CodingAttribute />,
   },
 ];
