@@ -10,13 +10,14 @@ const useEditCodeGroup = () => {
     handleClose,
     setEditLoading,
     codeName,
+    codeLenght,
     codeType,
   ) => {
     axiosClient
       .put(`SettingProduct/CoddingGroup/Update`, {
         guid: id,
         display: codeName,
-        length: 0,
+        length: codeLenght,
         type: codeType,
       })
       .then(res => {

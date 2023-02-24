@@ -22,6 +22,7 @@ const CodeGroupEditModal = ({
   getCodeGroupList,
 }) => {
   const [codeName, setCodeName] = useState('');
+  const [codeLenght, setCodeLenght] = useState('');
   const [codeType, setCodeType] = useState('');
   const [emptyError, setEmptyError] = useState(false);
   const [editLoading, setEditLoading] = useState(false);
@@ -35,6 +36,7 @@ const CodeGroupEditModal = ({
 
   useEffect(() => {
     setCodeName(chosenBasket.title);
+    setCodeLenght(chosenBasket.length);
     setCodeType(chosenBasket.type);
   }, [chosenBasket]);
 
@@ -48,6 +50,7 @@ const CodeGroupEditModal = ({
         handleClose,
         setEditLoading,
         codeName,
+        codeLenght,
         codeType,
       );
     } else {
@@ -70,6 +73,20 @@ const CodeGroupEditModal = ({
               onChange={e => setCodeName(e.target.value)}
               sx={{ minWidth: 300 }}
               error={!codeName && emptyError}
+            />
+          </FilledWrapper>
+
+          <FilledWrapper>
+            <FilledLabel>طول رشته</FilledLabel>
+            <TextField
+              autoFocus
+              variant="standard"
+              value={codeLenght}
+              onChange={e => setCodeLenght(e.target.value)}
+              sx={{ minWidth: 300 }}
+              error={!codeLenght && emptyError}
+              type="number"
+              label="عدد"
             />
           </FilledWrapper>
 

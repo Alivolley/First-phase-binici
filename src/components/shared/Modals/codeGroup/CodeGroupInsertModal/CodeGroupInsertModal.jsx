@@ -17,6 +17,7 @@ import SpinnerLoader from '../../../SpinnerLoader/SpinnerLoader';
 
 const CodeGroupInsertModal = ({ open, handleClose, getCodeGroupList }) => {
   const [codeName, setCodeName] = useState('');
+  const [codeLenght, setCodeLenght] = useState('');
   const [codeType, setCodeType] = useState('');
   const [emptyError, setEmptyError] = useState(false);
   const [insertLoading, setInsertLoading] = useState(false);
@@ -29,7 +30,7 @@ const CodeGroupInsertModal = ({ open, handleClose, getCodeGroupList }) => {
   }, []);
 
   const submitCodeGroup = () => {
-    if (codeName && codeType) {
+    if (codeName && codeLenght && codeType) {
       setEmptyError(false);
       setInsertLoading(true);
       insertRequest(
@@ -37,8 +38,10 @@ const CodeGroupInsertModal = ({ open, handleClose, getCodeGroupList }) => {
         handleClose,
         setInsertLoading,
         codeName,
+        codeLenght,
         codeType,
         setCodeName,
+        setCodeLenght,
         setCodeType,
       );
     } else {
@@ -60,6 +63,20 @@ const CodeGroupInsertModal = ({ open, handleClose, getCodeGroupList }) => {
             onChange={e => setCodeName(e.target.value)}
             sx={{ minWidth: 300 }}
             error={!codeName && emptyError}
+          />
+        </FilledWrapper>
+
+        <FilledWrapper>
+          <FilledLabel>طول رشته</FilledLabel>
+          <TextField
+            autoFocus
+            variant="standard"
+            value={codeLenght}
+            onChange={e => setCodeLenght(e.target.value)}
+            sx={{ minWidth: 300 }}
+            error={!codeLenght && emptyError}
+            type="number"
+            label="عدد"
           />
         </FilledWrapper>
 

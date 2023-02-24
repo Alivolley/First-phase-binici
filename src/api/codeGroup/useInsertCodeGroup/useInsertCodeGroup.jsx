@@ -9,14 +9,17 @@ const useInsertCodeGroup = () => {
     handleClose,
     setInsertLoading,
     codeName,
+    codeLenght,
     codeType,
     setCodeName,
+    setCodeLenght,
     setCodeType,
+    // eslint-disable-next-line max-params
   ) => {
     axiosClient
       .post(`SettingProduct/CoddingGroup/Insert`, {
         display: codeName,
-        length: 0,
+        length: codeLenght,
         type: codeType,
       })
       .then(res => {
@@ -25,6 +28,7 @@ const useInsertCodeGroup = () => {
           getCodeGroupList();
           handleClose();
           setCodeName('');
+          setCodeLenght('');
           setCodeType('');
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
