@@ -1,9 +1,11 @@
+import useMappingProfileDelete from 'api/mappingProfile/useMappingProfileDelete/useMappingProfileDelete';
 import useMappingProfileList from 'api/mappingProfile/useMappingProfileList/useMappingProfileList';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import MappingProfileInsertModal from 'components/shared/Modals/mappingProfile/MappingProfileInsertModal/MappingProfileInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useMappingProfilTableColumns from 'hooks/mappingProfile/useMappingProfilTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MappingProfileInsertModal from '../../components/shared/Modals/mappingProfile/MappingProfileInsertModal/MappingProfileInsertModal';
 
 const MappingProfile = () => {
   const [getMappingProfileList, loading, mappingProfileList, pageRef] =
@@ -18,6 +20,7 @@ const MappingProfile = () => {
   const [editChosenCode, setEditChosenCode] = useState({});
 
   const navigate = useNavigate();
+  const [deleteRequest] = useMappingProfileDelete();
 
   //   const [deleteRequest] = useCodingProfileDelete();
 
@@ -57,15 +60,15 @@ const MappingProfile = () => {
     editItem,
   );
 
-  //   const deleteHandle = id => {
-  //     setDeleteLoading(true);
-  //     deleteRequest(
-  //       id,
-  //       getCodingProfileList,
-  //       setIsDeleteModalOpen,
-  //       setDeleteLoading,
-  //     );
-  //   };
+  const deleteHandle = id => {
+    setDeleteLoading(true);
+    deleteRequest(
+      id,
+      getMappingProfileList,
+      setIsDeleteModalOpen,
+      setDeleteLoading,
+    );
+  };
 
   return (
     <>
@@ -85,6 +88,15 @@ const MappingProfile = () => {
         open={isInsertModalOpen}
         handleClose={() => setIsInsertModalOpen(false)}
         getMappingProfileList={getMappingProfileList}
+      />
+
+      <DeleteModal
+        open={isDeleteModalOpen}
+        handleClose={() => setIsDeleteModalOpen(false)}
+        title={deleteChosenLocation.title}
+        locationId={deleteChosenLocation.id}
+        deleteLoading={deleteLoading}
+        onDelete={deleteHandle}
       />
     </>
   );
