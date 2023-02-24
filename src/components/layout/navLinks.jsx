@@ -106,7 +106,12 @@ export const navMenuLinks = [
         href: '/profileGroup',
         label: 'کد پروفایل',
       },
+      {
+        id: '3',
+        href: '/mappingProfile',
+        label: 'مپ پروفایل',
+      },
     ],
-    pathes: ['/codeGroup', '/profileGroup'],
+    pathes: ['/codeGroup', '/profileGroup', '/profileGroup'],
   },
 ];
