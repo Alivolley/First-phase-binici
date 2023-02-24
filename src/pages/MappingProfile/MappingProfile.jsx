@@ -34,8 +34,7 @@ const MappingProfile = () => {
   }, [mappingProfileList]);
 
   const goToInfoPage = useCallback(
-    row => () => console.log(row),
-    //  navigate(`/codingAttribute/${row.id}`),
+    row => () => navigate(`/mappingIndex/${row.id}`),
     [],
   );
 

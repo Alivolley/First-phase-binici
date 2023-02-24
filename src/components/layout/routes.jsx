@@ -5,6 +5,7 @@ import CodingAttribute from 'pages/CodingAttribute/CodingAttribute';
 import CodingProfile from 'pages/CodingProfile/CodingProfile';
 import HomePage from 'pages/HomePage/HomePage';
 import LocationDetail from 'pages/LocationDetail/LocationDetail';
+import MappingIndex from 'pages/MappingIndex/MappingIndex';
 import MappingProfile from 'pages/MappingProfile/MappingProfile';
 import ProductList from 'pages/ProductList/ProductList';
 import { lazy } from 'react';
@@ -49,5 +50,10 @@ export const routes = [
     id: '8',
     path: '/mappingProfile',
     element: <MappingProfile />,
+  },
+  {
+    id: '9',
+    path: '/mappingIndex/:guid',
+    element: <MappingIndex />,
   },
 ];
