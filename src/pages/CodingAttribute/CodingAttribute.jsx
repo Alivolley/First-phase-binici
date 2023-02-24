@@ -1,6 +1,7 @@
 import useAttributeList from 'api/codingAttribute/useAttributeList/useAttributeList';
 import useDeleteAttribute from 'api/codingAttribute/useDeleteAttribute/useDeleteAttribute';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import CodeAttributeEditModal from 'components/shared/Modals/codeAttribute/CodeAttributeEditModal/CodeAttributeEditModal';
 import CodeAttributeInsertModal from 'components/shared/Modals/codeAttribute/CodeAttributeInsertModal/CodeAttributeInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useTableAttributeColumns from 'hooks/codingAttribute/useTableAttributeColumns';
@@ -16,6 +17,8 @@ const CodingAttribute = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editChosenAttr, setEditChosenAttr] = useState({});
 
   const [deleteRequest] = useDeleteAttribute();
 
@@ -37,8 +40,8 @@ const CodingAttribute = () => {
 
   const editItem = useCallback(
     row => () => {
-      //   setEditChosenBasket(row);
-      //   setIsEditModalOpen(true);
+      setEditChosenAttr(row);
+      setIsEditModalOpen(true);
     },
     [],
   );
@@ -78,6 +81,13 @@ const CodingAttribute = () => {
         handleClose={() => setIsInsertModalOpen(false)}
         getAttributeList={getAttributeList}
         groupGuid={guid}
+      />
+
+      <CodeAttributeEditModal
+        open={isEditModalOpen}
+        handleClose={() => setIsEditModalOpen(false)}
+        chosenBasket={editChosenAttr}
+        getAttributeList={getAttributeList}
       />
     </>
   );
