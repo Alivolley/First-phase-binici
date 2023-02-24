@@ -2,28 +2,29 @@ import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
-const useCodeGrouplist = () => {
+const useCodingProfileLiset = () => {
   const [loading, setLoading] = useState(true);
-  const [codeGroupList, setCodeGroupList] = useState([]);
+  const [codingProfileList, setCodingProfileList] = useState([]);
   const [pageRef, setpageRef] = useState('');
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const getCodeGroupList = () => {
+  const getCodingProfileList = () => {
     setLoading(true);
 
     axiosClient
-      .get('SettingProduct/CoddingGroup/List')
+      .get('SettingProduct/CoddingProfile/List')
       .then(res => {
+        console.log(res.data.value.list[0]);
         if (res.status === 200) {
           setpageRef(res.data.value);
-          setCodeGroupList(prev => {
+          setCodingProfileList(prev => {
             const orderedList = res.data.value.list.map(element => ({
               id: element.guid,
               title: element.display,
-              length: element.length,
               type: element.type,
-              typeDisplay: element.typeDisplay,
+              typeValue: element.typeValue,
+              prefix: element.prefix,
             }));
             return orderedList;
           });
@@ -35,7 +36,7 @@ const useCodeGrouplist = () => {
       .finally(() => setLoading(false));
   };
 
-  return [getCodeGroupList, loading, codeGroupList, pageRef];
+  return [getCodingProfileList, loading, codingProfileList, pageRef];
 };
 
-export default useCodeGrouplist;
+export default useCodingProfileLiset;

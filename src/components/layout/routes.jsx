@@ -2,10 +2,10 @@
 import Baskets from 'pages/Baskets/Baskets';
 import CodeGroup from 'pages/CodeGroup/CodeGroup';
 import CodingAttribute from 'pages/CodingAttribute/CodingAttribute';
+import CodingProfile from 'pages/CodingProfile/CodingProfile';
 import HomePage from 'pages/HomePage/HomePage';
 import LocationDetail from 'pages/LocationDetail/LocationDetail';
 import ProductList from 'pages/ProductList/ProductList';
-import ProfileGroup from 'pages/ProfileGroup/ProfileGroup';
 import { lazy } from 'react';
 
 export const routes = [
@@ -37,7 +37,7 @@ export const routes = [
   {
     id: '6',
     path: '/profileGroup',
-    element: <ProfileGroup />,
+    element: <CodingProfile />,
   },
   {
     id: '7',
