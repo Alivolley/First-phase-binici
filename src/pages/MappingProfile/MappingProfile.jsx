@@ -1,6 +1,7 @@
 import useMappingProfileDelete from 'api/mappingProfile/useMappingProfileDelete/useMappingProfileDelete';
 import useMappingProfileList from 'api/mappingProfile/useMappingProfileList/useMappingProfileList';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import MappingProfileEditModal from 'components/shared/Modals/mappingProfile/MappingProfileEditModal/MappingProfileEditModal';
 import MappingProfileInsertModal from 'components/shared/Modals/mappingProfile/MappingProfileInsertModal/MappingProfileInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useMappingProfilTableColumns from 'hooks/mappingProfile/useMappingProfilTableColumns';
@@ -97,6 +98,13 @@ const MappingProfile = () => {
         locationId={deleteChosenLocation.id}
         deleteLoading={deleteLoading}
         onDelete={deleteHandle}
+      />
+
+      <MappingProfileEditModal
+        open={isEditModalOpen}
+        handleClose={() => setIsEditModalOpen(false)}
+        chosenBasket={editChosenCode}
+        getMappingProfileList={getMappingProfileList}
       />
     </>
   );
