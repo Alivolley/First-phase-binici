@@ -15,7 +15,6 @@ const useCodingProfileLiset = () => {
     axiosClient
       .get('SettingProduct/CoddingProfile/List')
       .then(res => {
-        console.log(res.data.value.list[0]);
         if (res.status === 200) {
           setpageRef(res.data.value);
           setCodingProfileList(prev => {

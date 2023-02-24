@@ -4,7 +4,7 @@ import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import ProductsListEditModal from 'components/shared/Modals/productsList/ProductsListEditModal/ProductsListEditModal';
 import ProductsListInsertModal from 'components/shared/Modals/productsList/ProductsListInsertModal/ProductsListInsertModal';
 import { Table } from 'components/shared/Table/Table';
-import useLocationsTableColumns from 'hooks/homePage/useLocationsTableColumns';
+import useProductListTableColumns from 'hooks/productList/useProductListTableColumns';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -51,7 +51,7 @@ const ProductList = () => {
     [],
   );
 
-  const [columnsData] = useLocationsTableColumns(
+  const [columnsData] = useProductListTableColumns(
     goToInfoPage,
     deleteItem,
     editItem,

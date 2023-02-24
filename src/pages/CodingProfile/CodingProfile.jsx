@@ -2,6 +2,7 @@ import useCodingProfileList from 'api/codingProfile/useCodingProfileLiset/useCod
 import { Table } from 'components/shared/Table/Table';
 import useCodingProfileTableColumns from 'hooks/codingProfile/useCodingProfileTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
+import CodingProfileInsertModal from 'components/shared/Modals/codingProfile/CodingProfileInsertModal/CodingProfileInsertModal';
 
 const CodingProfile = () => {
   const [getCodingProfileList, loading, codingProfileList, pageRef] =
@@ -48,6 +49,12 @@ const CodingProfile = () => {
         isLoading={loading}
         addLable="ثبت کد پروفایل"
         onAddClick={() => setIsInsertModalOpen(true)}
+      />
+
+      <CodingProfileInsertModal
+        open={isInsertModalOpen}
+        handleClose={() => setIsInsertModalOpen(false)}
+        getCodingProfileList={getCodingProfileList}
       />
     </>
   );
