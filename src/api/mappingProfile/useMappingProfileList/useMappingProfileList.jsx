@@ -15,7 +15,6 @@ const useMappingProfileList = () => {
     axiosClient
       .get('SettingProduct/MappingProfile/List')
       .then(res => {
-        console.log(res.data.value.list);
         if (res.status === 200) {
           setpageRef(res.data.value);
           setMappingProfileList(prev => {

@@ -3,6 +3,7 @@ import { Table } from 'components/shared/Table/Table';
 import useMappingProfilTableColumns from 'hooks/mappingProfile/useMappingProfilTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MappingProfileInsertModal from '../../components/shared/Modals/mappingProfile/MappingProfileInsertModal/MappingProfileInsertModal';
 
 const MappingProfile = () => {
   const [getMappingProfileList, loading, mappingProfileList, pageRef] =
@@ -78,6 +79,12 @@ const MappingProfile = () => {
         isLoading={loading}
         addLable="ثبت مپ پروفایل"
         onAddClick={() => setIsInsertModalOpen(true)}
+      />
+
+      <MappingProfileInsertModal
+        open={isInsertModalOpen}
+        handleClose={() => setIsInsertModalOpen(false)}
+        getMappingProfileList={getMappingProfileList}
       />
     </>
   );
