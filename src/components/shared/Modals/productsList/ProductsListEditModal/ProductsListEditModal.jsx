@@ -54,7 +54,6 @@ const ProductsListEditModal = ({
       setEmptyError(false);
 
       if (productImg) {
-        console.log('object');
         const formData = new FormData();
         formData.append('Files', productImg);
         imageRequest(formData, editProduct);

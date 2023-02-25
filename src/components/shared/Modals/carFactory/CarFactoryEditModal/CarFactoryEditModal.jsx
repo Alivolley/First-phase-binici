@@ -6,37 +6,51 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
-import useCarFactoryInsert from 'api/carFactory/useCarFactoryInsert/useCarFactoryInsert';
+import useCarFactoryEdit from 'api/carFactory/useCarFactoryEdit/useCarFactoryEdit';
 import useImageKey from 'api/uploader/useImageKey/useImageKey';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const CarFactoryInsertModal = ({ open, handleClose, getCarFactoryList }) => {
+const CarFactoryEditModal = ({
+  open,
+  handleClose,
+  chosenCarFactory,
+  getCarFactoryList,
+}) => {
   const [factoryName, setFactoryName] = useState('');
   const [factoryImg, setFactoryImg] = useState();
   const [emptyError, setEmptyError] = useState(false);
-  const [insertLoading, setInsertLoading] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
 
   const [imageRequest] = useImageKey();
-  const [insertRequest] = useCarFactoryInsert();
+  const [editRequest] = useCarFactoryEdit();
 
-  const insertProduct = key => {
-    insertRequest(
+  useEffect(() => {
+    setFactoryName(chosenCarFactory.title);
+  }, [chosenCarFactory]);
+
+  const editProduct = key => {
+    editRequest(
+      chosenCarFactory.id,
       getCarFactoryList,
       closeModal,
-      setInsertLoading,
+      setEditLoading,
       factoryName,
       key,
     );
   };
 
   const uploadImage = () => {
-    if (factoryName && factoryImg) {
-      setInsertLoading(true);
+    if (factoryName) {
+      setEditLoading(true);
       setEmptyError(false);
 
-      const formData = new FormData();
-      formData.append('Files', factoryImg);
-      imageRequest(formData, insertProduct);
+      if (factoryImg) {
+        const formData = new FormData();
+        formData.append('Files', factoryImg);
+        imageRequest(formData, editProduct);
+      } else {
+        editProduct(chosenCarFactory.imageKey);
+      }
     } else {
       setEmptyError(true);
     }
@@ -51,7 +65,7 @@ const CarFactoryInsertModal = ({ open, handleClose, getCarFactoryList }) => {
 
   return (
     <Dialog open={open} onClose={closeModal} sx={{ direction: 'rtl' }}>
-      <DialogTitle>ثبت کارخانه خودرو</DialogTitle>
+      <DialogTitle>ویرایش کارخانه خودرو</DialogTitle>
 
       <DialogContent>
         <FilledWrapper>
@@ -68,8 +82,8 @@ const CarFactoryInsertModal = ({ open, handleClose, getCarFactoryList }) => {
 
         <FilledWrapper>
           <FilledLabel>انتخاب عکس</FilledLabel>
-          <InputWrapper error={!factoryImg && emptyError}>
-            {factoryImg ? 'تغییر عکس' : 'انتخاب کنید'}
+          <InputWrapper>
+            تغییر عکس
             <FileInput
               type="file"
               onChange={e => setFactoryImg(e.target.files[0])}
@@ -80,18 +94,14 @@ const CarFactoryInsertModal = ({ open, handleClose, getCarFactoryList }) => {
       </DialogContent>
 
       <DialogActions sx={{ gap: 1, padding: 3 }}>
-        <Button
-          onClick={closeModal}
-          variant="contained"
-          disabled={insertLoading}
-        >
+        <Button onClick={closeModal} variant="contained" disabled={editLoading}>
           انصراف
         </Button>
         <LoadingButton
           variant="contained"
           color="warning"
           onClick={uploadImage}
-          loading={insertLoading}
+          loading={editLoading}
         >
           ثبت
         </LoadingButton>
@@ -100,7 +110,7 @@ const CarFactoryInsertModal = ({ open, handleClose, getCarFactoryList }) => {
   );
 };
 
-export default CarFactoryInsertModal;
+export default CarFactoryEditModal;
 
 const FilledWrapper = styled.div`
   display: flex;
