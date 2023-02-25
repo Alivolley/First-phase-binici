@@ -6,6 +6,7 @@ import { Table } from 'components/shared/Table/Table';
 import useCarBrandTableColumns from 'hooks/carBrand/useCarBrandTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import CarBrandEditModal from '../../components/shared/Modals/carBrand/CarBrandEditModal/CarBrandEditModal';
 
 const CarBrand = () => {
   const { guid } = useParams();
@@ -17,7 +18,7 @@ const CarBrand = () => {
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editChosenAttr, setEditChosenAttr] = useState({});
+  const [editChosenCarBrand, setEditChosenCarBrand] = useState({});
 
   const [deleteRequest] = useCarBrandDelete();
 
@@ -45,7 +46,7 @@ const CarBrand = () => {
 
   const editItem = useCallback(
     row => () => {
-      setEditChosenAttr(row);
+      setEditChosenCarBrand(row);
       setIsEditModalOpen(true);
     },
     [],
@@ -90,6 +91,13 @@ const CarBrand = () => {
         locationId={deleteChosenLocation.id}
         deleteLoading={deleteLoading}
         onDelete={deleteHandle}
+      />
+
+      <CarBrandEditModal
+        open={isEditModalOpen}
+        handleClose={() => setIsEditModalOpen(false)}
+        chosenCarBrand={editChosenCarBrand}
+        getCarBrandList={getCarBrandList}
       />
     </>
   );
