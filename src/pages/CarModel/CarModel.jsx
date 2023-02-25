@@ -1,11 +1,12 @@
+import useCarModelDelete from 'api/carModel/useCarModelDelete/useCarModelDelete';
 import useCarModelList from 'api/carModel/useCarModelList/useCarModelList';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import CarModelEditModal from 'components/shared/Modals/carModel/CarModelEditModal/CarModelEditModal';
+import CarModelInsertModal from 'components/shared/Modals/carModel/CarModelInsertModal/CarModelInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useCarModelTableColumns from 'hooks/carModel/useCarModelTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
-import CarModelInsertModal from '../../components/shared/Modals/carModel/CarModelInsertModal/CarModelInsertModal';
-import useCarModelDelete from '../../api/carModel/useCarModelDelete/useCarModelDelete';
 
 const CarModel = () => {
   const { guid } = useParams();
@@ -91,6 +92,13 @@ const CarModel = () => {
         locationId={deleteChosenLocation.id}
         deleteLoading={deleteLoading}
         onDelete={deleteHandle}
+      />
+
+      <CarModelEditModal
+        open={isEditModalOpen}
+        handleClose={() => setIsEditModalOpen(false)}
+        chosenCarModel={editChosenCarModel}
+        getCarModelList={getCarModelList}
       />
     </>
   );
