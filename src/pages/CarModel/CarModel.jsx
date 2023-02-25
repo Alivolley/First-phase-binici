@@ -3,7 +3,9 @@ import { Table } from 'components/shared/Table/Table';
 import useCarModelTableColumns from 'hooks/carModel/useCarModelTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import CarModelInsertModal from '../../components/shared/Modals/carModel/CarModelInsertModal/CarModelInsertModal';
+import useCarModelDelete from '../../api/carModel/useCarModelDelete/useCarModelDelete';
 
 const CarModel = () => {
   const { guid } = useParams();
@@ -17,7 +19,7 @@ const CarModel = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editChosenCarModel, setEditChosenCarModel] = useState({});
 
-  //   const [deleteRequest] = useCarModelDelete();
+  const [deleteRequest] = useCarModelDelete();
 
   const navigate = useNavigate();
 
@@ -58,7 +60,7 @@ const CarModel = () => {
 
   const deleteHandle = id => {
     setDeleteLoading(true);
-    // deleteRequest(id, getCarModelList, setIsDeleteModalOpen, setDeleteLoading);
+    deleteRequest(id, getCarModelList, setIsDeleteModalOpen, setDeleteLoading);
   };
 
   return (
@@ -80,6 +82,15 @@ const CarModel = () => {
         handleClose={() => setIsInsertModalOpen(false)}
         getCarModelList={getCarModelList}
         brandGuid={guid}
+      />
+
+      <DeleteModal
+        open={isDeleteModalOpen}
+        handleClose={() => setIsDeleteModalOpen(false)}
+        title={deleteChosenLocation.title}
+        locationId={deleteChosenLocation.id}
+        deleteLoading={deleteLoading}
+        onDelete={deleteHandle}
       />
     </>
   );
