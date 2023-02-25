@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
 import useEditProduct from 'api/productsList/useEditProduct/useEditProduct';
 import useGetEditInfo from 'api/productsList/useGetEditInfo/useGetEditInfo';
-import useImageKey from 'api/productsList/useImageKey/useImageKey';
+import useImageKey from 'api/uploader/useImageKey/useImageKey';
 import React, { useEffect, useState } from 'react';
 
 import SpinnerLoader from '../../../SpinnerLoader/SpinnerLoader';

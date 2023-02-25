@@ -34,7 +34,7 @@ const useCarFactoryTableColumns = (goToInfoPage, deleteItem, editItem) => {
         <GridActionsCellItem
           key={1}
           icon={<InfoIcon />}
-          label="جزئیات"
+          label="برندها"
           onClick={goToInfoPage(params.row)}
           showInMenu
         />,

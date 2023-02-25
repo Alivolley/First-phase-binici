@@ -6,40 +6,36 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
-import useInsertProduct from 'api/productsList/useInsertProduct/useInsertProduct';
+import useCarFactoryInsert from 'api/carFactory/useCarFactoryInsert/useCarFactoryInsert';
 import useImageKey from 'api/uploader/useImageKey/useImageKey';
 import React, { useState } from 'react';
 
-const ProductsListInsertModal = ({ open, handleClose, getProsuctList }) => {
-  const [productName, setProductName] = useState('');
-  const [preFixName, setPreFixName] = useState('');
-  const [explain, setExplain] = useState('');
-  const [productImg, setProductImg] = useState();
+const CarFactoryInsertModal = ({ open, handleClose, getCarFactoryList }) => {
+  const [factoryName, setFactoryName] = useState('');
+  const [factoryImg, setFactoryImg] = useState();
   const [emptyError, setEmptyError] = useState(false);
   const [insertLoading, setInsertLoading] = useState(false);
 
   const [imageRequest] = useImageKey();
-  const [insertRequest] = useInsertProduct();
+  const [insertRequest] = useCarFactoryInsert();
 
   const insertProduct = key => {
     insertRequest(
-      getProsuctList,
+      getCarFactoryList,
       closeModal,
       setInsertLoading,
-      productName,
-      preFixName,
-      explain,
+      factoryName,
       key,
     );
   };
 
   const uploadImage = () => {
-    if (productName && preFixName && explain && productImg) {
+    if (factoryName && factoryImg) {
       setInsertLoading(true);
       setEmptyError(false);
 
       const formData = new FormData();
-      formData.append('Files', productImg);
+      formData.append('Files', factoryImg);
       imageRequest(formData, insertProduct);
     } else {
       setEmptyError(true);
@@ -48,58 +44,35 @@ const ProductsListInsertModal = ({ open, handleClose, getProsuctList }) => {
 
   const closeModal = () => {
     handleClose();
-    setProductName('');
-    setPreFixName('');
-    setExplain('');
-    setProductImg();
+    setFactoryName('');
+    setFactoryImg();
     setEmptyError(false);
   };
 
   return (
     <Dialog open={open} onClose={closeModal} sx={{ direction: 'rtl' }}>
-      <DialogTitle>اضافه کردن محصول جدید</DialogTitle>
+      <DialogTitle>ثبت کارخانه خودرو</DialogTitle>
 
       <DialogContent>
         <FilledWrapper>
-          <FilledLabel>نام محصول</FilledLabel>
+          <FilledLabel>عنوان</FilledLabel>
           <TextField
             autoFocus
             variant="standard"
-            value={productName}
-            onChange={e => setProductName(e.target.value)}
+            value={factoryName}
+            onChange={e => setFactoryName(e.target.value)}
             sx={{ minWidth: 300 }}
-            error={!productName && emptyError}
-          />
-        </FilledWrapper>
-
-        <FilledWrapper>
-          <FilledLabel>پیشوند</FilledLabel>
-          <TextField
-            variant="standard"
-            value={preFixName}
-            onChange={e => setPreFixName(e.target.value)}
-            sx={{ minWidth: 300 }}
-            error={!preFixName && emptyError}
-          />
-        </FilledWrapper>
-
-        <FilledWrapper>
-          <FilledLabel>توضیحات</FilledLabel>
-          <TextArea
-            rows="5"
-            value={explain}
-            onChange={e => setExplain(e.target.value)}
-            error={!explain && emptyError}
+            error={!factoryName && emptyError}
           />
         </FilledWrapper>
 
         <FilledWrapper>
           <FilledLabel>انتخاب عکس</FilledLabel>
-          <InputWrapper error={!productImg && emptyError}>
-            {productImg ? 'تغییر عکس' : 'انتخاب کنید'}
+          <InputWrapper error={!factoryImg && emptyError}>
+            {factoryImg ? 'تغییر عکس' : 'انتخاب کنید'}
             <FileInput
               type="file"
-              onChange={e => setProductImg(e.target.files[0])}
+              onChange={e => setFactoryImg(e.target.files[0])}
               accept="image/*"
             />
           </InputWrapper>
@@ -127,7 +100,7 @@ const ProductsListInsertModal = ({ open, handleClose, getProsuctList }) => {
   );
 };
 
-export default ProductsListInsertModal;
+export default CarFactoryInsertModal;
 
 const FilledWrapper = styled.div`
   display: flex;

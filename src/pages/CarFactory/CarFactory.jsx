@@ -2,6 +2,7 @@ import useCarFactoryList from 'api/carFactory/useCarFactoryList/useCarFactoryLis
 import { Table } from 'components/shared/Table/Table';
 import useCarFactoryTableColumns from 'hooks/carFactory/useCarFactoryTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
+import CarFactoryInsertModal from '../../components/shared/Modals/carFactory/CarFactoryInsertModal/CarFactoryInsertModal';
 
 const CarFactory = () => {
   const [getCarFactoryList, loading, carFactoryList, pageRef] =
@@ -73,6 +74,12 @@ const CarFactory = () => {
         isLoading={loading}
         addLable="ثبت کارخانه خودرو"
         onAddClick={() => setIsInsertModalOpen(true)}
+      />
+
+      <CarFactoryInsertModal
+        open={isInsertModalOpen}
+        handleClose={() => setIsInsertModalOpen(false)}
+        getCarFactoryList={getCarFactoryList}
       />
     </>
   );
