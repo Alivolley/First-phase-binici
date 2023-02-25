@@ -1,5 +1,6 @@
 // const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 import Baskets from 'pages/Baskets/Baskets';
+import CarFactory from 'pages/CarFactory/CarFactory';
 import CodeGroup from 'pages/CodeGroup/CodeGroup';
 import CodingAttribute from 'pages/CodingAttribute/CodingAttribute';
 import CodingProfile from 'pages/CodingProfile/CodingProfile';
@@ -55,5 +56,10 @@ export const routes = [
     id: '9',
     path: '/mappingIndex/:guid',
     element: <MappingIndex />,
+  },
+  {
+    id: '10',
+    path: '/carFactory',
+    element: <CarFactory />,
   },
 ];

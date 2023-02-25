@@ -111,7 +111,12 @@ export const navMenuLinks = [
         href: '/mappingProfile',
         label: 'مپ پروفایل',
       },
+      {
+        id: '4',
+        href: '/carFactory',
+        label: 'مدل خودرود ها',
+      },
     ],
-    pathes: ['/codeGroup', '/profileGroup', '/profileGroup'],
+    pathes: ['/codeGroup', '/profileGroup', '/profileGroup', '/carFactory'],
   },
 ];
