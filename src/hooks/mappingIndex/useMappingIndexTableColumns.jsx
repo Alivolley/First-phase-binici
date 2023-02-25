@@ -1,3 +1,7 @@
+import styled from '@emotion/styled';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+
 const useMappingIndexTableColumns = () => {
   const columnsData = [
     {
@@ -25,6 +29,8 @@ const useMappingIndexTableColumns = () => {
       minWidth: 120,
       resizable: true,
       editable: false,
+
+      renderCell: params => (params.row.mapped ? <DoneIcon /> : <UnDoneIcon />),
     },
   ];
 
@@ -32,3 +38,13 @@ const useMappingIndexTableColumns = () => {
 };
 
 export default useMappingIndexTableColumns;
+
+const DoneIcon = styled(CheckIcon)`
+  color: green;
+  font-size: 35px;
+`;
+
+const UnDoneIcon = styled(CloseIcon)`
+  color: red;
+  font-size: 35px;
+`;

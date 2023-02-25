@@ -33,7 +33,7 @@ const CarModel = () => {
   }, [carModelList]);
 
   const goToInfoPage = useCallback(
-    row => () => navigate(`/carModel/${row.id}`),
+    row => () => navigate(`/carSeries/${row.id}`),
     [],
   );
 
