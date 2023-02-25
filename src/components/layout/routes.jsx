@@ -1,5 +1,6 @@
 // const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 import Baskets from 'pages/Baskets/Baskets';
+import CarBrand from 'pages/CarBrand/CarBrand';
 import CarFactory from 'pages/CarFactory/CarFactory';
 import CodeGroup from 'pages/CodeGroup/CodeGroup';
 import CodingAttribute from 'pages/CodingAttribute/CodingAttribute';
@@ -61,5 +62,10 @@ export const routes = [
     id: '10',
     path: '/carFactory',
     element: <CarFactory />,
+  },
+  {
+    id: '11',
+    path: '/carBrand/:guid',
+    element: <CarBrand />,
   },
 ];

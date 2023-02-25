@@ -6,6 +6,7 @@ import CarFactoryInsertModal from 'components/shared/Modals/carFactory/CarFactor
 import { Table } from 'components/shared/Table/Table';
 import useCarFactoryTableColumns from 'hooks/carFactory/useCarFactoryTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CarFactory = () => {
   const [getCarFactoryList, loading, carFactoryList, pageRef] =
@@ -21,6 +22,8 @@ const CarFactory = () => {
 
   const [deleteRequest] = useCarFactoryDelete();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getCarFactoryList();
   }, []);
@@ -30,8 +33,7 @@ const CarFactory = () => {
   }, [carFactoryList]);
 
   const goToInfoPage = useCallback(
-    row => () => console.log('object'),
-    // navigate(`/codingAttribute/${row.id}`),
+    row => () => navigate(`/carBrand/${row.id}`),
     [],
   );
 
