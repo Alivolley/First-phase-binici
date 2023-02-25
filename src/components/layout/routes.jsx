@@ -2,6 +2,7 @@
 import Baskets from 'pages/Baskets/Baskets';
 import CarBrand from 'pages/CarBrand/CarBrand';
 import CarFactory from 'pages/CarFactory/CarFactory';
+import CarModel from 'pages/CarModel/CarModel';
 import CodeGroup from 'pages/CodeGroup/CodeGroup';
 import CodingAttribute from 'pages/CodingAttribute/CodingAttribute';
 import CodingProfile from 'pages/CodingProfile/CodingProfile';
@@ -67,5 +68,10 @@ export const routes = [
     id: '11',
     path: '/carBrand/:guid',
     element: <CarBrand />,
+  },
+  {
+    id: '11',
+    path: '/carModel/:guid',
+    element: <CarModel />,
   },
 ];

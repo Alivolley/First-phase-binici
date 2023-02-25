@@ -1,12 +1,12 @@
 import useCarBrandDelete from 'api/carBrand/useCarBrandDelete/useCarBrandDelete';
 import useCarBrandList from 'api/carBrand/useCarBrandList/useCarBrandList';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import CarBrandEditModal from 'components/shared/Modals/carBrand/CarBrandEditModal/CarBrandEditModal';
 import CarBrandInsertModal from 'components/shared/Modals/carBrand/CarBrandInsertModal/CarBrandInsertModal';
 import { Table } from 'components/shared/Table/Table';
 import useCarBrandTableColumns from 'hooks/carBrand/useCarBrandTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import CarBrandEditModal from '../../components/shared/Modals/carBrand/CarBrandEditModal/CarBrandEditModal';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CarBrand = () => {
   const { guid } = useParams();
@@ -22,6 +22,8 @@ const CarBrand = () => {
 
   const [deleteRequest] = useCarBrandDelete();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getCarBrandList();
   }, []);
@@ -31,8 +33,7 @@ const CarBrand = () => {
   }, [carBrandList]);
 
   const goToInfoPage = useCallback(
-    row => () => console.log('object'),
-    // navigate(`/codingAttribute/${row.id}`),
+    row => () => navigate(`/carModel/${row.id}`),
     [],
   );
 
