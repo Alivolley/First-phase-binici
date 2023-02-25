@@ -3,6 +3,7 @@ import { Table } from 'components/shared/Table/Table';
 import useCarModelTableColumns from 'hooks/carModel/useCarModelTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import CarModelInsertModal from '../../components/shared/Modals/carModel/CarModelInsertModal/CarModelInsertModal';
 
 const CarModel = () => {
   const { guid } = useParams();
@@ -72,6 +73,13 @@ const CarModel = () => {
         isLoading={loading}
         addLable="ثبت مدل خودرو"
         onAddClick={() => setIsInsertModalOpen(true)}
+      />
+
+      <CarModelInsertModal
+        open={isInsertModalOpen}
+        handleClose={() => setIsInsertModalOpen(false)}
+        getCarModelList={getCarModelList}
+        brandGuid={guid}
       />
     </>
   );
