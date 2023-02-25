@@ -1,9 +1,11 @@
+import useCarBrandDelete from 'api/carBrand/useCarBrandDelete/useCarBrandDelete';
+import useCarBrandList from 'api/carBrand/useCarBrandList/useCarBrandList';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import CarBrandInsertModal from 'components/shared/Modals/carBrand/CarBrandInsertModal/CarBrandInsertModal';
 import { Table } from 'components/shared/Table/Table';
+import useCarBrandTableColumns from 'hooks/carBrand/useCarBrandTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useCarBrandList from '../../api/carBrand/useCarBrandList/useCarBrandList';
-import CarBrandInsertModal from '../../components/shared/Modals/carBrand/CarBrandInsertModal/CarBrandInsertModal';
-import useCarBrandTableColumns from '../../hooks/carBrand/useCarBrandTableColumns';
 
 const CarBrand = () => {
   const { guid } = useParams();
@@ -17,7 +19,7 @@ const CarBrand = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editChosenAttr, setEditChosenAttr] = useState({});
 
-  //   const [deleteRequest] = useDeleteAttribute();
+  const [deleteRequest] = useCarBrandDelete();
 
   useEffect(() => {
     getCarBrandList();
@@ -57,7 +59,7 @@ const CarBrand = () => {
 
   const deleteHandle = id => {
     setDeleteLoading(true);
-    // deleteRequest(id, getCarBrandList, setIsDeleteModalOpen, setDeleteLoading);
+    deleteRequest(id, getCarBrandList, setIsDeleteModalOpen, setDeleteLoading);
   };
 
   return (
@@ -79,6 +81,15 @@ const CarBrand = () => {
         handleClose={() => setIsInsertModalOpen(false)}
         getCarBrandList={getCarBrandList}
         factoryGuid={guid}
+      />
+
+      <DeleteModal
+        open={isDeleteModalOpen}
+        handleClose={() => setIsDeleteModalOpen(false)}
+        title={deleteChosenLocation.title}
+        locationId={deleteChosenLocation.id}
+        deleteLoading={deleteLoading}
+        onDelete={deleteHandle}
       />
     </>
   );
