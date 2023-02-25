@@ -3,6 +3,8 @@ import { Table } from 'components/shared/Table/Table';
 import useCarFactoryTableColumns from 'hooks/carFactory/useCarFactoryTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import CarFactoryInsertModal from '../../components/shared/Modals/carFactory/CarFactoryInsertModal/CarFactoryInsertModal';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import useCarFactoryDelete from '../../api/carFactory/useCarFactoryDelete/useCarFactoryDelete';
 
 const CarFactory = () => {
   const [getCarFactoryList, loading, carFactoryList, pageRef] =
@@ -15,6 +17,8 @@ const CarFactory = () => {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editChosenCode, setEditChosenCode] = useState({});
+
+  const [deleteRequest] = useCarFactoryDelete();
 
   useEffect(() => {
     getCarFactoryList();
@@ -53,13 +57,13 @@ const CarFactory = () => {
   );
 
   const deleteHandle = id => {
-    // setDeleteLoading(true);
-    // deleteRequest(
-    //   id,
-    //   getCodingProfileList,
-    //   setIsDeleteModalOpen,
-    //   setDeleteLoading,
-    // );
+    setDeleteLoading(true);
+    deleteRequest(
+      id,
+      getCarFactoryList,
+      setIsDeleteModalOpen,
+      setDeleteLoading,
+    );
   };
 
   return (
@@ -80,6 +84,15 @@ const CarFactory = () => {
         open={isInsertModalOpen}
         handleClose={() => setIsInsertModalOpen(false)}
         getCarFactoryList={getCarFactoryList}
+      />
+
+      <DeleteModal
+        open={isDeleteModalOpen}
+        handleClose={() => setIsDeleteModalOpen(false)}
+        title={deleteChosenLocation.title}
+        locationId={deleteChosenLocation.id}
+        deleteLoading={deleteLoading}
+        onDelete={deleteHandle}
       />
     </>
   );
