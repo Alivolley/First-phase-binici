@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
@@ -12,6 +13,9 @@ const useProductListTableColumns = (goToInfoPage, deleteItem, editItem) => {
       minWidth: 120,
       resizable: true,
       editable: false,
+      renderCell: params => (
+        <ColImage src={params.row.imageURL} alt={params.row.title} />
+      ),
     },
 
     {
@@ -60,3 +64,9 @@ const useProductListTableColumns = (goToInfoPage, deleteItem, editItem) => {
 };
 
 export default useProductListTableColumns;
+
+const ColImage = styled.img`
+  object-fit: fill;
+  max-width: 60px;
+  max-height: 90%;
+`;
