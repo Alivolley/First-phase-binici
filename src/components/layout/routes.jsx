@@ -3,6 +3,7 @@ import Baskets from 'pages/Baskets/Baskets';
 import CarBrand from 'pages/CarBrand/CarBrand';
 import CarFactory from 'pages/CarFactory/CarFactory';
 import CarModel from 'pages/CarModel/CarModel';
+import CarProductionTime from 'pages/CarProductionTime/CarProductionTime';
 import CarSeries from 'pages/CarSeries/CarSeries';
 import CodeGroup from 'pages/CodeGroup/CodeGroup';
 import CodingAttribute from 'pages/CodingAttribute/CodingAttribute';
@@ -79,5 +80,10 @@ export const routes = [
     id: '13',
     path: '/carSeries/:guid',
     element: <CarSeries />,
+  },
+  {
+    id: '14',
+    path: '/carProductionTime/:guid',
+    element: <CarProductionTime />,
   },
 ];

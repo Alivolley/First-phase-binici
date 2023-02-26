@@ -33,7 +33,7 @@ const CarSeries = () => {
   }, [carSeriesList]);
 
   const goToInfoPage = useCallback(
-    row => () => navigate(`/carSeries/${row.id}`),
+    row => () => navigate(`/carProductionTime/${row.id}`),
     [],
   );
 
