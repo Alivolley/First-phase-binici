@@ -5,6 +5,7 @@ import useCarSeriesList from '../../api/carSeries/useCarSeriesList/useCarSeriesL
 import CarSeriesInsertModal from '../../components/shared/Modals/carSeries/CarSeriesInsertModal/CarSeriesInsertModal';
 import useCarSeriesTableColumns from '../../hooks/carSeries/useCarSeriesTableColumns';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import useCarSeriesDelete from '../../api/carSeries/useCarSeriesDelete/useCarSeriesDelete';
 
 const CarSeries = () => {
   const { guid } = useParams();
@@ -18,7 +19,7 @@ const CarSeries = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editChosenCarModel, setEditChosenCarModel] = useState({});
 
-  // const [deleteRequest] = useCarModelDelete();
+  const [deleteRequest] = useCarSeriesDelete();
 
   const navigate = useNavigate();
 
@@ -59,7 +60,7 @@ const CarSeries = () => {
 
   const deleteHandle = id => {
     setDeleteLoading(true);
-    // deleteRequest(id, getCarModelList, setIsDeleteModalOpen, setDeleteLoading);
+    deleteRequest(id, getCarSeriesList, setIsDeleteModalOpen, setDeleteLoading);
   };
 
   return (
