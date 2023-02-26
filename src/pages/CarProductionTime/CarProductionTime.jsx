@@ -1,9 +1,12 @@
+import useCarProductionTimeDelete from 'api/carProductionTime/useCarProductionTimeDelete/useCarProductionTimeDelete';
+import useCarProductionTimeList from 'api/carProductionTime/useCarProductionTimeList/useCarProductionTimeList';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import CarProductionTimeEdit from 'components/shared/Modals/carProductionTime/CarProductionTimeEdit/CarProductionTimeEdit';
+import CarProductionTimeInsert from 'components/shared/Modals/carProductionTime/CarProductionTimeInsert/CarProductionTimeInsert';
 import { Table } from 'components/shared/Table/Table';
+import useCarProductionTimeTableColumns from 'hooks/carProductionTime/useCarProductionTimeTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useCarProductionTimeList from '../../api/carProductionTime/useCarProductionTimeList/useCarProductionTimeList';
-import CarProductionTimeInsert from '../../components/shared/Modals/carProductionTime/CarProductionTimeInsert/CarProductionTimeInsert';
-import useCarProductionTimeTableColumns from '../../hooks/carProductionTime/useCarProductionTimeTableColumns';
 
 const CarProductionTime = () => {
   const { guid } = useParams();
@@ -18,7 +21,7 @@ const CarProductionTime = () => {
   const [editChosenCarProductionTime, setEditChosenCarProductionTime] =
     useState({});
 
-  //   const [deleteRequest] = useCarSeriesDelete();
+  const [deleteRequest] = useCarProductionTimeDelete();
 
   useEffect(() => {
     getCarProductionTimeList();
@@ -48,7 +51,12 @@ const CarProductionTime = () => {
 
   const deleteHandle = id => {
     setDeleteLoading(true);
-    // deleteRequest(id, getCarSeriesList, setIsDeleteModalOpen, setDeleteLoading);
+    deleteRequest(
+      id,
+      getCarProductionTimeList,
+      setIsDeleteModalOpen,
+      setDeleteLoading,
+    );
   };
 
   return (
@@ -70,6 +78,22 @@ const CarProductionTime = () => {
         handleClose={() => setIsInsertModalOpen(false)}
         getCarProductionTimeList={getCarProductionTimeList}
         seriesGuid={guid}
+      />
+
+      <DeleteModal
+        open={isDeleteModalOpen}
+        handleClose={() => setIsDeleteModalOpen(false)}
+        title={deleteChosenLocation.title}
+        locationId={deleteChosenLocation.id}
+        deleteLoading={deleteLoading}
+        onDelete={deleteHandle}
+      />
+
+      <CarProductionTimeEdit
+        open={isEditModalOpen}
+        handleClose={() => setIsEditModalOpen(false)}
+        chosenCarProductionTime={editChosenCarProductionTime}
+        getCarProductionTimeList={getCarProductionTimeList}
       />
     </>
   );
