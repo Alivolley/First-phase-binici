@@ -1,11 +1,12 @@
+import useCarSeriesDelete from 'api/carSeries/useCarSeriesDelete/useCarSeriesDelete';
+import useCarSeriesList from 'api/carSeries/useCarSeriesList/useCarSeriesList';
+import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
+import CarSeriesEditModal from 'components/shared/Modals/carSeries/CarSeriesEditModal/CarSeriesEditModal';
+import CarSeriesInsertModal from 'components/shared/Modals/carSeries/CarSeriesInsertModal/CarSeriesInsertModal';
 import { Table } from 'components/shared/Table/Table';
+import useCarSeriesTableColumns from 'hooks/carSeries/useCarSeriesTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import useCarSeriesList from '../../api/carSeries/useCarSeriesList/useCarSeriesList';
-import CarSeriesInsertModal from '../../components/shared/Modals/carSeries/CarSeriesInsertModal/CarSeriesInsertModal';
-import useCarSeriesTableColumns from '../../hooks/carSeries/useCarSeriesTableColumns';
-import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
-import useCarSeriesDelete from '../../api/carSeries/useCarSeriesDelete/useCarSeriesDelete';
 
 const CarSeries = () => {
   const { guid } = useParams();
@@ -17,7 +18,7 @@ const CarSeries = () => {
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editChosenCarModel, setEditChosenCarModel] = useState({});
+  const [editChosenCarSeries, setEditChosenCarSeries] = useState({});
 
   const [deleteRequest] = useCarSeriesDelete();
 
@@ -46,7 +47,7 @@ const CarSeries = () => {
 
   const editItem = useCallback(
     row => () => {
-      setEditChosenCarModel(row);
+      setEditChosenCarSeries(row);
       setIsEditModalOpen(true);
     },
     [],
@@ -91,6 +92,13 @@ const CarSeries = () => {
         locationId={deleteChosenLocation.id}
         deleteLoading={deleteLoading}
         onDelete={deleteHandle}
+      />
+
+      <CarSeriesEditModal
+        open={isEditModalOpen}
+        handleClose={() => setIsEditModalOpen(false)}
+        chosenCarSeries={editChosenCarSeries}
+        getCarSeriesList={getCarSeriesList}
       />
     </>
   );
