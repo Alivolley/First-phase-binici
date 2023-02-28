@@ -4,26 +4,42 @@ import { Divider, Grid } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const productAccordion = ({ detail }) => {
-  const { codding, display } = detail;
-  console.log(detail);
+import AccordionCodingList from '../AccordionCodingList/AccordionCodingList';
+
+const ProductAccordion = ({ detail }) => {
+  const { codding, display, coddingList } = detail;
+  const [orderedCoddingList, setOrderedCoddingList] = useState();
+
+  useEffect(() => {
+    setOrderedCoddingList(
+      coddingList.map(code => {
+        const orderd = {
+          codding: code.codding,
+          title: code.display,
+          id: code.guid,
+          isReadOnly: code.isReadOnly,
+          type: code.type,
+        };
+        return orderd;
+      }),
+    );
+  }, []);
 
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <AccordionHeader>
           <Grid container spacing={{ xs: 2, sm: 12 }}>
-            <Grid item sx={12} md={6}>
+            <Grid item xs={12} sm={6}>
               <HeaderItem>
                 <HeaderDesc>نام</HeaderDesc>
                 <Divider />
                 <HeaderDesc>{display}</HeaderDesc>
               </HeaderItem>
             </Grid>
-            <Grid item sx={12} md={6}>
+            <Grid item xs={12} sm={6}>
               <HeaderItem>
                 <HeaderDesc>کدینگ</HeaderDesc>
                 <Divider />
@@ -34,16 +50,13 @@ const productAccordion = ({ detail }) => {
         </AccordionHeader>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
-        </Typography>
+        <AccordionCodingList coddingList={orderedCoddingList} />
       </AccordionDetails>
     </Accordion>
   );
 };
 
-export default productAccordion;
+export default ProductAccordion;
 
 const AccordionHeader = styled.div``;
 

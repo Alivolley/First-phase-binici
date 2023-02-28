@@ -5,7 +5,6 @@ import { useState } from 'react';
 const useProductDetail = guid => {
   const [loading, setLoading] = useState(true);
   const [productDetailObj, setProductDetailObj] = useState({});
-  const [pageRef, setpageRef] = useState('');
 
   const { enqueueSnackbar } = useSnackbar();
 
