@@ -2,9 +2,15 @@ import styled from '@emotion/styled';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import SsidChartIcon from '@mui/icons-material/SsidChart';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 
-const useProductListTableColumns = (goToInfoPage, deleteItem, editItem) => {
+const useProductListTableColumns = (
+  goToInfoPage,
+  goToGraphPage,
+  deleteItem,
+  editItem,
+) => {
   const columnsData = [
     {
       field: 'image',
@@ -44,13 +50,20 @@ const useProductListTableColumns = (goToInfoPage, deleteItem, editItem) => {
         />,
         <GridActionsCellItem
           key={2}
+          icon={<SsidChartIcon />}
+          label="گراف"
+          onClick={goToGraphPage()}
+          showInMenu
+        />,
+        <GridActionsCellItem
+          key={3}
           icon={<DeleteIcon />}
           label="حذف"
           onClick={deleteItem(params.row)}
           showInMenu
         />,
         <GridActionsCellItem
-          key={2}
+          key={4}
           icon={<ModeEditOutlineIcon />}
           label="ویرایش"
           onClick={editItem(params.row)}

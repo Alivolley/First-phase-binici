@@ -30,12 +30,18 @@ const ProductList = () => {
     setRows(productList);
   }, [productList]);
 
-  const goToInfoPage = useCallback(
+  const goToGraphPage = useCallback(
     row => () =>
-      //  navigate(`/locations/${row.id}`),
-      console.log(row),
+      // eslint-disable-next-line no-alert
+      alert('صفحه گراف که با حاجی محمده :)))))'),
     [],
   );
+
+  const goToInfoPage = useCallback(
+    row => () => navigate(`/productDetail/${row.id}`),
+    [],
+  );
+
   const deleteItem = useCallback(
     row => () => {
       setDeleteChosenLocation(row);
@@ -43,6 +49,7 @@ const ProductList = () => {
     },
     [],
   );
+
   const editItem = useCallback(
     row => () => {
       setEditChosenProduct(row);
@@ -53,6 +60,7 @@ const ProductList = () => {
 
   const [columnsData] = useProductListTableColumns(
     goToInfoPage,
+    goToGraphPage,
     deleteItem,
     editItem,
   );

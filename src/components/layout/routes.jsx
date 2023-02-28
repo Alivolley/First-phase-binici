@@ -12,6 +12,7 @@ import HomePage from 'pages/HomePage/HomePage';
 import LocationDetail from 'pages/LocationDetail/LocationDetail';
 import MappingIndex from 'pages/MappingIndex/MappingIndex';
 import MappingProfile from 'pages/MappingProfile/MappingProfile';
+import ProductDetail from 'pages/ProductDetail/ProductDetail';
 import ProductList from 'pages/ProductList/ProductList';
 import { lazy } from 'react';
 
@@ -85,5 +86,10 @@ export const routes = [
     id: '14',
     path: '/carProductionTime/:guid',
     element: <CarProductionTime />,
+  },
+  {
+    id: '15',
+    path: '/productDetail/:guid',
+    element: <ProductDetail />,
   },
 ];
