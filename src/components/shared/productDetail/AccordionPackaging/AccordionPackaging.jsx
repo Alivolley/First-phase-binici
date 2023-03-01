@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';
 import useProductCoddingDelete from 'api/productDetail/useProductCoddingDelete/useProductCoddingDelete';
+import useProductPackagingDelete from 'api/productDetail/useProductPackagingDelete/useProductPackagingDelete';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import useProductPackgingListTableColumns from 'hooks/productDetail/useProductPackgingListTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -22,7 +23,7 @@ const AccordionPackaging = ({
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editChosenProduct, setEditChosenProduct] = useState({});
 
-  const [deleteRequest] = useProductCoddingDelete();
+  const [deleteRequest] = useProductPackagingDelete();
 
   const print = useCallback(
     row => () => {
@@ -33,8 +34,8 @@ const AccordionPackaging = ({
 
   const deleteItem = useCallback(
     row => () => {
-      //   setDeleteChosenLocation(row);
-      //   setIsDeleteModalOpen(true);
+      setDeleteChosenLocation(row);
+      setIsDeleteModalOpen(true);
     },
     [],
   );
@@ -80,7 +81,7 @@ const AccordionPackaging = ({
         branchGuid={branchGuid}
       />
 
-      {/* <DeleteModal
+      <DeleteModal
         open={isDeleteModalOpen}
         handleClose={() => setIsDeleteModalOpen(false)}
         title={deleteChosenLocation.title}
@@ -89,7 +90,7 @@ const AccordionPackaging = ({
         onDelete={deleteHandle}
       />
 
-      <ProductCoddingEditModal
+      {/* <ProductCoddingEditModal
         open={isEditModalOpen}
         handleClose={() => setIsEditModalOpen(false)}
         chosenProduct={editChosenProduct}
