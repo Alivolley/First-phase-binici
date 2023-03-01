@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import AccordionTable from '../../AccordionTable/AccordionTable';
 import ProductPackagingEditModal from '../../Modals/productsList/ProductPackagingEditModal/ProductPackagingEditModal';
 import ProductPackagingInsertModal from '../../Modals/productsList/ProductPackagingInsertModal/ProductPackagingInsertModal';
+import ProductPackagingPrintModal from '../../Modals/productsList/ProductPackagingPrintModal/ProductPackagingPrintModal';
 
 const AccordionPackaging = ({
   packagingList,
@@ -21,12 +22,15 @@ const AccordionPackaging = ({
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editChosenProduct, setEditChosenProduct] = useState({});
+  const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
+  const [chosenPrintProduct, setChosenPrintProduct] = useState({});
 
   const [deleteRequest] = useProductPackagingDelete();
 
   const print = useCallback(
     row => () => {
-      console.log('print');
+      setChosenPrintProduct(row);
+      setIsPrintModalOpen(true);
     },
     [],
   );
@@ -94,6 +98,12 @@ const AccordionPackaging = ({
         handleClose={() => setIsEditModalOpen(false)}
         chosenProduct={editChosenProduct}
         getProductDetail={getProductDetail}
+      />
+
+      <ProductPackagingPrintModal
+        open={isPrintModalOpen}
+        handleClose={() => setIsPrintModalOpen(false)}
+        chosenPrintProduct={chosenPrintProduct}
       />
     </Wrapper>
   );
