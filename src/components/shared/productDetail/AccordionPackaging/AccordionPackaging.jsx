@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
 import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';
-import useProductCoddingDelete from 'api/productDetail/useProductCoddingDelete/useProductCoddingDelete';
 import useProductPackagingDelete from 'api/productDetail/useProductPackagingDelete/useProductPackagingDelete';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import useProductPackgingListTableColumns from 'hooks/productDetail/useProductPackgingListTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import AccordionTable from '../../AccordionTable/AccordionTable';
-import ProductCoddingEditModal from '../../Modals/productsList/ProductCoddingEditModal/ProductCoddingEditModal';
+import ProductPackagingEditModal from '../../Modals/productsList/ProductPackagingEditModal/ProductPackagingEditModal';
 import ProductPackagingInsertModal from '../../Modals/productsList/ProductPackagingInsertModal/ProductPackagingInsertModal';
 
 const AccordionPackaging = ({
@@ -42,8 +41,8 @@ const AccordionPackaging = ({
 
   const editItem = useCallback(
     row => () => {
-      //   setEditChosenProduct(row);
-      //   setIsEditModalOpen(true);
+      setEditChosenProduct(row);
+      setIsEditModalOpen(true);
     },
     [],
   );
@@ -90,12 +89,12 @@ const AccordionPackaging = ({
         onDelete={deleteHandle}
       />
 
-      {/* <ProductCoddingEditModal
+      <ProductPackagingEditModal
         open={isEditModalOpen}
         handleClose={() => setIsEditModalOpen(false)}
         chosenProduct={editChosenProduct}
         getProductDetail={getProductDetail}
-      /> */}
+      />
     </Wrapper>
   );
 };
