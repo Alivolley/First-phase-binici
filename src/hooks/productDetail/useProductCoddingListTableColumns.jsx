@@ -60,9 +60,3 @@ const useProductCoddingListTableColumns = (deleteItem, editItem) => {
 };
 
 export default useProductCoddingListTableColumns;
-
-const ColImage = styled.img`
-  object-fit: fill;
-  max-width: 60px;
-  max-height: 90%;
-`;

@@ -56,7 +56,9 @@ const ProductDetailHeader = ({ detail }) => {
 
 export default ProductDetailHeader;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin-bottom: 90px;
+`;
 
 const HeaderImage = styled.div``;
 

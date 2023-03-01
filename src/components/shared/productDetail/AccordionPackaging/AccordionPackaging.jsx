@@ -3,13 +3,19 @@ import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';
 import useProductCoddingDelete from 'api/productDetail/useProductCoddingDelete/useProductCoddingDelete';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
-import useProductCoddingListTableColumns from 'hooks/productDetail/useProductCoddingListTableColumns';
+import useProductPackgingListTableColumns from 'hooks/productDetail/useProductPackgingListTableColumns';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import AccordionTable from '../../AccordionTable/AccordionTable';
 import ProductCoddingEditModal from '../../Modals/productsList/ProductCoddingEditModal/ProductCoddingEditModal';
+import ProductPackagingInsertModal from '../../Modals/productsList/ProductPackagingInsertModal/ProductPackagingInsertModal';
 
-const AccordionCodingList = ({ coddingList, getProductDetail }) => {
+const AccordionPackaging = ({
+  packagingList,
+  getProductDetail,
+  branchGuid,
+}) => {
+  const [isInsertModalOpen, setIsInsertModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -18,23 +24,34 @@ const AccordionCodingList = ({ coddingList, getProductDetail }) => {
 
   const [deleteRequest] = useProductCoddingDelete();
 
+  const print = useCallback(
+    row => () => {
+      console.log('print');
+    },
+    [],
+  );
+
   const deleteItem = useCallback(
     row => () => {
-      setDeleteChosenLocation(row);
-      setIsDeleteModalOpen(true);
+      //   setDeleteChosenLocation(row);
+      //   setIsDeleteModalOpen(true);
     },
     [],
   );
 
   const editItem = useCallback(
     row => () => {
-      setEditChosenProduct(row);
-      setIsEditModalOpen(true);
+      //   setEditChosenProduct(row);
+      //   setIsEditModalOpen(true);
     },
     [],
   );
 
-  const [columnsData] = useProductCoddingListTableColumns(deleteItem, editItem);
+  const [columnsData] = useProductPackgingListTableColumns(
+    print,
+    deleteItem,
+    editItem,
+  );
 
   const deleteHandle = id => {
     setDeleteLoading(true);
@@ -44,15 +61,26 @@ const AccordionCodingList = ({ coddingList, getProductDetail }) => {
   return (
     <Wrapper>
       <Header>
-        <Title>لیست کدینگ</Title>
-        <AddButton variant="contained" size="small">
+        <Title>لیست پکیج ها</Title>
+        <AddButton
+          variant="contained"
+          size="small"
+          onClick={() => setIsInsertModalOpen(true)}
+        >
           <AddIcon />
         </AddButton>
       </Header>
 
-      <AccordionTable columns={columnsData} rows={coddingList || []} />
+      <AccordionTable columns={columnsData} rows={packagingList || []} />
 
-      <DeleteModal
+      <ProductPackagingInsertModal
+        open={isInsertModalOpen}
+        handleClose={() => setIsInsertModalOpen(false)}
+        getProductDetail={getProductDetail}
+        branchGuid={branchGuid}
+      />
+
+      {/* <DeleteModal
         open={isDeleteModalOpen}
         handleClose={() => setIsDeleteModalOpen(false)}
         title={deleteChosenLocation.title}
@@ -66,12 +94,12 @@ const AccordionCodingList = ({ coddingList, getProductDetail }) => {
         handleClose={() => setIsEditModalOpen(false)}
         chosenProduct={editChosenProduct}
         getProductDetail={getProductDetail}
-      />
+      /> */}
     </Wrapper>
   );
 };
 
-export default AccordionCodingList;
+export default AccordionPackaging;
 
 const Wrapper = styled.div`
   margin-top: 20px;

@@ -7,10 +7,12 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import React, { useEffect, useState } from 'react';
 
 import AccordionCodingList from '../AccordionCodingList/AccordionCodingList';
+import AccordionPackaging from '../AccordionPackaging/AccordionPackaging';
 
-const ProductAccordion = ({ detail }) => {
-  const { codding, display, coddingList } = detail;
+const ProductAccordion = ({ detail, getProductDetail }) => {
+  const { codding, display, coddingList, packagingList, guid } = detail;
   const [orderedCoddingList, setOrderedCoddingList] = useState();
+  const [orderedPackegingList, setOrderedPackegingList] = useState();
 
   useEffect(() => {
     setOrderedCoddingList(
@@ -21,6 +23,17 @@ const ProductAccordion = ({ detail }) => {
           id: code.guid,
           isReadOnly: code.isReadOnly,
           type: code.type,
+        };
+        return orderd;
+      }),
+    );
+
+    setOrderedPackegingList(
+      packagingList.map(code => {
+        const orderd = {
+          title: code.display,
+          id: code.guid,
+          count: code.count,
         };
         return orderd;
       }),
@@ -50,7 +63,15 @@ const ProductAccordion = ({ detail }) => {
         </AccordionHeader>
       </AccordionSummary>
       <AccordionDetails>
-        <AccordionCodingList coddingList={orderedCoddingList} />
+        <AccordionCodingList
+          coddingList={orderedCoddingList}
+          getProductDetail={getProductDetail}
+        />
+        <AccordionPackaging
+          packagingList={orderedPackegingList}
+          getProductDetail={getProductDetail}
+          branchGuid={guid}
+        />
       </AccordionDetails>
     </Accordion>
   );

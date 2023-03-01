@@ -24,7 +24,11 @@ const ProductDetail = () => {
           <ProductDetailHeader detail={productDetailObj} />
           <AccotdionsContainer>
             {productDetailObj.branchList.map(branch => (
-              <ProductAccordion detail={branch} key={branch.guid} />
+              <ProductAccordion
+                detail={branch}
+                key={branch.guid}
+                getProductDetail={getProductDetail}
+              />
             ))}
           </AccotdionsContainer>
         </>
@@ -35,6 +39,4 @@ const ProductDetail = () => {
 
 export default ProductDetail;
 
-const AccotdionsContainer = styled.div`
-  margin-top: 50px;
-`;
+const AccotdionsContainer = styled.div``;
