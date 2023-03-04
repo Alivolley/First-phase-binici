@@ -16,6 +16,7 @@ export const TableCustomPagination = () => {
       color="primary"
       count={pageCount}
       page={page + 1}
+      sx={{ direction: 'ltr' }}
       onChange={(event, value) => apiRef.current.setPage(value - 1)}
     />
   );

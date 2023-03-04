@@ -62,6 +62,7 @@ export const TableCustomFooter = props => {
 
 const Container = styled(Box)`
   ${({ theme }) => ({
+    direction: 'ltr',
     padding: '12px 10px 12px 4px',
     display: 'flex',
     justifyContent: 'space-between',

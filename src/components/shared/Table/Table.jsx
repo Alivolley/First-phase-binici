@@ -72,6 +72,7 @@ const Container = styled(Box)`
   ${({ theme }) => ({
     'width': '100%',
     'height': '640px',
+    'direction': 'ltr',
     '& .MuiDataGrid-columnHeaders': {
       backgroundColor: theme.palette.brand.blue.primary,
       color: theme.palette.primary.contrastText,

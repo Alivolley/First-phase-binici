@@ -20,14 +20,13 @@ const HomePage = () => {
   );
 
   return (
-    <div>لورم ایپسوم</div>
-    // <Table
-    //   columns={columnsData}
-    //   rowsData={rowsData}
-    //   rows={rows}
-    //   isDeletable
-    //   setRows={filteredRows => setRows(filteredRows)}
-    // />
+    <Table
+      columns={columnsData}
+      rowsData={rowsData}
+      rows={rows}
+      isDeletable
+      setRows={filteredRows => setRows(filteredRows)}
+    />
   );
 };
 
