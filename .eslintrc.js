@@ -16,5 +16,11 @@ module.exports = {
     'fp/no-let': 'off',
     'no-unused-vars': 'off',
     'max-lines-per-function': 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 };

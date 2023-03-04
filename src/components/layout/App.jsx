@@ -16,7 +16,7 @@ const App = () => {
   const [{ token }] = useCookies(['token']);
 
   axiosClient.interceptors.request.use(config => {
-    config.headers.Authorization = token;
+    config.headers.Authorization = `Bearer ${token}`;
     return config;
   });
   axiosClient.interceptors.response.use(

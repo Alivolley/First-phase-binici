@@ -58,20 +58,20 @@ export const navMenuLinks = [
   {
     id: '1',
     icon: <GroupOutlinedIcon />,
-    label: 'مدیریت داشبورد',
+    label: 'مدیریت مکان ها',
     subLinks: [
       {
         id: '1',
         href: '/',
-        label: 'داشبورد',
+        label: 'مکان ها',
       },
-      {
-        id: '2',
-        href: '/productsList',
-        label: 'ریپورت ها',
-      },
+      // {
+      //   id: '2',
+      //   href: '/productsList',
+      //   label: 'ریپورت ها',
+      // },
     ],
-    pathes: ['/', '/reports'],
+    pathes: ['/'],
   },
   {
     id: '2',
@@ -81,15 +81,15 @@ export const navMenuLinks = [
       {
         id: '1',
         href: '/productsList',
-        label: 'لیست محصولات',
+        label: 'محصولات',
       },
-      {
-        id: '2',
-        href: '/product',
-        label: 'محصول',
-      },
+      // {
+      //   id: '2',
+      //   href: '/product',
+      //   label: 'محصول',
+      // },
     ],
-    pathes: ['/productsList', '/product'],
+    pathes: ['/productsList'],
   },
   {
     id: '3',
@@ -98,15 +98,25 @@ export const navMenuLinks = [
     subLinks: [
       {
         id: '1',
-        href: '/productsSettings',
-        label: 'تنظیمات محصولات',
+        href: '/codeGroup',
+        label: 'گروه کد',
       },
       {
         id: '2',
-        href: '/groups',
-        label: 'گروه ها',
+        href: '/profileGroup',
+        label: 'کد پروفایل',
+      },
+      {
+        id: '3',
+        href: '/mappingProfile',
+        label: 'مپ پروفایل',
+      },
+      {
+        id: '4',
+        href: '/carFactory',
+        label: 'مدل خودرود ها',
       },
     ],
-    pathes: ['/productsSettings', '/groups'],
+    pathes: ['/codeGroup', '/profileGroup', '/profileGroup', '/carFactory'],
   },
 ];
