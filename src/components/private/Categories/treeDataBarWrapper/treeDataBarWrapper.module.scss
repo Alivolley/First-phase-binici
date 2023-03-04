@@ -1,0 +1,123 @@
+.barWrapper {
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 10px !important;
+  display: flex !important;
+  flex-direction: column-reverse;
+  align-items: flex-end !important;
+}
+
+.categorieCollexpandBox {
+  display: flex !important;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  width: 100% !important;
+  margin-left: 16px;
+  z-index: 2;
+}
+
+.TreeDataMaterialCompressBtn {
+  margin-left: 5px !important;
+  margin-right: 15px !important;
+  display: inline-block !important;
+  width: 20px !important;
+}
+
+.treeDataMaterialExpandIcon {
+  cursor: pointer !important;
+  font-size: 21px !important;
+  color: #22466b !important;
+}
+
+.treeDataMaterialCompressIcon {
+  cursor: pointer !important;
+  font-size: 21px !important;
+  color: #22466b !important;
+}
+
+.treeDataMaterialCompressIconSuccess {
+  cursor: pointer !important;
+  font-size: 21px !important;
+  color: #398f24 !important;
+}
+
+.treeDataSearchAndChildKeeper {
+  height: 40px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.treeDataSearchBoxChild {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: -145px;
+  width: auto;
+  z-index: 10;
+}
+
+.treeDataPrevIcon {
+  margin-left: 15px !important;
+  margin-right: 4px !important;
+  font-size: 19px !important;
+  cursor: pointer !important;
+  z-index: 1;
+}
+
+.treeDataNextIcon {
+  margin-right: 10px !important;
+  margin-left: 4px !important;
+  font-size: 19px !important;
+  cursor: pointer !important;
+  z-index: 1;
+}
+
+.treeDataSearchInput {
+  direction: rtl !important;
+  width: 100%;
+}
+
+.treeDataSearchCount {
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+@media screen and (max-width: 992px) {
+  .treeDataSearchAndChildKeeper {
+    width: 100%;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .treeDataSearchAndChildKeeper {
+    width: 100%;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .treeDataSearchAndChildKeeper {
+    width: 100%;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .barWrapper {
+    margin-bottom: 0 !important;
+  }
+  .categorieCollexpandBox {
+    margin: 0 !important;
+  }
+  .treeDataSearchAndChildKeeper {
+    width: 100%;
+    margin-left: 0;
+  }
+}

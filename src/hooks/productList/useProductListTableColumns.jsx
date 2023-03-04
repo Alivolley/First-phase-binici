@@ -52,7 +52,7 @@ const useProductListTableColumns = (
           key={2}
           icon={<SsidChartIcon />}
           label="گراف"
-          onClick={goToGraphPage()}
+          onClick={goToGraphPage(params.row)}
           showInMenu
         />,
         <GridActionsCellItem

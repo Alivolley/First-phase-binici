@@ -1,6 +1,6 @@
 export const desktopTemplateAnimationVariants = {
   default: {
-    width: 'calc(100% - 391px)',
+    width: 'calc(100% - 358px)',
     transition: {
       ease: 'linear',
       duration: 0.1,

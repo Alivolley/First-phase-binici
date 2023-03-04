@@ -31,9 +31,7 @@ const ProductList = () => {
   }, [productList]);
 
   const goToGraphPage = useCallback(
-    row => () =>
-      // eslint-disable-next-line no-alert
-      alert('صفحه گراف که با حاجی محمده :)))))'),
+    row => () => navigate(`/graph/${row.id}`),
     [],
   );
 

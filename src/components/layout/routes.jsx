@@ -5,6 +5,7 @@ import CarFactory from 'pages/CarFactory/CarFactory';
 import CarModel from 'pages/CarModel/CarModel';
 import CarProductionTime from 'pages/CarProductionTime/CarProductionTime';
 import CarSeries from 'pages/CarSeries/CarSeries';
+import Category from 'pages/Category/Categories';
 import CodeGroup from 'pages/CodeGroup/CodeGroup';
 import CodingAttribute from 'pages/CodingAttribute/CodingAttribute';
 import CodingProfile from 'pages/CodingProfile/CodingProfile';
@@ -13,6 +14,7 @@ import LocationDetail from 'pages/LocationDetail/LocationDetail';
 import MappingIndex from 'pages/MappingIndex/MappingIndex';
 import MappingProfile from 'pages/MappingProfile/MappingProfile';
 import ProductDetail from 'pages/ProductDetail/ProductDetail';
+import ProductGraph from 'pages/ProductGraph/ProductGraph';
 import ProductList from 'pages/ProductList/ProductList';
 import { lazy } from 'react';
 
@@ -91,5 +93,10 @@ export const routes = [
     id: '15',
     path: '/productDetail/:guid',
     element: <ProductDetail />,
+  },
+  {
+    id: '16',
+    path: '/graph/:guid',
+    element: <Category />,
   },
 ];

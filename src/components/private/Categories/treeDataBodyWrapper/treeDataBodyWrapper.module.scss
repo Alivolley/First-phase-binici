@@ -1,0 +1,38 @@
+.treeDataBodyInfoIcon {
+    font-size: 14px;
+    color: #ff9800;
+    cursor: pointer;
+}
+
+.treeDataBodyPlusIcon {
+    font-size: 14px;
+    color: #2e7d32;
+    cursor: pointer;
+}
+
+.treeDataBodyTrashIcon {
+    font-size: 14px;
+    color: #b71c1c;
+    cursor: pointer;
+}
+
+.treeDataNodeButtons {
+    vertical-align: middle;
+    border: none;
+}
+
+.treeDataWrapper {
+    width: 100% !important;
+    height: calc(100vh - 300px) !important;
+    padding-bottom: 10px;
+    overflow: auto !important;
+    position: relative;
+    top: 0;
+    right: 0;
+}
+
+@media screen and (max-width: 992px) {
+    .treeDataWrapper {
+        height: 350px !important;
+    }
+}
