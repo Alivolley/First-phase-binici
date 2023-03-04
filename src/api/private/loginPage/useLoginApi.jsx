@@ -18,7 +18,6 @@ export const useLoginApi = () => {
         otpCode,
       })
       .then(res => {
-        console.log(res);
         if (res.data.value.token !== null) {
           setCookie('token', res.data.value.token, {
             path: '/',
