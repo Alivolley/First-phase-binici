@@ -64,7 +64,7 @@ const ProductDetail = () => {
               </Typography>
               <Typography color="text.secondary">کدینگ</Typography>
             </Paper>
-            {productDetailObj.branchList.map((branch, index) => (
+            {productDetailObj?.branchList?.map((branch, index) => (
               <ProductAccordion
                 detail={branch}
                 keyIndex={index}
