@@ -23,8 +23,8 @@ const FileUploader = props => {
   return (
     <FilePond
       ref={ref => (filePondRef = ref)}
-      {...props.customConfig}
       {...fileUploaderConfig}
+      {...props.customConfig}
     />
   );
 };

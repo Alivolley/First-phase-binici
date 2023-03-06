@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import styled from '@emotion/styled';
 import { Box, Button, Typography } from '@mui/material';
 import useInsertBranchGallery from 'api/productsList/gallery/branch/useInsertBranchGallery/useInsertBranchGallery';
@@ -47,6 +48,10 @@ export default function GalleryUpload({
       <Box sx={{ p: 3 }}>
         <UploadArea>
           <FileUploader
+            customConfig={{
+              allowMultiple: true,
+              maxFiles: 1000,
+            }}
             files={image.file}
             processFileHandler={(error, file) => {
               setImage(prev => ({ ...prev, documentGuid: file.serverId }));
