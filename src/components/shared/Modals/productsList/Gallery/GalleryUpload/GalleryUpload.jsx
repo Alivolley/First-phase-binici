@@ -22,7 +22,6 @@ export default function GalleryUpload({
     files: [],
     documentGuids: [],
   });
-  console.log(images);
 
   const { insertOriginGallery, insertOriginGalleryLoading } =
     useInsertOriginGallery();
@@ -33,10 +32,10 @@ export default function GalleryUpload({
   function handlePost() {
     switch (type) {
       case 'origin':
-        insertOriginGallery(guid, [images?.documentGuids], onSuccess);
+        insertOriginGallery(guid, images?.documentGuids, onSuccess);
         break;
       case 'branch':
-        insertBranchGallery(guid, [images?.documentGuids], onSuccess);
+        insertBranchGallery(guid, images?.documentGuids, onSuccess);
         break;
       default:
     }
