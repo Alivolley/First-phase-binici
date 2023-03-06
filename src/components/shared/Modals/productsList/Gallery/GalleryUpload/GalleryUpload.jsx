@@ -22,6 +22,7 @@ export default function GalleryUpload({
     files: [],
     documentGuids: [],
   });
+  console.log(images);
 
   const { insertOriginGallery, insertOriginGalleryLoading } =
     useInsertOriginGallery();
@@ -52,7 +53,10 @@ export default function GalleryUpload({
             onprocessfile={(error, file) => {
               setImages(prev => ({
                 ...prev,
-                documentGuids: [...prev.documentGuids, file.serverId],
+                documentGuids:
+                  prev.documentGuids.length > 0
+                    ? [...prev.documentGuids, file.serverId]
+                    : [file.serverId],
               }));
             }}
             onupdatefiles={fileItems => {
