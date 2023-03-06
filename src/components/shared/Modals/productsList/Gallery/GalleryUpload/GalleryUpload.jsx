@@ -18,9 +18,9 @@ export default function GalleryUpload({
   open,
   onClose,
 }) {
-  const [image, setImage] = useState({
-    file: [],
-    documentGuid: '',
+  const [images, setImages] = useState({
+    files: [],
+    documentGuids: [],
   });
 
   const { insertOriginGallery, insertOriginGalleryLoading } =
@@ -32,10 +32,10 @@ export default function GalleryUpload({
   function handlePost() {
     switch (type) {
       case 'origin':
-        insertOriginGallery(guid, [image?.documentGuid], onSuccess);
+        insertOriginGallery(guid, [images?.documentGuids], onSuccess);
         break;
       case 'branch':
-        insertBranchGallery(guid, [image?.documentGuid], onSuccess);
+        insertBranchGallery(guid, [images?.documentGuids], onSuccess);
         break;
       default:
     }
@@ -48,20 +48,20 @@ export default function GalleryUpload({
       <Box sx={{ p: 3 }}>
         <UploadArea>
           <FileUploader
-            customConfig={{
-              allowMultiple: true,
-              maxFiles: 1000,
-            }}
-            files={image.file}
-            processFileHandler={(error, file) => {
-              setImage(prev => ({ ...prev, documentGuid: file.serverId }));
-            }}
-            updateFileHandler={fileItems =>
-              setImage(prev => ({
+            files={images.files}
+            onprocessfile={(error, file) => {
+              setImages(prev => ({
                 ...prev,
-                file: fileItems.map(fileitem => fileitem.file),
-              }))
-            }
+                documentGuids: [...prev.documentGuids, file.serverId],
+              }));
+            }}
+            onupdatefiles={fileItems => {
+              setImages(prev => ({
+                ...prev,
+                files: fileItems.map(fileitem => fileitem.file),
+                // documentGuids:
+              }));
+            }}
           />
         </UploadArea>
 

@@ -1,6 +1,6 @@
 const fileUploaderConfig = {
-  allowMultiple: false,
-  maxFiles: 1,
+  allowMultiple: true,
+  maxFiles: 1000,
   checkValidity: true,
   allowFilePoster: true,
   allowFileSizeValidation: true,

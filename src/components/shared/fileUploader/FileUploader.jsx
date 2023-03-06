@@ -24,9 +24,9 @@ const FileUploader = props => {
     <FilePond
       ref={ref => (filePondRef = ref)}
       {...fileUploaderConfig}
-      {...props.customConfig}
+      {...props}
     />
   );
 };
 
-export default memo(FileUploader);
+export default FileUploader;
