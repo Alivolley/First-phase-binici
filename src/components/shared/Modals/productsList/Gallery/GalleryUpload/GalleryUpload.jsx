@@ -66,13 +66,11 @@ export default function GalleryUpload({
                 setImages(prev => ({
                   documentGuids: serverIdList,
                   files: fileItems.map(fileitem => fileitem.file),
-                  // documentGuids:
                 }));
               } else {
                 setImages(prev => ({
                   ...prev,
                   files: fileItems.map(fileitem => fileitem.file),
-                  // documentGuids:
                 }));
               }
             }}
@@ -95,7 +93,13 @@ export default function GalleryUpload({
           </Button>
           <Button
             size="large"
-            onClick={onClose}
+            onClick={() => {
+              setImages({
+                files: [],
+                documentGuids: [],
+              });
+              onClose();
+            }}
             variant="contained"
             color="warning"
           >
