@@ -2,24 +2,27 @@ import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
-export default function useCreateCategory() {
+export default function useEditBaseNode() {
   const [loading, setLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const createCategory = (values, guid, refreshData) => {
+  const editBaseNode = (guid, baseNodeType, refreshData) => {
     setLoading(true);
     axiosClient
-      .post('/Category/Create', {
-        categoryGuid: guid,
-        name: values.name,
-        order: values.order,
+      .put('/Product/Origin/Graph/BaseNode/Update', {
+        guid,
+        baseNodeType,
       })
       .then(res => {
-        console.log(res.data);
-        if (res.data.state === 1) {
+        if (res.status === 200) {
+          const data = {
+            ...res.data.value,
+            title: res.data.value.display,
+            children: [],
+          };
+          refreshData(data);
           enqueueSnackbar(res.data.message, { variant: 'success' });
-          refreshData();
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
         }
@@ -30,5 +33,5 @@ export default function useCreateCategory() {
       });
   };
 
-  return [loading, createCategory];
+  return [loading, editBaseNode];
 }

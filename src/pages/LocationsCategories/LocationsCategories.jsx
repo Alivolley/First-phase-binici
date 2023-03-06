@@ -2,67 +2,72 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable react/function-component-definition */
 import 'react-sortable-tree/style.css';
-import './Categories.scss';
+import './LocationsCategories.scss';
 
-import useGetProductsTreeData from 'api/categories/useGetProductsTreeData';
-import CreateCategoryModal from 'components/private/Categories/createCategoryModal/CreateCategoryModal';
-import DeleteCategoryDialog from 'components/private/Categories/deleteCategoryDialog/DeleteCategoryDialog';
+import useGetLocationsTreeData from 'api/locationsCategories/useGetLocationsTreeData';
+import CreateSectionNodeModal from 'components/private/Categories/LocationsCategories/section/CreateSectionNodeModal';
 import TreeDataBarWrapper from 'components/private/Categories/treeDataBarWrapper/TreeDataBarWrapper';
 import TreeDataBodyWrapper from 'components/private/Categories/treeDataBodyWrapper/TreeDataBodyWrapper';
 import PageSpinner from 'components/shared/pageSpinner/PageSpinner';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { toggleExpandedForAll } from 'react-sortable-tree';
+import {
+  addNodeUnderParent,
+  changeNodeAtPath,
+  removeNodeAtPath,
+  toggleExpandedForAll,
+} from 'react-sortable-tree';
 
-function Category() {
+function LocationsCategories() {
   const { guid: categoryGuid } = useParams();
 
   const [getLoading, treeData, setTreeData, getTreeData] =
-    useGetProductsTreeData();
+    useGetLocationsTreeData();
 
   const [searchString, setSearchString] = useState('');
   const [searchFocusIndex, setSearchFocusIndex] = useState(0);
   const [searchFoundCount, setSearchFoundCount] = useState(null);
 
-  const [showCreateCategoryModal, setShowCreateCategoryModal] = useState({
+  const [createBaseNodeModal, setCreateSectionNodeModal] = useState({
     show: false,
     guid: null,
-  });
-  const [showDeleteCategoryDialog, setShowDeleteCategoryDialog] = useState({
-    show: false,
-    guid: null,
-  });
-  const [showEditModal, setShowEditModal] = useState({
-    show: false,
-    guid: null,
+    rowInfo: null,
   });
 
   useEffect(() => {
     getTreeData(categoryGuid);
   }, []);
 
-  const refreshDataAfterCreateCategory = () => {
-    setShowCreateCategoryModal({
-      show: false,
-      guid: null,
+  const refreshDataAfterCreateNode = (data, rowData) => {
+    const newTree = addNodeUnderParent({
+      treeData: treeData,
+      newNode: data,
+      expandParent: true,
+      parentKey: rowData.rowInfo ? rowData.rowInfo.treeIndex : undefined,
+      getNodeKey: ({ treeIndex }) => treeIndex,
     });
-    getTreeData(categoryGuid);
+    setTreeData(newTree.treeData);
   };
 
-  const refreshDataAfterCreateDelete = () => {
-    setShowDeleteCategoryDialog({
-      show: false,
-      guid: null,
+  const refreshDataAfterDeleteNode = rowData => {
+    const { path } = rowData.rowInfo;
+    const newTree = removeNodeAtPath({
+      treeData: treeData,
+      path,
+      getNodeKey: ({ treeIndex }) => treeIndex,
     });
-    getTreeData(categoryGuid);
+    setTreeData(newTree);
   };
 
-  const refreshDataAfterEdit = () => {
-    setShowEditModal({
-      show: false,
-      guid: null,
+  const refreshDataAfterEditNode = (data, rowData) => {
+    const { path } = rowData.rowInfo;
+    const newTree = changeNodeAtPath({
+      treeData: treeData,
+      path,
+      getNodeKey: ({ treeIndex }) => treeIndex,
+      newNode: data,
     });
-    getTreeData(categoryGuid);
+    setTreeData(newTree);
   };
 
   const toggleNodeExpansion = expanded => {
@@ -82,7 +87,7 @@ function Category() {
           <div className="tree-data-wrapper-insidebox">
             <TreeDataBarWrapper
               showCreateModal={() =>
-                setShowCreateCategoryModal({
+                setCreateSectionNodeModal({
                   show: true,
                   guid: categoryGuid,
                 })
@@ -121,48 +126,33 @@ function Category() {
                   matches.length > 0 ? searchFocusIndex % matches.length : 0;
                 setSearchFocusIndex(index);
               }}
-              editHandler={rowInfo => {
-                setShowEditModal({
-                  show: true,
-                  guid: rowInfo.node.categoryGuid,
-                });
-              }}
-              createHandler={rowInfo =>
-                setShowCreateCategoryModal({
-                  show: true,
-                  guid: rowInfo.node.categoryGuid,
-                })
-              }
-              deleteHandler={rowInfo => {
-                setShowDeleteCategoryDialog({
-                  show: true,
-                  guid: rowInfo.node.categoryGuid,
-                });
-              }}
+              editHandler={rowInfo => {}}
+              createHandler={rowInfo => {}}
+              deleteHandler={rowInfo => {}}
             />
           </div>
         </div>
       ) : null}
 
-      <CreateCategoryModal
-        show={showCreateCategoryModal.show}
-        closeHandler={() =>
-          setShowCreateCategoryModal({ show: false, guid: null })
-        }
-        selectedCategoryGuid={showCreateCategoryModal.guid}
-        refreshData={refreshDataAfterCreateCategory}
-      />
-
-      <DeleteCategoryDialog
-        show={showDeleteCategoryDialog.show}
-        closeHandler={() =>
-          setShowDeleteCategoryDialog({ show: false, guid: null })
-        }
-        selectedCategoryGuid={showDeleteCategoryDialog.guid}
-        refreshData={refreshDataAfterCreateDelete}
-      />
+      {createBaseNodeModal.show ? (
+        <CreateSectionNodeModal
+          show={createBaseNodeModal.show}
+          closeHandler={() =>
+            setCreateSectionNodeModal({ show: false, guid: null })
+          }
+          guid={createBaseNodeModal.guid}
+          refreshData={data => {
+            setCreateSectionNodeModal({
+              show: false,
+              guid: null,
+              type: '',
+            });
+            refreshDataAfterCreateNode(data, createBaseNodeModal);
+          }}
+        />
+      ) : null}
     </>
   );
 }
 
-export default Category;
+export default LocationsCategories;

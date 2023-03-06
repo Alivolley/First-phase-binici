@@ -13,7 +13,6 @@ export default function useGetProductsTreeData() {
     axiosClient
       .get(`/Product/Origin/Graph/Get?GUID=${categoryGuid}`)
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           const data = res.data.value.graph.map(obj =>
             JSON.parse(
@@ -24,7 +23,6 @@ export default function useGetProductsTreeData() {
           );
 
           setTreeData(data);
-          console.log(data);
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
         }

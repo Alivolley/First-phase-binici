@@ -39,10 +39,7 @@ const LocationDetail = () => {
   }, [zoneList]);
 
   const goToInfoPage = useCallback(
-    row => () =>
-      // navigate(`/locations/${row.id}`)
-      // eslint-disable-next-line no-alert
-      alert('صفحه گراف که با حاجی محمده :)))))'),
+    row => () => navigate(`/locations-graph/${row.id}`),
     [],
   );
   const deleteItem = useCallback(

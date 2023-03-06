@@ -31,7 +31,7 @@ const ProductList = () => {
   }, [productList]);
 
   const goToGraphPage = useCallback(
-    row => () => navigate(`/graph/${row.id}`),
+    row => () => navigate(`/product-graph/${row.id}`),
     [],
   );
 

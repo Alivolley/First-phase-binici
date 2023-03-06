@@ -8,10 +8,10 @@ import {
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import useDeleteCategory from 'api/categories/useDeleteCategory';
+import useDeleteBaseNode from 'api/productCategories/useDeleteBaseNode';
 
-const DeleteCategoryDialog = props => {
-  const [loading, deleteCategory] = useDeleteCategory();
+const DeleteProductBaseNodeDialog = props => {
+  const [loading, deleteBaseNode] = useDeleteBaseNode();
 
   return (
     <Dialog
@@ -28,9 +28,7 @@ const DeleteCategoryDialog = props => {
           variant="contained"
           color="primary"
           disabled={loading}
-          onClick={() =>
-            deleteCategory(props.selectedCategoryGuid, props.refreshData)
-          }
+          onClick={() => deleteBaseNode(props.guid, props.refreshData)}
         >
           حذف
         </Button>
@@ -47,4 +45,4 @@ const DeleteCategoryDialog = props => {
   );
 };
 
-export default DeleteCategoryDialog;
+export default DeleteProductBaseNodeDialog;

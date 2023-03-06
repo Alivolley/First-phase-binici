@@ -39,16 +39,6 @@ const TreeDataBodyWrapper = props => {
             searchFinishCallback={matches => props.searchFinish(matches)}
             generateNodeProps={rowInfo => ({
               buttons: [
-                <Tooltip placement="right" title="ویرایش">
-                  <div>
-                    <IconButton
-                      color="primary"
-                      onClick={() => props.editHandler(rowInfo)}
-                    >
-                      <EditOutlined />
-                    </IconButton>
-                  </div>
-                </Tooltip>,
                 <Tooltip placement="right" title="افزودن">
                   <div>
                     <IconButton
@@ -56,6 +46,16 @@ const TreeDataBodyWrapper = props => {
                       onClick={() => props.createHandler(rowInfo)}
                     >
                       <AddOutlined />
+                    </IconButton>
+                  </div>
+                </Tooltip>,
+                <Tooltip placement="right" title="ویرایش">
+                  <div>
+                    <IconButton
+                      color="primary"
+                      onClick={() => props.editHandler(rowInfo)}
+                    >
+                      <EditOutlined />
                     </IconButton>
                   </div>
                 </Tooltip>,

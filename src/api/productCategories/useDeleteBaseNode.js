@@ -2,21 +2,23 @@ import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
-export default function useDeleteCategory() {
+export default function useDeleteBaseNode() {
   const { enqueueSnackbar } = useSnackbar();
 
   const [loading, setLoading] = useState(false);
 
-  const deleteCategory = (guid, refreshData) => {
+  const deleteBaseNode = (guid, refreshData) => {
     setLoading(true);
     axiosClient
-      .post('/Category/Delete/', {
-        categoryGuid: guid,
+      .delete('/Product/Origin/Graph/BaseNode/Delete', {
+        params: {
+          GUID: guid,
+        },
       })
       .then(res => {
-        if (res.data.state === 1) {
-          enqueueSnackbar(res.data.message, { variant: 'success' });
+        if (res.status === 200) {
           refreshData();
+          enqueueSnackbar(res.data.message, { variant: 'success' });
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
         }
@@ -29,5 +31,5 @@ export default function useDeleteCategory() {
       });
   };
 
-  return [loading, deleteCategory];
+  return [loading, deleteBaseNode];
 }
