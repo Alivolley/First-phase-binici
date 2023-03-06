@@ -174,5 +174,27 @@ export const MUILightTheme = createTheme({
   typography: {
     fontFamily: '"Yekan-Medium", "Roboto", "Helvetica", "Arial", sans-serif',
   },
+
+  MuiDataGrid: {
+    styleOverrides: {
+      root: {
+        'border': 'none',
+        '& .MuiDataGrid-columnHeaders': {
+          borderBottomColor: 'rgba(100,100,100,.2) !important',
+          direction: 'rtl',
+        },
+        '& .MuiDataGrid-iconSeparator': {
+          fill: 'rgba(100,100,100,.2) !important',
+        },
+        '& .MuiDataGrid-cell': {
+          borderBottomColor: 'rgba(100,100,100,.2) !important',
+        },
+        '& .MuiDataGrid-columnHeaderRow': {
+          border: 'none',
+        },
+      },
+    },
+  },
+
   faIR,
 });

@@ -1,6 +1,13 @@
 import styled from '@emotion/styled';
 import AddIcon from '@mui/icons-material/Add';
-import { Button } from '@mui/material';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import useProductPackagingDelete from 'api/productDetail/useProductPackagingDelete/useProductPackagingDelete';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import useProductPackgingListTableColumns from 'hooks/productDetail/useProductPackgingListTableColumns';
@@ -51,12 +58,6 @@ const AccordionPackaging = ({
     [],
   );
 
-  const [columnsData] = useProductPackgingListTableColumns(
-    print,
-    deleteItem,
-    editItem,
-  );
-
   const deleteHandle = id => {
     setDeleteLoading(true);
     deleteRequest(id, getProductDetail, setIsDeleteModalOpen, setDeleteLoading);
@@ -75,7 +76,59 @@ const AccordionPackaging = ({
         </AddButton>
       </Header>
 
-      <AccordionTable columns={columnsData} rows={packagingList || []} />
+      <TableContainer>
+        <Table sx={{ minWidth: 900 }}>
+          <TableHead>
+            <TableRow
+              sx={{
+                '& .MuiTableCell-root': {
+                  borderColor: 'rgba(100, 100, 100, .2)',
+                },
+              }}
+            >
+              <TableCell align="right">نام</TableCell>
+              <TableCell align="right">تعداد</TableCell>
+              <TableCell align="center" width={300}>
+                عملیات ها
+              </TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {packagingList?.map((packItem, index) => (
+              <TableRow key={index}>
+                <TableCell align="right">{packItem.title}</TableCell>
+                <TableCell align="right">{packItem.count}</TableCell>
+                <TableCell align="right" width={140}>
+                  <ActionContainer>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={deleteItem(packItem)}
+                    >
+                      حذف
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      onClick={editItem(packItem)}
+                    >
+                      ویرایش
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={print(packItem)}
+                    >
+                      پرینت
+                    </Button>
+                  </ActionContainer>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
       <ProductPackagingInsertModal
         open={isInsertModalOpen}
@@ -112,13 +165,18 @@ const AccordionPackaging = ({
 export default AccordionPackaging;
 
 const Wrapper = styled.div`
-  margin-top: 20px;
+  margin-top: 50px;
 `;
 
 const Header = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+`;
+
+const ActionContainer = styled(Header)`
+  flex-wrap: wrap;
+  gap: 10px;
 `;
 
 const Title = styled.h4``;

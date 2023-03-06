@@ -3,15 +3,22 @@ import useProductsList from 'api/productsList/useProductsList/useProductsList';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import ProductsListEditModal from 'components/shared/Modals/productsList/ProductsListEditModal/ProductsListEditModal';
 import ProductsListInsertModal from 'components/shared/Modals/productsList/ProductsListInsertModal/ProductsListInsertModal';
-import { Table } from 'components/shared/Table/Table';
+import ApiPaginateTable from 'components/shared/Table/ApiPaginateTable';
 import useProductListTableColumns from 'hooks/productList/useProductListTableColumns';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// count product in each page
+const limit = 8;
+
+// last search string
+let lastSearch = null;
+
 const ProductList = () => {
+  const [page, setPage] = useState(1);
+
   const [getProductsList, loading, productList, pageRef] = useProductsList();
 
-  const [rows, setRows] = useState(productList);
   const [isInsertModalOpen, setIsInsertModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
@@ -23,12 +30,8 @@ const ProductList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getProductsList();
+    getProductsList({ page: 1, count: limit });
   }, []);
-
-  useEffect(() => {
-    setRows(productList);
-  }, [productList]);
 
   const goToGraphPage = useCallback(
     row => () => navigate(`/product-graph/${row.id}`),
@@ -56,11 +59,13 @@ const ProductList = () => {
     [],
   );
 
+  const apiRef = useRef(null);
   const [columnsData] = useProductListTableColumns(
     goToInfoPage,
     goToGraphPage,
     deleteItem,
     editItem,
+    apiRef,
   );
 
   const deleteHandle = id => {
@@ -68,18 +73,38 @@ const ProductList = () => {
     deleteRequest(id, getProductsList, setIsDeleteModalOpen, setDeleteLoading);
   };
 
+  function getPageData(pageNumber) {
+    setPage(pageNumber);
+    getProductsList({ page: pageNumber, count: limit, term: lastSearch });
+  }
+
+  function handleSearch(text) {
+    setPage(1);
+    lastSearch = text;
+    if (text === '') {
+      lastSearch = null;
+    }
+    getProductsList({ page: 1, count: limit, term: text });
+  }
+
   return (
     <>
       <div>{pageRef.refTitle}</div>
-      <Table
+      <ApiPaginateTable
         columns={columnsData}
-        rowsData={productList}
-        rows={rows}
+        rowsData={productList[page]}
+        rows={productList[page]}
         isDeletable
-        setRows={filteredRows => setRows(filteredRows)}
         isLoading={loading}
         addLable="ثبت محصول جدید"
         onAddClick={() => setIsInsertModalOpen(true)}
+        apiRef={apiRef}
+        onPageChange={p => getPageData(p)}
+        page={page}
+        countPages={
+          pageRef?.totalCount ? Math.ceil(pageRef.totalCount / limit) : 1
+        }
+        handleSearchApi={handleSearch}
       />
 
       <DeleteModal

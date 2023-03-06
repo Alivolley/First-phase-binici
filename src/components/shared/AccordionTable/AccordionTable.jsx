@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { DataGrid } from '@mui/x-data-grid';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 const AccordionTable = ({ columns, rows }) => {
+
   return (
     <Container>
       <DataGrid

@@ -56,4 +56,41 @@ export const GlobalStyle = css`
   a:hover {
     text-decoration: none;
   }
+
+  // change default scrollbar style
+  ::-webkit-scrollbar,
+  .scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  *::-webkit-scrollbar-track,
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb,
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #909090;
+    border-radius: 100vh;
+  }
+
+  *::-webkit-scrollbar-thumb:hover,
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  *,
+  .scrollbar {
+    scrollbar-color: #e0cbcb white;
+    scrollbar-width: thin;
+  }
+
+  // hide numeric input arrows
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;

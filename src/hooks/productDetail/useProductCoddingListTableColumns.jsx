@@ -3,13 +3,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 
-const useProductCoddingListTableColumns = (deleteItem, editItem) => {
+const useProductCoddingListTableColumns = (deleteItem, editItem, apiRef) => {
   const columnsData = [
     {
       field: 'title',
       headerName: 'نام',
       flex: 1,
       minWidth: 120,
+      renderCell: val => {
+        apiRef.current = val.api;
+        return <div>{val.row.title}</div>;
+      },
     },
 
     {
@@ -17,6 +21,10 @@ const useProductCoddingListTableColumns = (deleteItem, editItem) => {
       headerName: 'کدینگ',
       flex: 1,
       minWidth: 120,
+      renderCell: val => {
+        apiRef.current = val.api;
+        return <div>{val.row.codding}</div>;
+      },
     },
 
     {

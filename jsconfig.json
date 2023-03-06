@@ -3,7 +3,9 @@
     "baseUrl": "src"
   },
   "include": [
+    "src/**/*",
     "src/**/*.js",
+    "src/**/*.jsx",
     "src/index.jsx",
     "src/components/layout/App.jsx",
     "src/store/private/layout/layoutAtoms.jsx"

@@ -1,38 +1,36 @@
 import styled from '@emotion/styled';
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import dataGridLocalText from 'utils/js/dataGridLocalText';
 import { escapeRegExp, rowDataSearchFilter } from 'utils/js/private/tableUtils';
 
 import { QuickSearchToolbar } from './QuickSearchToolbar/QuickSearchToolbar';
-import { TableCustomFooter } from './TableCustomFooter/TableCustomFooter';
-import { TableCustomPagination } from './TableCustomPagination/TableCustomPagination';
+import { TableCustomApiPagination } from './TableCustomPagination/TableCustomPagination';
 
-export const Table = props => {
+const Table = props => {
   const {
     columns,
-    rowsData,
-    rows,
+    rowsData = [],
+    rows = [],
     disableSelection,
     isDeletable,
-    setRows,
     isLoading,
     addLable,
     onAddClick,
     apiRef,
+    onPageChange,
+    page,
+    countPages,
+    handleSearchApi,
   } = props;
 
   const [searchText, setSearchText] = useState('');
-  const [pageSize, setPageSize] = useState('6');
 
   const [selectionModel, setSelectionModel] = useState([]);
 
-  const requestSearch = searchValue => {
-    setSearchText(searchValue);
-    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
-    const filteredRows = rowDataSearchFilter(rowsData, searchRegex);
-    setRows(filteredRows);
+  const requestSearch = e => {
+    setSearchText(e.target.value);
   };
 
   const onScroll = useCallback(
@@ -59,16 +57,23 @@ export const Table = props => {
     };
   }, [apiRef, onScroll, columns.length]);
 
+  function handleClearText() {
+    setSearchText('');
+  }
+
+  function handleSearch() {
+    handleSearchApi(searchText);
+  }
+
   return (
     <Container>
       <DataGrid
         loading={isLoading}
         localeText={dataGridLocalText}
-        pagination
         rows={rows}
         columns={columns}
         density="comfortable"
-        pageSize={Number(pageSize)}
+        // pageSize={Number(pageSize)}
         checkboxSelection={!disableSelection}
         onSelectionModelChange={newSelectionModel => {
           setSelectionModel(newSelectionModel);
@@ -77,42 +82,21 @@ export const Table = props => {
         disableSelectionOnClick
         components={{
           Toolbar: QuickSearchToolbar,
-          Pagination: TableCustomPagination,
-          Footer: TableCustomFooter,
+          Pagination: TableCustomApiPagination,
         }}
         componentsProps={{
           toolbar: {
             value: searchText,
-            onChange: event => requestSearch(event.target.value),
-            clearSearch: () => requestSearch(''),
+            onChange: event => requestSearch(event),
+            onSearchSubmit: handleSearch,
+            clearSearch: () => handleClearText(),
             addLable,
             onAddClick,
           },
-          footer: {
-            rowsCount: selectionModel.length,
-            pageSize,
-            isDeletable,
-            setPageSize: value => setPageSize(value),
-            onDeleteRows: () => {
-              const rowsCopy = [...rows];
-              const updatedRows = rowsCopy.filter(
-                row => !selectionModel.includes(row.id),
-              );
-              setRows(updatedRows);
-            },
-          },
-        }}
-        sx={{
-          '&.MuiDataGrid-root .MuiDataGrid-cell:focus-within': {
-            outline: 'none !important',
-          },
-          'root': {
-            '& .MuiDataGrid-columnsContainer': {
-              direction: 'ltr',
-            },
-            '& .MuiDataGrid-virtualScroller': {
-              direction: 'ltr',
-            },
+          pagination: {
+            page,
+            countPages,
+            onPageChange,
           },
         }}
       />
@@ -123,9 +107,9 @@ export const Table = props => {
 const Container = styled(Box)`
   ${({ theme }) => ({
     'width': '100%',
-    'height': '640px',
+    'height': 'calc(100vh - 200px)',
     '& *': {
-      direction: 'rtl'
+      direction: 'rtl',
     },
     '& .MuiDataGrid-columnHeaders': {
       backgroundColor: theme.palette.brand.blue.primary,
@@ -133,3 +117,5 @@ const Container = styled(Box)`
     },
   })}
 `;
+
+export default Table;

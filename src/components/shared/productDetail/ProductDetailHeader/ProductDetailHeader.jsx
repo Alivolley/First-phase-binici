@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Button, Grid } from '@mui/material';
 import React from 'react';
 
-const ProductDetailHeader = ({ detail }) => {
+const ProductDetailHeader = ({ detail, setProductGallery }) => {
   const { description, imageURL, preFix, title } = detail;
 
   return (
@@ -31,7 +31,9 @@ const ProductDetailHeader = ({ detail }) => {
                 <Ques>توضیحات</Ques>
               </Grid>
               <Grid item xs={12} sm={9} md={8} lg={9}>
-                <Describtion>{description || 'توضیحاتی ندارد'}</Describtion>
+                <Describtion>
+                  {!!description ? <>{description} &nbsp;</> : 'توضیحاتی ندارد'}
+                </Describtion>
               </Grid>
             </Grid>
           </FiledWrapper>
@@ -42,14 +44,23 @@ const ProductDetailHeader = ({ detail }) => {
                 <Ques>پیشوند</Ques>
               </Grid>
               <Grid item xs={12} sm={9} md={8} lg={9}>
-                <Describtion>{preFix}</Describtion>
+                <Describtion>{preFix ?? <>&nbsp;</>}</Describtion>
               </Grid>
             </Grid>
           </FiledWrapper>
         </Grid>
       </Grid>
 
-      <BranchButton variant="contained">ثبت برنچ</BranchButton>
+      <BranchButton variant="contained" sx={{ backgroundColor: '#27348b' }}>
+        ثبت برنچ
+      </BranchButton>
+      <BranchButton
+        variant="contained"
+        color="warning"
+        onClick={setProductGallery}
+      >
+        گالری
+      </BranchButton>
     </Wrapper>
   );
 };
@@ -57,7 +68,7 @@ const ProductDetailHeader = ({ detail }) => {
 export default ProductDetailHeader;
 
 const Wrapper = styled.div`
-  margin-bottom: 90px;
+  margin-bottom: 60px;
 `;
 
 const HeaderImage = styled.div``;
@@ -86,7 +97,6 @@ const Describtion = styled.p`
 `;
 
 const BranchButton = styled(Button)`
-  background-color: #27348b;
   margin-top: 30px;
   margin-right: 20px;
 `;

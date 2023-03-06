@@ -1,15 +1,26 @@
 import styled from '@emotion/styled';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Divider, Grid } from '@mui/material';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
+import {
+  Box,
+  Button,
+  Collapse,
+  IconButton,
+  Paper,
+  Typography,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 import AccordionCodingList from '../AccordionCodingList/AccordionCodingList';
 import AccordionPackaging from '../AccordionPackaging/AccordionPackaging';
 
-const ProductAccordion = ({ detail, getProductDetail }) => {
+const ProductAccordion = ({
+  detail,
+  getProductDetail,
+  expanded,
+  setExpand,
+  keyIndex = 0,
+  setBranchGallery,
+}) => {
   const { codding, display, coddingList, packagingList, guid } = detail;
   const [orderedCoddingList, setOrderedCoddingList] = useState();
   const [orderedPackegingList, setOrderedPackegingList] = useState();
@@ -40,51 +51,83 @@ const ProductAccordion = ({ detail, getProductDetail }) => {
     );
   }, []);
 
+  const expand = expanded === guid;
+
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <AccordionHeader>
-          <Grid container spacing={{ xs: 2, sm: 12 }}>
-            <Grid item xs={12} sm={6}>
-              <HeaderItem>
-                <HeaderDesc>نام</HeaderDesc>
-                <Divider />
-                <HeaderDesc>{display}</HeaderDesc>
-              </HeaderItem>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <HeaderItem>
-                <HeaderDesc>کدینگ</HeaderDesc>
-                <Divider />
-                <HeaderDesc>{codding}</HeaderDesc>
-              </HeaderItem>
-            </Grid>
-          </Grid>
-        </AccordionHeader>
-      </AccordionSummary>
-      <AccordionDetails>
-        <AccordionCodingList
-          coddingList={orderedCoddingList}
-          getProductDetail={getProductDetail}
-        />
-        <AccordionPackaging
-          packagingList={orderedPackegingList}
-          getProductDetail={getProductDetail}
-          branchGuid={guid}
-        />
-      </AccordionDetails>
-    </Accordion>
+    <Paper
+      square
+      elevation={1}
+      sx={{
+        p: 2,
+        pb: expand ? 5 : 2,
+        m: expand ? (keyIndex === 0 ? '0 0 20px 0' : '20px 0') : '0',
+        transition: '.25s',
+        borderTop: '1px solid rgba(100,100,100,.1)',
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: { xs: 'column', lg: 'row' },
+          gap: '15px',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            width: { xs: 'auto', lg: '455px' },
+          }}
+        >
+          <Box sx={{ width: '70px' }}>
+            <IconButton onClick={setExpand}>
+              <ExpandMoreIcon
+                style={{ transform: expand ? 'rotateZ(0)' : 'rotateZ(180deg)' }}
+              />
+            </IconButton>
+          </Box>
+          <Typography>{display}</Typography>
+        </Box>
+        <Typography>{codding}</Typography>
+
+        <Box sx={{ m: 'auto' }}>
+          <Button
+            variant="contained"
+            color="warning"
+            onClick={setBranchGallery}
+          >
+            گالری
+          </Button>
+        </Box>
+      </Box>
+      <Collapse in={expand} timeout="auto" unmountOnExit>
+        <div>
+          <CollapseInnerContainer>
+            <AccordionCodingList
+              coddingList={orderedCoddingList}
+              getProductDetail={getProductDetail}
+            />
+          </CollapseInnerContainer>
+          <CollapseInnerContainer>
+            <AccordionPackaging
+              packagingList={orderedPackegingList}
+              getProductDetail={getProductDetail}
+              branchGuid={guid}
+            />
+          </CollapseInnerContainer>
+        </div>
+      </Collapse>
+    </Paper>
   );
 };
 
 export default ProductAccordion;
 
-const AccordionHeader = styled.div``;
-
-const HeaderItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+const CollapseInnerContainer = styled.div`
+  margin-bottom: 15px;
+  width: 100%;
+  overflow-x: scroll;
 `;
 
 const HeaderDesc = styled.p`

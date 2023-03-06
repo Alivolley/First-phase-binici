@@ -11,38 +11,49 @@ import {
 } from '@mui/x-data-grid';
 
 export const QuickSearchToolbar = props => {
+  function handleSubmit(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    props.onSearchSubmit();
+  }
   return (
     <Box>
       <HeaderWrapper>
-        <TextField
-          variant="outlined"
-          value={props.value}
-          onChange={props.onChange}
-          placeholder="جست و جو ..."
-          InputProps={{
-            startAdornment: <SearchIcon fontSize="small" />,
-            endAdornment: (
-              <IconButton
-                title="Clear"
-                aria-label="Clear"
-                size="small"
-                style={{ visibility: props.value ? 'visible' : 'hidden' }}
-                onClick={props.clearSearch}
-              >
-                <ClearIcon fontSize="small" />
-              </IconButton>
-            ),
-          }}
-          sx={{
-            'boxShadow': '0 2px 4px rgba(0,0,0,0.2) inset',
-            'border': '2px solid #27348B',
-            'borderRadius': '10px',
-            'm': theme => theme.spacing(1, 0.5, 1.5),
-            '& .MuiSvgIcon-root': {
-              mr: 0.5,
-            },
-          }}
-        />
+        <form onSubmit={handleSubmit}>
+          <TextField
+            variant="outlined"
+            value={props.value}
+            onChange={props.onChange}
+            placeholder="جست و جو ..."
+            InputProps={{
+              startAdornment: (
+                <IconButton onClick={props.onSearchSubmit}>
+                  <SearchIcon fontSize="small" />
+                </IconButton>
+              ),
+              endAdornment: (
+                <IconButton
+                  title="Clear"
+                  aria-label="Clear"
+                  size="small"
+                  style={{ visibility: props.value ? 'visible' : 'hidden' }}
+                  onClick={props.clearSearch}
+                >
+                  <ClearIcon fontSize="small" />
+                </IconButton>
+              ),
+            }}
+            sx={{
+              'boxShadow': '0 2px 4px rgba(0,0,0,0.2) inset',
+              'border': '2px solid #27348B',
+              'borderRadius': '10px',
+              'm': theme => theme.spacing(1, 0.5, 1.5),
+              '& .MuiSvgIcon-root': {
+                mr: 0.5,
+              },
+            }}
+          />
+        </form>
         {props.addLable ? (
           <AddBtn variant="contained" onClick={props.onAddClick}>
             {props.addLable}

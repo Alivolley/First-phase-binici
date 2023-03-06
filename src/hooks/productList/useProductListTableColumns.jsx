@@ -10,6 +10,7 @@ const useProductListTableColumns = (
   goToGraphPage,
   deleteItem,
   editItem,
+  apiRef,
 ) => {
   const columnsData = [
     {
@@ -19,9 +20,10 @@ const useProductListTableColumns = (
       minWidth: 120,
       resizable: true,
       editable: false,
-      renderCell: params => (
-        <ColImage src={params.row.imageURL} alt={params.row.title} />
-      ),
+      renderCell: params => {
+        apiRef.current = params.api;
+        return <ColImage src={params.row.imageURL} alt={params.row.title} />;
+      },
     },
 
     {

@@ -21,3 +21,19 @@ export const TableCustomPagination = () => {
     />
   );
 };
+
+export const TableCustomApiPagination = ({
+  countPages,
+  page,
+  onPageChange,
+}) => {
+  return (
+    <Pagination
+      color="primary"
+      count={countPages}
+      page={page}
+      sx={{ direction: 'ltr' }}
+      onChange={(event, value) => onPageChange(value)}
+    />
+  );
+};

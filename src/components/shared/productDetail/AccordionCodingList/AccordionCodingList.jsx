@@ -1,10 +1,17 @@
 import styled from '@emotion/styled';
 import AddIcon from '@mui/icons-material/Add';
-import { Button } from '@mui/material';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import useProductCoddingDelete from 'api/productDetail/useProductCoddingDelete/useProductCoddingDelete';
 import DeleteModal from 'components/shared/DeleteModal/DeleteModal';
 import useProductCoddingListTableColumns from 'hooks/productDetail/useProductCoddingListTableColumns';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import AccordionTable from '../../AccordionTable/AccordionTable';
 import ProductCoddingEditModal from '../../Modals/productsList/ProductCoddingEditModal/ProductCoddingEditModal';
@@ -34,8 +41,6 @@ const AccordionCodingList = ({ coddingList, getProductDetail }) => {
     [],
   );
 
-  const [columnsData] = useProductCoddingListTableColumns(deleteItem, editItem);
-
   const deleteHandle = id => {
     setDeleteLoading(true);
     deleteRequest(id, getProductDetail, setIsDeleteModalOpen, setDeleteLoading);
@@ -50,7 +55,52 @@ const AccordionCodingList = ({ coddingList, getProductDetail }) => {
         </AddButton>
       </Header>
 
-      <AccordionTable columns={columnsData} rows={coddingList || []} />
+      <TableContainer>
+        <Table sx={{ minWidth: 900 }}>
+          <TableHead>
+            <TableRow
+              sx={{
+                '& .MuiTableCell-root': {
+                  borderColor: 'rgba(100, 100, 100, .2)',
+                },
+              }}
+            >
+              <TableCell align="right">نام</TableCell>
+              <TableCell align="right">کدینگ</TableCell>
+              <TableCell align="center" width={300}>
+                عملیات ها
+              </TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {coddingList?.map((packItem, index) => (
+              <TableRow key={index}>
+                <TableCell align="right">{packItem.title}</TableCell>
+                <TableCell align="right">{packItem.codding}</TableCell>
+                <TableCell align="right" width={140}>
+                  <ActionContainer>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={deleteItem(packItem)}
+                    >
+                      حذف
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      onClick={editItem(packItem)}
+                    >
+                      ویرایش
+                    </Button>
+                  </ActionContainer>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
       <DeleteModal
         open={isDeleteModalOpen}
@@ -74,7 +124,7 @@ const AccordionCodingList = ({ coddingList, getProductDetail }) => {
 export default AccordionCodingList;
 
 const Wrapper = styled.div`
-  margin-top: 20px;
+  margin-top: 50px;
 `;
 
 const Header = styled.div`
@@ -90,3 +140,10 @@ const AddButton = styled(Button)`
 `;
 
 const TableContainer = styled.div``;
+
+const ActionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
