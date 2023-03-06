@@ -11,8 +11,6 @@ import GalleryHeader from '../GalleryHeader/GalleryHeader';
 
 // =========== || Gallery uploader for both origin and branch || ==========//
 
-let itemDeleted = false;
-
 export default function GalleryUpload({
   type,
   guid,
@@ -73,9 +71,6 @@ export default function GalleryUpload({
                   files: fileItems.map(fileitem => fileitem.file),
                 }));
               }
-            }}
-            onremovefile={(e, file) => {
-              itemDeleted = true;
             }}
           />
         </UploadArea>
