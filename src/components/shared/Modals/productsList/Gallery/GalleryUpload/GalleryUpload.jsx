@@ -11,6 +11,8 @@ import GalleryHeader from '../GalleryHeader/GalleryHeader';
 
 // =========== || Gallery uploader for both origin and branch || ==========//
 
+let itemDeleted = false;
+
 export default function GalleryUpload({
   type,
   guid,
@@ -22,7 +24,6 @@ export default function GalleryUpload({
     files: [],
     documentGuids: [],
   });
-  console.log(images);
 
   const { insertOriginGallery, insertOriginGalleryLoading } =
     useInsertOriginGallery();
@@ -33,10 +34,10 @@ export default function GalleryUpload({
   function handlePost() {
     switch (type) {
       case 'origin':
-        insertOriginGallery(guid, [images?.documentGuids], onSuccess);
+        insertOriginGallery(guid, images?.documentGuids, onSuccess);
         break;
       case 'branch':
-        insertBranchGallery(guid, [images?.documentGuids], onSuccess);
+        insertBranchGallery(guid, images?.documentGuids, onSuccess);
         break;
       default:
     }
@@ -60,11 +61,23 @@ export default function GalleryUpload({
               }));
             }}
             onupdatefiles={fileItems => {
-              setImages(prev => ({
-                ...prev,
-                files: fileItems.map(fileitem => fileitem.file),
-                // documentGuids:
-              }));
+              const serverIdList = fileItems.map(i => i.serverId);
+              if (serverIdList[0] !== null) {
+                setImages(prev => ({
+                  documentGuids: serverIdList,
+                  files: fileItems.map(fileitem => fileitem.file),
+                  // documentGuids:
+                }));
+              } else {
+                setImages(prev => ({
+                  ...prev,
+                  files: fileItems.map(fileitem => fileitem.file),
+                  // documentGuids:
+                }));
+              }
+            }}
+            onremovefile={(e, file) => {
+              itemDeleted = true;
             }}
           />
         </UploadArea>

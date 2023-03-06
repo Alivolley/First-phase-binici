@@ -27,7 +27,7 @@ export default function GalleryImageLoader({
       <BtnContainer>
         <IconButton
           sx={{ color: 'text.primary' }}
-          disabled={isLoading}
+          disabled={isLoading || isDefault}
           onClick={onDelete}
         >
           <DeleteIcon />
