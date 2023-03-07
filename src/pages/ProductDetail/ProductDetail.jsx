@@ -1,24 +1,14 @@
 import styled from '@emotion/styled';
-import {
-  Box,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import useProductDetail from 'api/productDetail/useProductDetail/useProductDetail';
+import BranchCreateDialog from 'components/shared/BranchSystemCreate/Dialog';
+import BranchProductGallery from 'components/shared/Modals/productsList/Gallery/BranchProductGallery/BranchProductGallery';
+import OriginProductGallery from 'components/shared/Modals/productsList/Gallery/OriginProductGallery/OriginProductGallery';
 import ProductAccordion from 'components/shared/productDetail/ProductAccordion/ProductAccordion';
 import ProductDetailHeader from 'components/shared/productDetail/ProductDetailHeader/ProductDetailHeader';
 import SpinnerLoader from 'components/shared/SpinnerLoader/SpinnerLoader';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
-import BranchProductGallery from '../../components/shared/Modals/productsList/Gallery/BranchProductGallery/BranchProductGallery';
-import OriginProductGallery from '../../components/shared/Modals/productsList/Gallery/OriginProductGallery/OriginProductGallery';
 
 const ProductDetail = () => {
   const { guid } = useParams();
@@ -28,11 +18,17 @@ const ProductDetail = () => {
 
   const [branchGallery, setBranchGallery] = React.useState(false);
 
+  const [branchSystemEdit, setBranchSystemEdit] = React.useState(null);
+
   const [expand, setExpand] = React.useState(null);
 
   useEffect(() => {
     getProductDetail();
   }, []);
+
+  function handleConfirmBranchEdit() {
+    setBranchSystemEdit(null);
+  }
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -44,6 +40,7 @@ const ProductDetail = () => {
           <ProductDetailHeader
             detail={productDetailObj}
             setProductGallery={() => setProductGallery(true)}
+            guid={guid}
           />
 
           <div>
@@ -71,6 +68,7 @@ const ProductDetail = () => {
                 key={branch.guid}
                 getProductDetail={getProductDetail}
                 setBranchGallery={() => setBranchGallery(branch.guid)}
+                setSystemEdit={setBranchSystemEdit}
                 expanded={expand}
                 setExpand={() =>
                   setExpand(prev => (branch.guid === prev ? null : branch.guid))
@@ -91,6 +89,13 @@ const ProductDetail = () => {
         open={Boolean(branchGallery)}
         onClose={() => setBranchGallery(null)}
         selected={branchGallery}
+      />
+
+      <BranchCreateDialog
+        open={!!branchSystemEdit}
+        onClose={() => setBranchSystemEdit(null)}
+        handleConfirm={handleConfirmBranchEdit}
+        selected={branchSystemEdit}
       />
     </>
   );

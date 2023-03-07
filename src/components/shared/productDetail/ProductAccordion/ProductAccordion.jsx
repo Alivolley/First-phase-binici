@@ -20,6 +20,7 @@ const ProductAccordion = ({
   setExpand,
   keyIndex = 0,
   setBranchGallery,
+  setSystemEdit,
 }) => {
   const { codding, display, coddingList, packagingList, guid } = detail;
   const [orderedCoddingList, setOrderedCoddingList] = useState();
@@ -107,6 +108,7 @@ const ProductAccordion = ({
             <AccordionCodingList
               coddingList={orderedCoddingList}
               getProductDetail={getProductDetail}
+              setSystemEdit={setSystemEdit}
             />
           </CollapseInnerContainer>
           <CollapseInnerContainer>

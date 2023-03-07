@@ -16,6 +16,7 @@ import MappingProfile from 'pages/MappingProfile/MappingProfile';
 import ProductCategories from 'pages/ProductCategories/ProductCategories';
 import ProductDetail from 'pages/ProductDetail/ProductDetail';
 import ProductList from 'pages/ProductList/ProductList';
+import ProductBranch from 'pages/ProductBranch/ProductBranch';
 import { lazy } from 'react';
 
 export const routes = [
@@ -103,5 +104,10 @@ export const routes = [
     id: '17',
     path: '/locations-graph/:guid',
     element: <LocationsCategories />,
+  },
+  {
+    id: '18',
+    path: '/shop/products/:guid/branch-insert',
+    element: <ProductBranch />,
   },
 ];

@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { Button, Grid } from '@mui/material';
 import React from 'react';
+import {Link} from "react-router-dom";
 
-const ProductDetailHeader = ({ detail, setProductGallery }) => {
+const ProductDetailHeader = ({ detail, setProductGallery, guid }) => {
   const { description, imageURL, preFix, title } = detail;
 
   return (
@@ -51,9 +52,11 @@ const ProductDetailHeader = ({ detail, setProductGallery }) => {
         </Grid>
       </Grid>
 
-      <BranchButton variant="contained" sx={{ backgroundColor: '#27348b' }}>
-        ثبت برنچ
-      </BranchButton>
+      <Link to={`/shop/products/${guid}/branch-insert`}>
+        <BranchButton variant="contained" sx={{ backgroundColor: '#27348b' }}>
+          ثبت برنچ
+        </BranchButton>
+      </Link>
       <BranchButton
         variant="contained"
         color="warning"

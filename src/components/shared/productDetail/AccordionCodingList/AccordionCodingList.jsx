@@ -16,7 +16,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import AccordionTable from '../../AccordionTable/AccordionTable';
 import ProductCoddingEditModal from '../../Modals/productsList/ProductCoddingEditModal/ProductCoddingEditModal';
 
-const AccordionCodingList = ({ coddingList, getProductDetail }) => {
+const AccordionCodingList = ({
+  coddingList,
+  getProductDetail,
+  setSystemEdit,
+}) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -45,6 +49,16 @@ const AccordionCodingList = ({ coddingList, getProductDetail }) => {
     setDeleteLoading(true);
     deleteRequest(id, getProductDetail, setIsDeleteModalOpen, setDeleteLoading);
   };
+
+  function handleEdit(packItem) {
+    switch (packItem.type) {
+      case '0':
+        setSystemEdit(packItem.id);
+        return;
+      default:
+        editItem(packItem)();
+    }
+  }
 
   return (
     <Wrapper>
@@ -80,17 +94,20 @@ const AccordionCodingList = ({ coddingList, getProductDetail }) => {
                 <TableCell align="right">{packItem.codding}</TableCell>
                 <TableCell align="right" width={140}>
                   <ActionContainer>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={deleteItem(packItem)}
-                    >
-                      حذف
-                    </Button>
+                    {packItem.type !== '0' && (
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={deleteItem(packItem)}
+                      >
+                        حذف
+                      </Button>
+                    )}
+
                     <Button
                       variant="contained"
                       color="info"
-                      onClick={editItem(packItem)}
+                      onClick={() => handleEdit(packItem)}
                     >
                       ویرایش
                     </Button>

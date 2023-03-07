@@ -43,6 +43,30 @@ export const MUILightTheme = createTheme({
     layout: { ...emotionLightTheme.colors.layout },
   },
   components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          transformOrigin: 'right !important',
+          left: 'inherit !important',
+          right: '1.75rem !important',
+          fontSize: 'normal',
+          fontWeight: 400,
+          overflow: 'unset',
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          paddingRight: '13px !important',
+        },
+        icon: {
+          right: 'unset !important',
+          left: '7px',
+          color: '#999',
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         body: {

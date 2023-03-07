@@ -13,17 +13,15 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={emotionLightTheme}>
-      <MuiThemeProvider theme={MUILightTheme}>
-        <CssBaseline />
-        <GlobalStyles styles={GlobalStyle} />
-        <ToasterProvider>
-          <App />
-        </ToasterProvider>
-      </MuiThemeProvider>
-    </ThemeProvider>
-  </React.StrictMode>,
+  <ThemeProvider theme={emotionLightTheme}>
+    <MuiThemeProvider theme={MUILightTheme}>
+      <CssBaseline />
+      <GlobalStyles styles={GlobalStyle} />
+      <ToasterProvider>
+        <App />
+      </ToasterProvider>
+    </MuiThemeProvider>
+  </ThemeProvider>,
 );
 
 reportWebVitals();
