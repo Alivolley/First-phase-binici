@@ -2,20 +2,19 @@ import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
-const useProductDetail = guid => {
-  const [loading, setLoading] = useState(true);
-  const [productDetailObj, setProductDetailObj] = useState({});
+const useUpdateCoddingManual = () => {
+  const [loading, setLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const getProductDetail = () => {
+  const update = (guid, name, success) => {
     setLoading(true);
 
     axiosClient
-      .get(`Product/Origin/Details?Guid=${guid}`)
+      .post(`Product/Branch/Codding/Manual/Update`, { guid, manual: name })
       .then(res => {
         if (res.status === 200) {
-          setProductDetailObj(res.data.value);
+          if (success) success();
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
         }
@@ -24,7 +23,7 @@ const useProductDetail = guid => {
       .finally(() => setLoading(false));
   };
 
-  return [getProductDetail, loading, productDetailObj, setProductDetailObj];
+  return { update, loading };
 };
 
-export default useProductDetail;
+export default useUpdateCoddingManual;

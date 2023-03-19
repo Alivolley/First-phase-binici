@@ -6,41 +6,28 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
-import useMappingProfileEdit from 'api/mappingProfile/useMappingProfileEdit/useMappingProfileEdit';
-import useGetEditProductCodding from 'api/productDetail/useGetEditProductCodding/useGetEditProductCodding';
+
 import React, { useEffect, useState } from 'react';
+import useUpdateCoddingManual from 'api/coddingManual/useUpdateCoddingManual/useUpdateCoddingManual';
 
 const ProductCoddingEditModal = ({
   open,
   handleClose,
   chosenProduct,
-  getProductDetail,
+  onUpdate,
 }) => {
   //   console.log(chosenProduct);
   const [mapName, setMapName] = useState('');
-  const [emptyError, setEmptyError] = useState(false);
-  const [editLoading, setEditLoading] = useState(false);
 
-  const [editRequest] = useMappingProfileEdit();
-  const [getEditInfo, loading, gottenProduct] = useGetEditProductCodding();
+  const { loading, update } = useUpdateCoddingManual();
 
   useEffect(() => {
-    // chosenProduct.id && getEditInfo(chosenProduct.id, setMapName);
+    if (chosenProduct?.id) setMapName(chosenProduct.codding);
   }, [chosenProduct]);
 
   const submitCodeGroup = () => {
     if (mapName) {
-      //   setEmptyError(false);
-      //   setEditLoading(true);
-      //   editRequest(
-      //     chosenProduct.id,
-      //     getProductDetail,
-      //     handleClose,
-      //     setEditLoading,
-      //     mapName,
-      //   );
-    } else {
-      setEmptyError(true);
+      update(chosenProduct?.id, mapName, () => onUpdate(mapName));
     }
   };
 
@@ -54,27 +41,24 @@ const ProductCoddingEditModal = ({
           <TextField
             autoFocus
             variant="standard"
+            multiline
             value={mapName}
             onChange={e => setMapName(e.target.value)}
             sx={{ minWidth: 300 }}
-            error={!mapName && emptyError}
+            error={!mapName}
           />
         </FilledWrapper>
       </DialogContent>
 
       <DialogActions sx={{ gap: 1, padding: 3 }}>
-        <Button
-          onClick={handleClose}
-          variant="contained"
-          disabled={editLoading}
-        >
+        <Button onClick={handleClose} variant="contained" disabled={loading}>
           انصراف
         </Button>
         <LoadingButton
           variant="contained"
           color="warning"
           onClick={submitCodeGroup}
-          loading={editLoading}
+          loading={loading}
         >
           اضافه کردن
         </LoadingButton>

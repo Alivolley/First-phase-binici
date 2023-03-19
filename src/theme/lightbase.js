@@ -74,6 +74,16 @@ export const MUILightTheme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      defaultProps: {
+        sx: {
+          '& legend': {
+            textAlign: 'right',
+            fontSize: 'normal',
+          },
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {

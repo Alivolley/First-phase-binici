@@ -2,20 +2,20 @@ import axiosClient from 'lib/axiosClient';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
-const useProductDetail = guid => {
-  const [loading, setLoading] = useState(true);
-  const [productDetailObj, setProductDetailObj] = useState({});
+const useMappingProfileList = () => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const getProductDetail = () => {
+  const getData = () => {
     setLoading(true);
 
     axiosClient
-      .get(`Product/Origin/Details?Guid=${guid}`)
+      .get('SettingProduct/MappingProfile/GetAll')
       .then(res => {
         if (res.status === 200) {
-          setProductDetailObj(res.data.value);
+          setData(res.data.value);
         } else {
           enqueueSnackbar(res.message, { variant: 'error' });
         }
@@ -24,7 +24,7 @@ const useProductDetail = guid => {
       .finally(() => setLoading(false));
   };
 
-  return [getProductDetail, loading, productDetailObj, setProductDetailObj];
+  return [getData, loading];
 };
 
-export default useProductDetail;
+export default useMappingProfileList;

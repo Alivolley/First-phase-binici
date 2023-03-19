@@ -8,7 +8,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 
 import AccordionCodingList from '../AccordionCodingList/AccordionCodingList';
 import AccordionPackaging from '../AccordionPackaging/AccordionPackaging';
@@ -21,10 +21,16 @@ const ProductAccordion = ({
   keyIndex = 0,
   setBranchGallery,
   setSystemEdit,
+  setManualEdit,
+  setEditMapping,
 }) => {
   const { codding, display, coddingList, packagingList, guid } = detail;
   const [orderedCoddingList, setOrderedCoddingList] = useState();
   const [orderedPackegingList, setOrderedPackegingList] = useState();
+
+  const memoCoddingList = useMemo(() => {
+    return coddingList;
+  }, [coddingList]);
 
   useEffect(() => {
     setOrderedCoddingList(
@@ -39,7 +45,9 @@ const ProductAccordion = ({
         return orderd;
       }),
     );
+  }, [memoCoddingList]);
 
+  useEffect(() => {
     setOrderedPackegingList(
       packagingList.map(code => {
         const orderd = {
@@ -109,6 +117,8 @@ const ProductAccordion = ({
               coddingList={orderedCoddingList}
               getProductDetail={getProductDetail}
               setSystemEdit={setSystemEdit}
+              setManualEdit={setManualEdit}
+              setEditMapping={setEditMapping}
             />
           </CollapseInnerContainer>
           <CollapseInnerContainer>

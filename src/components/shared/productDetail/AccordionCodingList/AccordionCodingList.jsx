@@ -20,12 +20,12 @@ const AccordionCodingList = ({
   coddingList,
   getProductDetail,
   setSystemEdit,
+  setManualEdit,
+  setEditMapping,
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteChosenLocation, setDeleteChosenLocation] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editChosenProduct, setEditChosenProduct] = useState({});
 
   const [deleteRequest] = useProductCoddingDelete();
 
@@ -39,8 +39,7 @@ const AccordionCodingList = ({
 
   const editItem = useCallback(
     row => () => {
-      setEditChosenProduct(row);
-      setIsEditModalOpen(true);
+      setManualEdit(row);
     },
     [],
   );
@@ -55,8 +54,14 @@ const AccordionCodingList = ({
       case '0':
         setSystemEdit(packItem.id);
         return;
-      default:
+      case '1':
         editItem(packItem)();
+        return;
+      case '2':
+        setEditMapping(packItem);
+        return;
+      default:
+        return '';
     }
   }
 
@@ -126,13 +131,6 @@ const AccordionCodingList = ({
         locationId={deleteChosenLocation.id}
         deleteLoading={deleteLoading}
         onDelete={deleteHandle}
-      />
-
-      <ProductCoddingEditModal
-        open={isEditModalOpen}
-        handleClose={() => setIsEditModalOpen(false)}
-        chosenProduct={editChosenProduct}
-        getProductDetail={getProductDetail}
       />
     </Wrapper>
   );
