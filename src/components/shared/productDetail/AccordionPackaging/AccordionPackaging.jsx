@@ -17,6 +17,7 @@ import AccordionTable from '../../AccordionTable/AccordionTable';
 import ProductPackagingEditModal from '../../Modals/productsList/ProductPackagingEditModal/ProductPackagingEditModal';
 import ProductPackagingInsertModal from '../../Modals/productsList/ProductPackagingInsertModal/ProductPackagingInsertModal';
 import ProductPackagingPrintModal from '../../Modals/productsList/ProductPackagingPrintModal/ProductPackagingPrintModal';
+import PackagePrintModal from '../PrintPackaging';
 
 const AccordionPackaging = ({
   packagingList,
@@ -153,10 +154,10 @@ const AccordionPackaging = ({
         getProductDetail={getProductDetail}
       />
 
-      <ProductPackagingPrintModal
+      <PackagePrintModal
         open={isPrintModalOpen}
-        handleClose={() => setIsPrintModalOpen(false)}
-        chosenPrintProduct={chosenPrintProduct}
+        setOpen={() => setIsPrintModalOpen(false)}
+        guid={chosenPrintProduct?.id}
       />
     </Wrapper>
   );
